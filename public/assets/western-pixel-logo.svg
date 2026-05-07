@@ -1,6 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="72" viewBox="0 0 180 72" role="img" aria-labelledby="title">
-  <title id="title">Western Pixel</title>
-  <rect width="180" height="72" rx="14" fill="#031031"/>
-  <path fill="#fff" d="M26 19h12v12H26V19Zm16 0h12v12H42V19ZM26 35h12v12H26V35Zm16 16h12v12H42V51Zm16-16h12v12H58V35Zm0-16h12v12H58V19Z"/>
-  <path fill="#fff" d="M90.7 46 85 25.6h5.1l3.1 12.9 3.5-12.9h4.4l3.5 12.9 3.1-12.9h5L107 46h-4.8l-3.4-12.1L95.5 46h-4.8Zm28.4 0h-5V25.6h8.4c4.5 0 7.4 2.7 7.4 6.9s-2.9 6.8-7.4 6.8h-3.4V46Zm0-10.9h2.7c1.8 0 2.9-1 2.9-2.6 0-1.7-1.1-2.7-2.9-2.7h-2.7v5.3Zm17.9 10.9h-5V25.6h5V46Zm13.2.3c-5.8 0-10.2-4.5-10.2-10.5 0-6 4.4-10.5 10.2-10.5 4.5 0 8.2 2.8 9.5 7l-4.8 1.4c-.7-2.3-2.4-3.8-4.7-3.8-3 0-5 2.4-5 5.9 0 3.6 2 5.9 5 5.9 2.3 0 4-1.4 4.7-3.7l4.8 1.4c-1.3 4.1-5 6.9-9.5 6.9Z"/>
+<svg width="120" height="72" viewBox="0 0 120 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_76_1344)">
+<path d="M79.5868 72L104.032 0H120L95.5546 72H79.5868Z" fill="black"/>
+<path d="M44.22 72L68.6655 0H84.6332L60.1877 72H44.22Z" fill="black"/>
+<path d="M40.4133 72H24.4455L0 3.05176e-05H15.9678L40.4133 72Z" fill="url(#paint0_linear_76_1344)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_76_1344" x1="8.5" y1="2.98301e-05" x2="32" y2="72" gradientUnits="userSpaceOnUse">
+<stop stop-color="#EF4444"/>
+<stop offset="0.14" stop-color="#F97316"/>
+<stop offset="0.3125" stop-color="#EAB308"/>
+<stop offset="0.475962" stop-color="#10B981"/>
+<stop offset="0.649038" stop-color="#3B82F6"/>
+<stop offset="0.831731" stop-color="#6366F1"/>
+<stop offset="1" stop-color="#8B5CF6"/>
+</linearGradient>
+<clipPath id="clip0_76_1344">
+<rect width="120" height="72" fill="white"/>
+</clipPath>
+</defs>
 </svg>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, ArrowUpRight, Mail } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import { ArticleItems } from "@/components/ArticleItems";
@@ -44,12 +44,13 @@ const experienceLogos: Record<string, { alt: string; src: string }> = {
 };
 
 function HomePage() {
-  const [hoveredExperience, setHoveredExperience] = useState<{
-    company: string;
-    x: number;
-    y: number;
-  } | null>(null);
-  const hoveredLogo = hoveredExperience ? experienceLogos[hoveredExperience.company] : null;
+  const shouldReduceMotion = useReducedMotion();
+  const [hoveredCompany, setHoveredCompany] = useState<string | null>(null);
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+  const previewX = useSpring(cursorX, { stiffness: 520, damping: 36, mass: 0.28 });
+  const previewY = useSpring(cursorY, { stiffness: 520, damping: 36, mass: 0.28 });
+  const hoveredLogo = hoveredCompany ? experienceLogos[hoveredCompany] : null;
 
   return (
     <>
@@ -83,12 +84,20 @@ function HomePage() {
                   key={company}
                   onPointerEnter={(event) => {
                     if (event.pointerType !== "mouse") return;
-                    setHoveredExperience({ company, x: event.clientX, y: event.clientY });
+                    const x = event.clientX + 14;
+                    const y = event.clientY + 14;
+
+                    cursorX.jump(x);
+                    cursorY.jump(y);
+                    previewX.jump(x);
+                    previewY.jump(y);
+                    setHoveredCompany(company);
                   }}
-                  onPointerLeave={() => setHoveredExperience(null)}
+                  onPointerLeave={() => setHoveredCompany(null)}
                   onPointerMove={(event) => {
                     if (event.pointerType !== "mouse") return;
-                    setHoveredExperience({ company, x: event.clientX, y: event.clientY });
+                    cursorX.set(event.clientX + 14);
+                    cursorY.set(event.clientY + 14);
                   }}
                 >
                   <span className="font-mono text-muted">{dates}</span>
@@ -134,14 +143,11 @@ function HomePage() {
           </div>
         </section>
       </main>
-      {hoveredExperience && hoveredLogo ? (
+      {hoveredLogo ? (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none fixed left-0 top-0 z-50 hidden h-12 w-26 items-center justify-center rounded-md border border-line bg-white px-3 shadow-[0_12px_36px_rgba(15,23,42,0.12)] sm:flex"
-          initial={{ opacity: 0, scale: 0.92, x: hoveredExperience.x + 18, y: hoveredExperience.y + 18 }}
-          animate={{ opacity: 1, scale: 1, x: hoveredExperience.x + 18, y: hoveredExperience.y + 18 }}
-          exit={{ opacity: 0, scale: 0.92 }}
-          transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none fixed left-0 top-0 z-50 hidden h-12 w-26 items-center justify-center rounded-md border border-line bg-white px-3 shadow-[0_12px_36px_rgba(15,23,42,0.12)] will-change-transform sm:flex"
+          style={{ x: shouldReduceMotion ? cursorX : previewX, y: shouldReduceMotion ? cursorY : previewY }}
         >
           <img alt={hoveredLogo.alt} className="max-h-7 max-w-20 object-contain" src={hoveredLogo.src} />
         </motion.div>
