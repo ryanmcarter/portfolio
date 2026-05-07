@@ -48,12 +48,13 @@ function HomePage() {
             <div className="grid gap-0">
               {experience.map(([dates, company, role]) => (
                 <div
-                  className="grid grid-cols-[120px_1fr] gap-4 border-b border-line py-4 text-sm leading-4 sm:grid-cols-[150px_1fr_260px]"
+                  className="group/experience relative grid grid-cols-[120px_1fr] gap-4 border-b border-line py-4 text-sm leading-4 transition-colors duration-200 hover:border-neutral-300 sm:grid-cols-[150px_1fr_260px]"
                   key={company}
                 >
-                  <span className="font-mono text-muted">{dates}</span>
-                  <span className="font-medium text-ink">{company}</span>
-                  <span className="col-span-2 font-mono text-muted sm:col-span-1 sm:whitespace-nowrap sm:text-right">{role}</span>
+                  <span className="absolute left-0 top-1/2 h-6 w-px -translate-y-1/2 scale-y-0 bg-accent transition-transform duration-200 ease-out group-hover/experience:scale-y-100" />
+                  <span className="font-mono text-muted transition-colors duration-200 group-hover/experience:text-accent">{dates}</span>
+                  <span className="font-medium text-ink transition-transform duration-200 ease-out group-hover/experience:translate-x-1">{company}</span>
+                  <span className="col-span-2 font-mono text-muted transition-colors duration-200 group-hover/experience:text-ink sm:col-span-1 sm:whitespace-nowrap sm:text-right">{role}</span>
                 </div>
               ))}
             </div>
