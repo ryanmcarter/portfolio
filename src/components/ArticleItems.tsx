@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Check, X } from "lucide-react";
 
 import type { ContentItem, TextBlock } from "@/data/portfolio";
 
@@ -75,6 +76,74 @@ function QuiltAccessibilityPanel({
   );
 }
 
+const shofloPros = [
+  "Widgets offer a lot of future options for growth with new widgets",
+  "High excitement internally",
+  "Left/right split offers greater information density",
+];
+
+const shofloCons = [
+  "No pre-existing infrastructure in place for widgets",
+  "Longer development time",
+  "Lukewarm reception during user testing",
+  "More difficulty in adapting for mobile user",
+  "Left/right split would be a tougher learn for existing customers",
+  "Higher cognitive load due to higher information density",
+];
+
+function ProConItem({ children, tone }: { children: string; tone: "pro" | "con" }) {
+  const isPro = tone === "pro";
+  const Icon = isPro ? Check : X;
+
+  return (
+    <li className="grid grid-cols-[32px_1fr] items-start gap-4 text-xl leading-8 text-slate-950">
+      <span
+        className={`mt-1 flex h-8 w-8 items-center justify-center rounded-full ${
+          isPro ? "bg-green-700" : "bg-red-700"
+        }`}
+      >
+        <Icon aria-hidden="true" className="h-5 w-5 stroke-[4] text-white" />
+      </span>
+      <span>{children}</span>
+    </li>
+  );
+}
+
+function ShofloProsConsPanel({ image }: { image: Extract<ContentItem, { type: "image" }> }) {
+  return (
+    <section
+      className="my-12 grid gap-10 lg:w-[min(1120px,calc(100vw-420px))] lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.9fr)] lg:items-start"
+      data-testid="shoflo-pros-cons"
+    >
+      <figure className="overflow-hidden bg-white shadow-[0_24px_56px_rgba(15,23,42,0.16)]">
+        <img alt={image.alt || ""} className="w-full object-contain" loading="lazy" src={image.src} />
+      </figure>
+
+      <div className="lg:pt-0">
+        <h3 className="text-4xl font-semibold leading-tight text-slate-950">Pros and cons</h3>
+
+        <h4 className="mt-8 text-3xl font-normal leading-10 text-neutral-800">Pros</h4>
+        <ul className="mt-5 grid gap-4">
+          {shofloPros.map((item) => (
+            <ProConItem key={item} tone="pro">
+              {item}
+            </ProConItem>
+          ))}
+        </ul>
+
+        <h4 className="mt-8 text-3xl font-normal leading-10 text-neutral-800">Cons</h4>
+        <ul className="mt-5 grid gap-4">
+          {shofloCons.map((item) => (
+            <ProConItem key={item} tone="con">
+              {item}
+            </ProConItem>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function flushList(items: string[], key: string, output: ReactNode[]) {
   if (items.length === 0) return;
   output.push(
@@ -93,6 +162,26 @@ export function ArticleItems({ items }: { items: ContentItem[] }) {
 
   items.forEach((item, index) => {
     if (item.type === "h1") return;
+
+    if (isImageItem(item) && isTextItem(items[index + 1], "h4", "Pros and cons")) {
+      return;
+    }
+
+    if (item.type === "h4" && item.text === "Pros and cons" && isImageItem(items[index - 1])) {
+      flushList(listItems, `list-${index}`, output);
+      output.push(
+        <ShofloProsConsPanel image={items[index - 1] as Extract<ContentItem, { type: "image" }>} key="shoflo-pros-cons" />,
+      );
+      return;
+    }
+
+    if (
+      index > 0 &&
+      items.slice(Math.max(0, index - 12), index).some((previous) => isTextItem(previous, "h4", "Pros and cons")) &&
+      !isTextItem(item, "h2")
+    ) {
+      return;
+    }
 
     if (
       item.type === "h4" &&
