@@ -33,6 +33,18 @@ export const profileImage = asset(
   "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fd971c6be9a48657893fd6a_ryanCarter-homeBackgroundImage.jpg",
 );
 
+export const aboutText = `I’m a Senior Product Designer with 12+ years of experience designing scalable design systems, accessible interfaces, complex product experiences, and high-performing web experiences.
+
+My strongest work sits at the intersection of product design, design systems, accessibility, and AI-assisted prototyping. I’ve spent 8+ years focused on design systems, including component libraries, design tokens, Figma variables, governance, documentation, accessibility, and close engineering collaboration.
+
+At Gradle, I’ve used Claude Code and AI-assisted workflows to ship a token-powered design system with Code Connect to Figma, automated UI and accessibility testing, custom Figma tooling, and scalable component workflows. I also created a self-service Markdown-to-Next.js page generation workflow that enables sales and product teams to author page specs in Markdown and convert them into design-system-powered Next.js pages.
+
+I’ve also designed developer-facing product experiences including the Develocity IntelliJ plugin and an AI-powered Failures Summary UI for Gradle Build Scan. On the web side, I’ve shipped the Gradle homepage, Develocity product page, release notes UI, documentation center, about a dozen marketing pages, and roughly 70 custom web assets including illustrations, SVGs, animations, and visual storytelling elements.
+
+Previously, I built design systems at NYSHEX and Ribbon, led design for a data analytics platform and iOS product, and joined Shoflo as the first and only product designer before the company was acquired by Cvent.
+
+Design systems are my specialty, but I’m also highly hands-on across UX, UI, prototyping, accessibility, research, design QA, and AI-assisted implementation workflows.`;
+
 export const experience = [
   ["2024-present", "Gradle Technologies", "Senior Product Designer"],
   ["2023-2024", "New York Shipping Exchange", "Senior Product Designer"],

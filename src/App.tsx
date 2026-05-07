@@ -8,6 +8,7 @@ import { Reveal } from "@/components/Motion";
 import { SiteHeader } from "@/components/SiteHeader";
 import {
   asset,
+  aboutText,
   caseStudies,
   contactPage,
   experience,
@@ -75,7 +76,7 @@ function HomePage() {
               <div>
                 <p className="font-mono text-sm uppercase leading-4 text-rose-300">About</p>
                 <div className="mt-6 max-w-3xl space-y-5 text-lg leading-8 text-neutral-300">
-                  {homePage.blocks.slice(-1)[0]?.text
+                  {aboutText
                     .split("\n\n")
                     .filter(Boolean)
                     .map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
