@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowLeft, ArrowUpRight, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -19,7 +20,37 @@ import {
   resumeUrl,
 } from "@/data/portfolio";
 
+const experienceLogos: Record<string, { alt: string; src: string }> = {
+  "Gradle Technologies": {
+    alt: "Gradle Technologies logo",
+    src: "/assets/gradle-technologies-logo.svg",
+  },
+  "New York Shipping Exchange": {
+    alt: "NYSHEX logo",
+    src: "/assets/659983bc280a758d5c24a5f4_nyshex_logo.png",
+  },
+  "Ribbon Homes": {
+    alt: "Ribbon Homes logo",
+    src: "/assets/63766153eccee8b49363dfc1_ribbon-logo.svg",
+  },
+  "Shoflo (acquired)": {
+    alt: "Shoflo logo",
+    src: "/assets/5d58403ddc65b87a77fd9f23_shoflo_logo_dark.png",
+  },
+  "Western Pixel": {
+    alt: "Western Pixel logo",
+    src: "/assets/western-pixel-logo.svg",
+  },
+};
+
 function HomePage() {
+  const [hoveredExperience, setHoveredExperience] = useState<{
+    company: string;
+    x: number;
+    y: number;
+  } | null>(null);
+  const hoveredLogo = hoveredExperience ? experienceLogos[hoveredExperience.company] : null;
+
   return (
     <>
       <SiteHeader active="home" />
@@ -48,13 +79,21 @@ function HomePage() {
             <div className="grid gap-0">
               {experience.map(([dates, company, role]) => (
                 <div
-                  className="group/experience relative grid grid-cols-[120px_1fr] gap-4 border-b border-line py-4 text-sm leading-4 transition-colors duration-200 hover:border-neutral-300 sm:grid-cols-[150px_1fr_260px]"
+                  className="relative grid grid-cols-[120px_1fr] gap-4 border-b border-line py-4 text-sm leading-4 sm:grid-cols-[150px_1fr_260px]"
                   key={company}
+                  onPointerEnter={(event) => {
+                    if (event.pointerType !== "mouse") return;
+                    setHoveredExperience({ company, x: event.clientX, y: event.clientY });
+                  }}
+                  onPointerLeave={() => setHoveredExperience(null)}
+                  onPointerMove={(event) => {
+                    if (event.pointerType !== "mouse") return;
+                    setHoveredExperience({ company, x: event.clientX, y: event.clientY });
+                  }}
                 >
-                  <span className="absolute left-0 top-1/2 h-6 w-px -translate-y-1/2 scale-y-0 bg-accent transition-transform duration-200 ease-out group-hover/experience:scale-y-100" />
-                  <span className="font-mono text-muted transition-colors duration-200 group-hover/experience:text-accent">{dates}</span>
-                  <span className="font-medium text-ink transition-transform duration-200 ease-out group-hover/experience:translate-x-1">{company}</span>
-                  <span className="col-span-2 font-mono text-muted transition-colors duration-200 group-hover/experience:text-ink sm:col-span-1 sm:whitespace-nowrap sm:text-right">{role}</span>
+                  <span className="font-mono text-muted">{dates}</span>
+                  <span className="font-medium text-ink">{company}</span>
+                  <span className="col-span-2 font-mono text-muted sm:col-span-1 sm:whitespace-nowrap sm:text-right">{role}</span>
                 </div>
               ))}
             </div>
@@ -95,6 +134,18 @@ function HomePage() {
           </div>
         </section>
       </main>
+      {hoveredExperience && hoveredLogo ? (
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none fixed left-0 top-0 z-50 hidden h-16 w-32 items-center justify-center rounded-lg border border-line bg-white px-4 shadow-[0_16px_48px_rgba(15,23,42,0.14)] sm:flex"
+          initial={{ opacity: 0, scale: 0.92, x: hoveredExperience.x + 18, y: hoveredExperience.y + 18 }}
+          animate={{ opacity: 1, scale: 1, x: hoveredExperience.x + 18, y: hoveredExperience.y + 18 }}
+          exit={{ opacity: 0, scale: 0.92 }}
+          transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <img alt={hoveredLogo.alt} className="max-h-9 max-w-24 object-contain" src={hoveredLogo.src} />
+        </motion.div>
+      ) : null}
     </>
   );
 }
