@@ -1,6 +1,79 @@
 import type { ReactNode } from "react";
 
-import type { ContentItem } from "@/data/portfolio";
+import type { ContentItem, TextBlock } from "@/data/portfolio";
+
+function isTextItem(item: ContentItem | undefined, type: TextBlock["type"], text?: string): item is TextBlock {
+  return Boolean(item && item.type === type && "text" in item && (text === undefined || item.text === text));
+}
+
+function isImageItem(item: ContentItem | undefined): item is Extract<ContentItem, { type: "image" }> {
+  return Boolean(item && item.type === "image");
+}
+
+function EmphasizedNumbers({ text }: { text: string }) {
+  const parts = text.split(/(500|4\.5:1|000)/g);
+
+  return (
+    <>
+      {parts.map((part, index) =>
+        /^(500|4\.5:1|000)$/.test(part) ? (
+          <span className="rounded-[3px] bg-neutral-200 px-1 font-mono text-[0.95em]" key={`${part}-${index}`}>
+            {part}
+          </span>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  );
+}
+
+function QuiltAccessibilityPanel({
+  intro,
+  image,
+  copy,
+}: {
+  intro: TextBlock;
+  image: Extract<ContentItem, { type: "image" }>;
+  copy: TextBlock;
+}) {
+  const introParts = intro.text.split("\n\n").filter(Boolean);
+  const copyParts = copy.text.split("\n\n").filter(Boolean);
+
+  return (
+    <section
+      className="my-10 rounded-[24px] border border-line bg-white p-6 shadow-[0_12px_40px_rgba(15,23,42,0.08)] sm:p-10"
+      data-testid="quilt-accessibility-panel"
+    >
+      <h3 className="text-2xl font-semibold leading-8 text-ink">Accessibility</h3>
+      <div className="mt-4 space-y-8 text-xl leading-9 text-neutral-700">
+        <p>{introParts[0]}</p>
+        {introParts[1] && (
+          <p>
+            P.S. I'm currently working on an accessibility side project,{" "}
+            <a className="font-semibold text-ink underline underline-offset-2" href="/case-studies/a11y-initiative">
+              check it out!
+            </a>
+          </p>
+        )}
+      </div>
+
+      <h4 className="mt-8 text-2xl font-semibold leading-8 text-ink">Sample accessibility guidelines</h4>
+      <h5 className="mt-6 text-xl font-semibold leading-7 text-neutral-800">Colors</h5>
+
+      <div className="mt-4 grid gap-8 lg:grid-cols-[minmax(220px,320px)_1fr] lg:gap-16">
+        <img alt={image.alt || ""} className="w-full max-w-[320px] object-contain" loading="lazy" src={image.src} />
+        <div className="space-y-10 text-xl leading-9 text-neutral-700 lg:pt-2">
+          {copyParts.map((paragraph: string) => (
+            <p key={paragraph}>
+              <EmphasizedNumbers text={paragraph} />
+            </p>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function flushList(items: string[], key: string, output: ReactNode[]) {
   if (items.length === 0) return;
@@ -20,6 +93,62 @@ export function ArticleItems({ items }: { items: ContentItem[] }) {
 
   items.forEach((item, index) => {
     if (item.type === "h1") return;
+
+    if (
+      item.type === "h4" &&
+      item.text === "Accessibility" &&
+      isTextItem(items[index + 1], "p") &&
+      isTextItem(items[index + 2], "h4", "Sample accessibility guidelines") &&
+      isTextItem(items[index + 3], "h5") &&
+      isImageItem(items[index + 4]) &&
+      isTextItem(items[index + 5], "p")
+    ) {
+      flushList(listItems, `list-${index}`, output);
+      output.push(
+        <QuiltAccessibilityPanel
+          copy={items[index + 5] as TextBlock}
+          image={items[index + 4] as Extract<ContentItem, { type: "image" }>}
+          intro={items[index + 1] as TextBlock}
+          key="quilt-accessibility"
+        />,
+      );
+      return;
+    }
+
+    if (
+      index > 0 &&
+      isTextItem(items[index - 1], "h4", "Accessibility")
+    ) {
+      return;
+    }
+
+    if (
+      index > 1 &&
+      isTextItem(items[index - 2], "h4", "Accessibility")
+    ) {
+      return;
+    }
+
+    if (
+      index > 2 &&
+      isTextItem(items[index - 3], "h4", "Accessibility")
+    ) {
+      return;
+    }
+
+    if (
+      index > 3 &&
+      isTextItem(items[index - 4], "h4", "Accessibility")
+    ) {
+      return;
+    }
+
+    if (
+      index > 4 &&
+      isTextItem(items[index - 5], "h4", "Accessibility")
+    ) {
+      return;
+    }
 
     if (item.type === "li") {
       listItems.push(item.text);
