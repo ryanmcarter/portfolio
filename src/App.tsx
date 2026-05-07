@@ -208,7 +208,7 @@ function ContactPage() {
   return (
     <>
       <SiteHeader active="contact" />
-      <main className="mx-auto grid min-h-[calc(100svh-88px)] max-w-[1440px] content-center gap-12 px-4 py-20 sm:px-8 lg:grid-cols-[1fr_520px]">
+      <main className="mx-auto grid min-h-[calc(100svh-88px)] max-w-[1440px] content-center px-4 py-20 sm:px-8">
         <motion.section
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
@@ -243,23 +243,6 @@ function ContactPage() {
             </Button>
           </div>
         </motion.section>
-        <motion.aside
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          className="border-y border-line py-8"
-        >
-          <h2 className="font-mono text-sm uppercase leading-4 text-accent">Current focus</h2>
-          <div className="mt-8 grid gap-6">
-            {experience.slice(0, 3).map(([dates, company, role]) => (
-              <div className="grid gap-1" key={company}>
-                <p className="font-mono text-sm text-muted">{dates}</p>
-                <p className="font-medium text-ink">{company}</p>
-                <p className="font-mono text-sm text-muted">{role}</p>
-              </div>
-            ))}
-          </div>
-        </motion.aside>
       </main>
     </>
   );
