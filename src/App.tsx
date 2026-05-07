@@ -226,7 +226,13 @@ function ContactPage() {
             <Button asChild size="lg">
               <a href="mailto:hello@ryancarter.io">
                 <Mail aria-hidden="true" className="h-4 w-4" />
-                hello@ryancarter.io
+                Send me an email
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <a href="https://www.linkedin.com/in/ryan-carter-b8902144/?skipRedirect=true" rel="noreferrer" target="_blank">
+                LinkedIn
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </Button>
             <Button asChild size="lg" variant="outline">
