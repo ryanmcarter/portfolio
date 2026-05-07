@@ -84,6 +84,122 @@
         "text": "I currently am a Senior Product Designer at New York Shipping Exchange (NYSHEX) working exclusively on design systems since January of 2023.\n\nPrior to NYSHEX, I was one of two Senior Systems Designs at Ribbon Home responsible for designing and delivering a custom design system.\n\nBefore that, I was the only designer at Shoflo, designing live event production software and their design system.\n\nWhen not tinkering with Figma, I am working on a fintech app (thyme), a community accessibility resource (a11y initiative), or on my 10+ year freelance client project helping usher in the next era of entrepreneurs.\n\nI have been designing for 10 years with a focus on creating accessible design systems. Outside of tech, I enjoy baking, fermentation, coffee, gardening, EDM, and travel."
       }
     ],
+    "items": [
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b592100d279c993550157c_ryancarter-keel-heroImage-thumb.png",
+        "alt": "Ribbon Quilt design system"
+      },
+      {
+        "type": "p",
+        "text": "Keel is a bespoke design system built in Figma and on top of a comprehensive atomic design token architecture for the NYSHEX product team."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6377013615fcfec66303e1f1_ryancarter-quilt-heroImage-thumb.png",
+        "alt": "Ribbon Quilt design system"
+      },
+      {
+        "type": "p",
+        "text": "Quilt is a custom Figma-based design system for the Ribbon design & engineering team. Built rapidly and complete with documentation and accessibility."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/63896c5c7d2c2b34b0e43421_ryancarter-studio-heroImage-thumb.png",
+        "alt": "Ribbon Quilt design system"
+      },
+      {
+        "type": "p",
+        "text": "A look into the browser-based live streaming Studio I designed and launched during Covid with the Shoflo team"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5feeac03148d1628f8a1f3fe_ryan-carter-polymer-promo.png",
+        "alt": "Promo image for Polymer case study"
+      },
+      {
+        "type": "p",
+        "text": "Polymer is the design system I designed and maintained for the Shoflo product team. Built in Figma with accessibility as its core tenet."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d743c2b34bd3659eee23557_cs-shoflo-hero.png",
+        "alt": "Promo artwork for Shoflo case study"
+      },
+      {
+        "type": "p",
+        "text": "Shoflo is a software platform designed to empower event production teams to build live events in a collaborative, real time environment."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d87b40808e53eeb22f2edd3_cs-thyme-promo.png",
+        "alt": "Promo artwork for Shoflo case study"
+      },
+      {
+        "type": "p",
+        "text": "thyme is a side project that offers a new way of looking at your finances through the lens of time, rather than dollars."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d879df208e53e521cf1d965_cs-a11y-hero.png",
+        "alt": "Promo artwork for Shoflo case study"
+      },
+      {
+        "type": "p",
+        "text": "The a11y initiative is a side project dedicated to helping designers and developers make their websites more accessible and inclusive for all through a month long set of challenges."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d743c2b34bd3659eee23557_cs-shoflo-hero.png",
+        "alt": "Promo artwork for Shoflo case study"
+      },
+      {
+        "type": "h3",
+        "text": "Shoflo"
+      },
+      {
+        "type": "p",
+        "text": "Shoflo is a software platform designed to empower event production teams to build live events in a collaborative, real time environment.\n\nToolset"
+      },
+      {
+        "type": "p",
+        "text": "Figma, Sketch, Affinity Designer, After Effects, Photoshop, Webflow"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d87b40808e53eeb22f2edd3_cs-thyme-promo.png",
+        "alt": "Promo artwork for Thyme case study"
+      },
+      {
+        "type": "h3",
+        "text": "thyme"
+      },
+      {
+        "type": "p",
+        "text": "thyme is an upcoming app of mine that offers a new way of looking at your finances through the lens of time, rather than dollars.\n\nToolset"
+      },
+      {
+        "type": "p",
+        "text": "Figma, SwiftUI"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d879df208e53e521cf1d965_cs-a11y-hero.png",
+        "alt": "Promo artwork for a11y initiative case study"
+      },
+      {
+        "type": "h3",
+        "text": "a11y initiative"
+      },
+      {
+        "type": "p",
+        "text": "The a11y initiative is a side project dedicated to helping designers and developers make their websites more accessible and inclusive for all through a month long set of challenges.\n\nToolset"
+      },
+      {
+        "type": "p",
+        "text": "Webflow, Figma"
+      }
+    ],
     "media": {
       "images": [
         {
@@ -142,6 +258,16 @@
     "slug": "contact",
     "title": "Let's get in touch",
     "blocks": [
+      {
+        "type": "h1",
+        "text": "Let's get in touch"
+      },
+      {
+        "type": "p",
+        "text": "Fill out the form and send me an email. I will get back to you as soon as I can!"
+      }
+    ],
+    "items": [
       {
         "type": "h1",
         "text": "Let's get in touch"
@@ -400,6 +526,334 @@
       {
         "type": "p",
         "text": "In total, Keel is currently 127 components. All in all, Keel has the following components (and sub-components):"
+      }
+    ],
+    "items": [
+      {
+        "type": "h1",
+        "text": "Keel design system"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/659983bc280a758d5c24a5f4_nyshex_logo.png",
+        "alt": "The NYSHEX Logo"
+      },
+      {
+        "type": "p",
+        "text": "Keel is a bespoke new design system built from scratch to usher in a new design and development process for the New York Shipping Exchange (NYSHEX). Designed entirely in Figma and built on top of a robust design token system, it currently contains dozens of components, hundreds of tokens, and is fully live and deployed in the product.\n\nNYSHEX is a digital platform that connects carriers & shippers to create enforceable contracts and easy tracking of bookings and shipments."
+      },
+      {
+        "type": "h2",
+        "text": "The problem"
+      },
+      {
+        "type": "p",
+        "text": "Before hiring me to design and build a new design system, NYSHEX was relying on the free & open source Material UI design system to build their product. While this worked for simple elements likes buttons and alerts, Material UI required a lot of hacks and overrides for components such as tables and filtering. And since NYSHEX is a very table-heavy app, this meant lots of extra work for designers and developers to customize Material UI to get it do what they needed it to do.\n\nAdditionally, while Material UI looks and works great for a lot of apps, eventually your product starts to look like many other apps. And as NYSHEX matured and set its eyes on a Series C, it was decided that a new look and feel combined with the existing engineering challenges necessitated a new design system.\n\nI joined in January of 2023 to become the 3rd product designer at NYSHEX and set out to build a new design system that was:"
+      },
+      {
+        "type": "li",
+        "text": "Atomic"
+      },
+      {
+        "type": "li",
+        "text": "Documented"
+      },
+      {
+        "type": "li",
+        "text": "Accessible"
+      },
+      {
+        "type": "li",
+        "text": "Prototyped (with accessible components)"
+      },
+      {
+        "type": "li",
+        "text": "Built on top of tokens"
+      },
+      {
+        "type": "li",
+        "text": "Supported white labeling for NYSHEX's customers."
+      },
+      {
+        "type": "h2",
+        "text": "My role"
+      },
+      {
+        "type": "p",
+        "text": "As the sole designer to work on the design system, my responsibilities included:"
+      },
+      {
+        "type": "li",
+        "text": "Setting up the Figma project and component naming structure"
+      },
+      {
+        "type": "li",
+        "text": "Creating the underlying design token system"
+      },
+      {
+        "type": "li",
+        "text": "Working directly with engineers to implement components and adopt best practices"
+      },
+      {
+        "type": "h2",
+        "text": "Project timeline"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b40b45bedf6d0cfdd8f730_ryancarter-designSystemCaseStudy-keelPhases.png",
+        "alt": "Keel design system phases"
+      },
+      {
+        "type": "h2",
+        "text": "Naming & Logo"
+      },
+      {
+        "type": "p",
+        "text": "All great design systems have a name, and Keel was to be no exception. In sticking with the nautical theme of NYSHEX, I settled on \"Keel\" as the name. On a ship, the keel is \"the bottom-most structural member around which the hull of a ship is built.\" And since a design system is the structure on which a product is built, it fit perfectly."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b147a4c1f7e28205a13085_ryancarter-designSystemCaseStudy-keelLogoBreakdown.png",
+        "alt": "Keel design system logo"
+      },
+      {
+        "type": "h2",
+        "text": "Creating a consistent color palette"
+      },
+      {
+        "type": "p",
+        "text": "Based around the core brand color, I set out to create a new color palette that was both accessible, but also consistent between different colors at the same position in the ramp. To accomplish this, I used the Leonardo tool and manually tweaked contrast values to dial in a varied and consistent color palette."
+      },
+      {
+        "type": "h4",
+        "text": "Complete color palette"
+      },
+      {
+        "type": "p",
+        "text": "Split across 9 colors and each with at least 8 shades, a new palette was created that kept relative luminosity and saturation consistent across the same step in a different color. This means that ColorOcean600 has the same relative brightness and saturation when placed next to an element with a color of ColorCoral600.\n\nAs you may notice, each color is nautically themed as well.As you may notice, each color is nautically themed as well. level. By using similar relative saturation and luminosity, none of the alerts stand out against each other in terms of color."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b6f20d9d8f3fa3ce714354_ryancarter-designSystemCaseStudy-keelColorsFull2.png",
+        "alt": "Keel design system color palette"
+      },
+      {
+        "type": "h4",
+        "text": "Color scale comparison"
+      },
+      {
+        "type": "p",
+        "text": "In the below example of an Alert component, the background of each alert has a 100 level background color, and the text and icons are 600 level. By using similar relative saturation and luminosity, none of the alerts stand out against each other in terms of color."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b15cee996a737b5a99bccf_ryancarter-designSystemCaseStudy-keelColorsComparison.png",
+        "alt": "Keel design system color palette comparison"
+      },
+      {
+        "type": "h4",
+        "text": "Grayscale comparison"
+      },
+      {
+        "type": "p",
+        "text": "When converted to grayscale, the uniform color ramp can be seen more clearly."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b6f278c78b959ebd5d1c76_ryancarter-designSystemCaseStudy-keelColorsFull2Grayscale.png",
+        "alt": "Keel design system color palette comparison"
+      },
+      {
+        "type": "h2",
+        "text": "Keel's design tokens"
+      },
+      {
+        "type": "p",
+        "text": "To make component development easier, as well as support NYSHEX's goal of full white-label support for its customers, a full token architecture was created from scratch using Tokens Studio. Early on in the project, I met with the engineering team to define a token strategy and naming convention.\n\nAfter much discussion (and leaning on my past experience with Quilt, we settled on a Global to Alias level token nomenclature."
+      },
+      {
+        "type": "h4",
+        "text": "Global tokens"
+      },
+      {
+        "type": "p",
+        "text": "While every token starts as a global token, some also end as global tokens. For the sake of ease of use, these tokens remained as global tokens and never received an alias token:"
+      },
+      {
+        "type": "li",
+        "text": "Spacing (margin, gap and padding)"
+      },
+      {
+        "type": "li",
+        "text": "Sizing (specifically declared width & height)"
+      },
+      {
+        "type": "li",
+        "text": "Corner radius"
+      },
+      {
+        "type": "h4",
+        "text": "Alias tokens"
+      },
+      {
+        "type": "p",
+        "text": "Alias tokens take global tokens and apply one level of specificity to them. We applied alias tokens to:"
+      },
+      {
+        "type": "li",
+        "text": "Typography"
+      },
+      {
+        "type": "li",
+        "text": "Color"
+      },
+      {
+        "type": "li",
+        "text": "Border"
+      },
+      {
+        "type": "h4",
+        "text": "Component token example"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b412c27905f0d14618f39f_ryancarter-designSystemCaseStudy-keelTokens.png",
+        "alt": "Keel design system token example"
+      },
+      {
+        "type": "h4",
+        "text": "Exposure in Figma Dev Mode"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b41f3d8d36f94a09488a80_ryancarter-designSystemCaseStudy-keelTokensDevMode.png",
+        "alt": "Keel design system tokens in dev mode"
+      },
+      {
+        "type": "h2",
+        "text": "Whitelabel support"
+      },
+      {
+        "type": "p",
+        "text": "Identified early on in the project was the absolute necessity for Keel and the tokens to support whitelabeling the app for NYSHEX's various carrier clients. To accomplish this, I built a \"core\" set of tokens that contained the tokens that would be consistent for all themes (such as spacing and sizing), and then a separate theme for each whitelabel that contained brand-specific colors and typography.\n\nBelow is a video showing whitelabel theme switching within Figma. Note: carrier names have been anonymized and the video is slightly sped up."
+      },
+      {
+        "type": "h4",
+        "text": "Whitelabel theme switching in Figma"
+      },
+      {
+        "type": "video",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b51dfe090deec076eaff71_ryanCarter_designSystemCaseStudy_keelWhiteLabel_final-transcode.mp4",
+        "poster": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b51dfe090deec076eaff71_ryanCarter_designSystemCaseStudy_keelWhiteLabel_final-poster-00001.jpg"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b51dfe090deec076eaff71_ryanCarter_designSystemCaseStudy_keelWhiteLabel_final-poster-00001.jpg",
+        "alt": ""
+      },
+      {
+        "type": "h2",
+        "text": "Components"
+      },
+      {
+        "type": "p",
+        "text": "Below is a list of components such as Alert, Text Badge, Date Picker, and Stepper (which is the most complex component in Keel)"
+      },
+      {
+        "type": "h4",
+        "text": "Alert"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b590cefc4c59f7f26021c5_ryancarter-designSystemCaseStudy-keelAlert2.png",
+        "alt": "Keel design system Alert component"
+      },
+      {
+        "type": "h4",
+        "text": "Date Picker"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b51ed55dd16ed98f0b9489_ryancarter-designSystemCaseStudy-keelDatePicker.png",
+        "alt": "Keel design system Date Picker component"
+      },
+      {
+        "type": "h4",
+        "text": "Text Badge"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b51ed5d34067bac41aee0a_ryancarter-designSystemCaseStudy-keelTextBadge.png",
+        "alt": "Keel design system Text Badge component"
+      },
+      {
+        "type": "h4",
+        "text": "File Uploader"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b51facdc53d035400d1527_ryancarter-designSystemCaseStudy-keelFileUploader.png",
+        "alt": "Keel design system File Uploader component"
+      },
+      {
+        "type": "h4",
+        "text": "FigJam Process Overview"
+      },
+      {
+        "type": "p",
+        "text": "I re-used the same successful FigJam overview from Quilt to handoff to devs & designers on the overall process of how to successfully use Keel or make changes and implement new components."
+      },
+      {
+        "type": "h4",
+        "text": "Figma-component-level engineering specs"
+      },
+      {
+        "type": "p",
+        "text": "Every component in Figma received detailed specs on how the component was setup, the different variants, states, as well as which tokens were being used."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b5205aa8058948c00113e4_ryancarter-designSystemCaseStudy-keelComponentDocs.png",
+        "alt": "Keel design system component spec"
+      },
+      {
+        "type": "h4",
+        "text": "Notion Documentation"
+      },
+      {
+        "type": "p",
+        "text": "For easier discovery and more engineering-focused documentation, I co-created documentation in Notion more centered around engineering."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b6f5063061e1aff3887b22_ryancarter-designSystemCaseStudy-notionDocumentation2.jpg",
+        "alt": "Keel design system notion documentation"
+      },
+      {
+        "type": "h4",
+        "text": "Keel Lunch & Learn Engineering Benefits"
+      },
+      {
+        "type": "p",
+        "text": "Below is a slide the front end engineers created to summarize the benefits Keel was providing the engineering team."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b6f61967fd9e59200b8a81_ryancarter-designSystemCaseStudy-keelEngineeringBenefits.png",
+        "alt": "Keel design system engineering benefits"
+      },
+      {
+        "type": "h4",
+        "text": "Keel in total"
+      },
+      {
+        "type": "p",
+        "text": "In total, Keel is currently 127 components. All in all, Keel has the following components (and sub-components):"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b58f2e21078c5d276e691f_ryancarter-designSystemCaseStudy-keelComponentList.png",
+        "alt": "Keel design system component list"
       }
     ],
     "media": {
@@ -816,6 +1270,383 @@
         "text": "Toasts"
       }
     ],
+    "items": [
+      {
+        "type": "h1",
+        "text": "Quilt design system"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/63766153eccee8b49363dfc1_ribbon-logo.svg",
+        "alt": "The Ribbon Logo"
+      },
+      {
+        "type": "p",
+        "text": "Quilt is a custom design system built entirely in Figma to power the Ribbon design & development teams. Built entirely from scratch in only a few months, it has grown to 60+ interactive components and hundreds of variants. Additionally, a Zeroheight site was created to provide in-depth documentation for designers & engineers."
+      },
+      {
+        "type": "h2",
+        "text": "The problem"
+      },
+      {
+        "type": "p",
+        "text": "Before joining in June of 2022, Ribbon already had three design systems in use, all with varying styles, structure, and underlying code. The very first iteration was from a free Figma Community design system, the second one was no longer maintained by the original creators, and the third one was contracted through an agency. The agency one was the one used the most, but since it was done by an agency and there wasn't anyone focused on design systems, it received little attention.\n\nTo solve this, Ribbon hired two Senior Systems Designers. The first was Javier, who joined a month before I did, and the second was of course me. Our sole focus from the summer of 2022 and on was to build a new design system. One that was:"
+      },
+      {
+        "type": "li",
+        "text": "Atomic"
+      },
+      {
+        "type": "li",
+        "text": "Responsive"
+      },
+      {
+        "type": "li",
+        "text": "Documented"
+      },
+      {
+        "type": "li",
+        "text": "Accessible"
+      },
+      {
+        "type": "li",
+        "text": "Prototyped (with accessible components)"
+      },
+      {
+        "type": "li",
+        "text": "Built with tokens in mind"
+      },
+      {
+        "type": "li",
+        "text": "And one that had dedicated resources to maintain"
+      },
+      {
+        "type": "p",
+        "text": "Over only about four months, Quilt grew to contain:"
+      },
+      {
+        "type": "li",
+        "text": "53 component sets"
+      },
+      {
+        "type": "li",
+        "text": "1871 variants"
+      },
+      {
+        "type": "li",
+        "text": "Base documentation on every component"
+      },
+      {
+        "type": "li",
+        "text": "Token support with the Figma Tokens plugin that syncs to a Github repo"
+      },
+      {
+        "type": "h2",
+        "text": "My role"
+      },
+      {
+        "type": "p",
+        "text": "As one of two systems designers, we split the Quilt work fairly evenly. Javier tended to take on more of the token and theming while I did more documentation and prototyping while we both split the actual component work."
+      },
+      {
+        "type": "li",
+        "text": "Setting up the Figma project and component naming structure"
+      },
+      {
+        "type": "li",
+        "text": "Keeping up to date with Figma and making sure components used the latest Figma features"
+      },
+      {
+        "type": "li",
+        "text": "Writing documentation for components"
+      },
+      {
+        "type": "li",
+        "text": "Fixing \"bugs\" with components (such as improper constraints, instance swapping not preserving overrides, auto layout issues and so on)"
+      },
+      {
+        "type": "h2",
+        "text": "Components"
+      },
+      {
+        "type": "p",
+        "text": "Below is a list of components such as buttons, inputs, typography, and colors."
+      },
+      {
+        "type": "h4",
+        "text": "System structure"
+      },
+      {
+        "type": "p",
+        "text": "To keep files small and updates easier, we split Quilt out in to three separate libraries.\n\nQuilt Theme contained all of the colors, typography, shadows, spacing etc.\nQuilt Icons contained all of the icons (this was just a duplicate of the Ionic icon library)\nQuilt Base Components consumed the Theme & Icon libraries and contained all of the components used by the design team"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6376a75b9860177925140501_ryancarter-quilt-systemSetup.png",
+        "alt": "Quilt design system setup"
+      },
+      {
+        "type": "h4",
+        "text": "Accessibility"
+      },
+      {
+        "type": "p",
+        "text": "Accessibility was baked in to the core of the theme file, with respect to color contrast and typography given to the core tokens so that when consumed by the base components, accessibility was a given.\n\nP.S. I'm currently working on an accessibility side project, check it out!"
+      },
+      {
+        "type": "h4",
+        "text": "Sample accessibility guidelines"
+      },
+      {
+        "type": "h5",
+        "text": "Colors"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6376ad4da67c6db9e021d502_ryancarter-quilt-colorContrast.png",
+        "alt": "Quilt color contrast sample"
+      },
+      {
+        "type": "p",
+        "text": "In Figma, all colors in a palette are shown with their contrast ratio. Every 500 level color has a contrast ratio of at least 4.5:1 with white text (this combo is used in buttons). The only exception is Purple-500 where it fails, but that is the pre-existing brand color and we were unable to change it.\n\nAll colors above 500 with white text are at least 4.5:1, and all colors below 500 are at least 4.5:1 when the 000 level color is on top."
+      },
+      {
+        "type": "h4",
+        "text": "Responsive design & sizing"
+      },
+      {
+        "type": "p",
+        "text": "Nearly every component in Quilt contains variants for different breakpoints (sm, md, lg, and the occasional xl or xs). This allowed designers to quickly make responsive versions of their designs by updating the variant sizing property to the appropriate size. For example, an Accordion component has sm, md, and lg variants with different sizes for each breakpoint.\n\nAdditionally, each type style also had different sizes that corresponded to what should be used in a component. Body for example has a sm, md, and lg size in the Themes file and when the Accordion component is at the md size, it would use the md Body text style. This made it much easier to make system wide changes to typography in one click, but we also received great buy-in from developers on this being an easy approach to doing responsive development."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6376b02180957f75de05bc34_ryancarter-quilt-componentSizing.png",
+        "alt": "Quilt design system setup"
+      },
+      {
+        "type": "h4",
+        "text": "Typography"
+      },
+      {
+        "type": "p",
+        "text": "All typography was designed at the core to be responsive across different breakpoints."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6376b0b2bf6e4ebb90199fbc_ryancarter-quilt-typography.png",
+        "alt": "Image showing Quilt's different typography styles"
+      },
+      {
+        "type": "h4",
+        "text": "Buttons"
+      },
+      {
+        "type": "p",
+        "text": "Buttons in Quilt are perhaps the one component that utilizes the most of Figma's design system functionality. Every button is: responsive, has variants, is interactive, and uses the new component prop functionality."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6376f81cef68a67a6c7bb0b1_ryancarter-quilt-buttons.png",
+        "alt": "Quilt design system setup"
+      },
+      {
+        "type": "p",
+        "text": "An example of a button using Variants and Component Properties within Figma:"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6376f9969c7f6161793337b8_ryancarter-quilt-buttons-variants.png",
+        "alt": "Polymer form components"
+      },
+      {
+        "type": "h4",
+        "text": "Built in Wireframing"
+      },
+      {
+        "type": "p",
+        "text": "Originally, we had a separate wireframing library (sourced from a Figma community file) that designers were using to make rapid wireframes of their designs.\n\nHowever, after a few months and with Quilt getting more and more mature, designers began requesting an easier way to update their wireframe designs to use the final published components. And since the community file and our components were setup differently, it wasn't as easy as just swapping between components and everything working.\n\nTo make the designers lives easier, I set out to add a Wireframe variant to every component and every instance in our library. While not as \"wireframe-y\" as a traditional wireframe kit, there was no mistaking the designs for being in a wireframe state. I stripped out all of the colors to pure black or a mid gray, and changed the font to Chalkboard to make it clearer that it was in a wireframe state.\n\nAfter just a week, I was able to launch this update and designers were now able to wireframe quickly, and in just one click, convert a wireframe component in to release-ready designs.\n\nClick play below to see a sample video of the wireframe kit in action."
+      },
+      {
+        "type": "video",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6376fb6c597fdbb65a9523bd_ryancarter-quilt-wireframe-transcode.mp4",
+        "poster": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6376fb6c597fdbb65a9523bd_ryancarter-quilt-wireframe-poster-00001.jpg"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6376fb6c597fdbb65a9523bd_ryancarter-quilt-wireframe-poster-00001.jpg",
+        "alt": ""
+      },
+      {
+        "type": "h4",
+        "text": "Zeroheight Documentation"
+      },
+      {
+        "type": "p",
+        "text": "As state in my Polymer case study Design systems are only as good as their documentation. Shortly after our V1 release of Quilt, we spun up a new Zeroheight page that would serve as the foundation of documentation for all of our components. And while documentation writing is probably the least exciting aspect of design systems work, it is crucial in educating designers on the nuances of a component that Figma can't always show.\n\nAdditionally, our Zeroheight pages also served as a one-stop-shop for engineers to learn how components worked, without having to jump in to Figma.\n\nEvery component page included an overview page, do's and don'ts, accessibility guidelines, and code snippets."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6376ff90962ed7ec6323493a_ryancarter-quilt-documentation.png",
+        "alt": "Quilt design system setup"
+      },
+      {
+        "type": "h4",
+        "text": "FigJam Process Overview"
+      },
+      {
+        "type": "p",
+        "text": "To help facilitate and outline the entire design system process, we created a FigJam to handoff to engineering and the design team to have a one-stop reference point for everyone to understand the processes involved in making sure Quilt was a success."
+      },
+      {
+        "type": "h4",
+        "text": "Figma-component-level engineering specs"
+      },
+      {
+        "type": "p",
+        "text": "In addition to Storybook embeds on every Zeroheight component page, we provided quick reference on the core Figma library that engineers could look at to see a super basic overview of how the component was structured."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/638e12fa875518571e14e853_ryancarter-quilt-component-spec.png",
+        "alt": "Quilt design system component spec"
+      },
+      {
+        "type": "h4",
+        "text": "Quilt in total"
+      },
+      {
+        "type": "p",
+        "text": "As previously stated, Quilt is 53+ components and it'd be too much to show in one case study. All in all, Quilt has the following components:"
+      },
+      {
+        "type": "li",
+        "text": "Accordion"
+      },
+      {
+        "type": "li",
+        "text": "Alert"
+      },
+      {
+        "type": "li",
+        "text": "Badge"
+      },
+      {
+        "type": "li",
+        "text": "Breadcrumbs"
+      },
+      {
+        "type": "li",
+        "text": "Buttons"
+      },
+      {
+        "type": "li",
+        "text": "Card"
+      },
+      {
+        "type": "li",
+        "text": "Chips"
+      },
+      {
+        "type": "li",
+        "text": "Circular Progress"
+      },
+      {
+        "type": "li",
+        "text": "Confirmation Alert"
+      },
+      {
+        "type": "li",
+        "text": "Date picker"
+      },
+      {
+        "type": "li",
+        "text": "Divider"
+      },
+      {
+        "type": "li",
+        "text": "Dropzone"
+      },
+      {
+        "type": "li",
+        "text": "File List"
+      },
+      {
+        "type": "li",
+        "text": "Form Controls"
+      },
+      {
+        "type": "li",
+        "text": "Hot Tip"
+      },
+      {
+        "type": "li",
+        "text": "Images"
+      },
+      {
+        "type": "li",
+        "text": "Inputs"
+      },
+      {
+        "type": "li",
+        "text": "List"
+      },
+      {
+        "type": "li",
+        "text": "Logo"
+      },
+      {
+        "type": "li",
+        "text": "Menus"
+      },
+      {
+        "type": "li",
+        "text": "Modal"
+      },
+      {
+        "type": "li",
+        "text": "Navigation"
+      },
+      {
+        "type": "li",
+        "text": "Offer Wheel"
+      },
+      {
+        "type": "li",
+        "text": "Paper"
+      },
+      {
+        "type": "li",
+        "text": "Popovers"
+      },
+      {
+        "type": "li",
+        "text": "Progress Stepper"
+      },
+      {
+        "type": "li",
+        "text": "Selects"
+      },
+      {
+        "type": "li",
+        "text": "Spinner"
+      },
+      {
+        "type": "li",
+        "text": "Table"
+      },
+      {
+        "type": "li",
+        "text": "Tabs"
+      },
+      {
+        "type": "li",
+        "text": "Tags"
+      },
+      {
+        "type": "li",
+        "text": "Toasts"
+      }
+    ],
     "media": {
       "images": [
         {
@@ -1080,6 +1911,263 @@
       {
         "type": "p",
         "text": "To ensure Presenters can connect to the servers and the browser has access to camera/mic/and screen share, all presenters are required to go through a Readiness Checker before joining. If any part fails, we inform the user what went wrong and how to fix it."
+      }
+    ],
+    "items": [
+      {
+        "type": "h1",
+        "text": "Shoflo Studio"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d58403ddc65b87a77fd9f23_shoflo_logo_dark.png",
+        "alt": "The Shoflo logo"
+      },
+      {
+        "type": "p",
+        "text": "Studio is the newest product in the Shoflo suite; dedicated to offering event producers a new way to direct and stream live events anywhere in the world from the comfort of their browser. Directors can send shareable links to presenters who can share their camera, audio, and screen share with the director. In just one click, the director can send those presenters \"live\" where they can be streamed live to the world through sites such as Vimeo, Youtube, or a custom endpoint. Directors can choose multiple layouts, create pre-built scenes, add lower-third banners, play videos and more."
+      },
+      {
+        "type": "h2",
+        "text": "The problem"
+      },
+      {
+        "type": "p",
+        "text": "Prior to COVID-19, Shoflo's core business model was reliant on large amounts of people gathering in tight spaces to watch and experience live corporate, sporting, worship, and entertainment events. As COVID-19 spread and in-person gatherings were banned, we quickly realized we needed a way to bring those in-person events to the virtual world.\n\nAt the time, there weren't any real already-existing solutions that our customers could rely on. While products like Zoom, goToWebinar, Google Meet and so on offered virtual streaming solutions, they were more geared towards short meetings. Furthermore, our users required greater control over the experience than offered by those solutions. Directors wanted to control exactly when presenters would be added to a stream, and the ability to independently control a user's audio and video.\n\nWe set out in April of 2020 to rapidly design and build a solution we could begin testing with users. Over the course of the next year, this project would grow in to the most complex and comprehensive design I've ever undertaken. As the only designer, I was responsible for the entire look and feel of an always-in-progress and evolving product."
+      },
+      {
+        "type": "h2",
+        "text": "The challenges"
+      },
+      {
+        "type": "li",
+        "text": "Designing a new product from scratch with minimal use of our existing Polymer design system"
+      },
+      {
+        "type": "li",
+        "text": "Designing a product powerful enough for seasoned pros, but easy enough for anyone to use"
+      },
+      {
+        "type": "li",
+        "text": "Providing an accessible experience for a highly complex audio/video product"
+      },
+      {
+        "type": "li",
+        "text": "Designing one inch in front of developers"
+      },
+      {
+        "type": "h2",
+        "text": "The responsibilities"
+      },
+      {
+        "type": "p",
+        "text": "As the only designer at Shoflo, my role on Studio was pretty much everything:"
+      },
+      {
+        "type": "li",
+        "text": "100% of design"
+      },
+      {
+        "type": "li",
+        "text": "Prototyping"
+      },
+      {
+        "type": "li",
+        "text": "Writing documentation and specs for developers"
+      },
+      {
+        "type": "li",
+        "text": "Project management"
+      },
+      {
+        "type": "li",
+        "text": "QA"
+      },
+      {
+        "type": "h2",
+        "text": "The solution"
+      },
+      {
+        "type": "p",
+        "text": "More detail is provided below!"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6387aeb05db021696e877ed9_ryan-carter-studio-final.png",
+        "alt": "Shoflo Studio's main view for directing cameras"
+      },
+      {
+        "type": "h2",
+        "text": "UI explained"
+      },
+      {
+        "type": "p",
+        "text": "While good UI shouldn't have to be explained, Studio is a complex product and is best experienced hands-on in the browser. This is just a loose guide to the major UI components seen in the above screenshot."
+      },
+      {
+        "type": "h2",
+        "text": "Studio header"
+      },
+      {
+        "type": "p",
+        "text": "The header is the top-most page element, and contains navigation, information, and actionable buttons."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/63890710bdcda1f8904fb4f1_ryan-carter-studio-explained-header.png",
+        "alt": "Explanation of the Studio header"
+      },
+      {
+        "type": "h2",
+        "text": "Scenes bar"
+      },
+      {
+        "type": "p",
+        "text": "Scenes are layouts build & saved by a director containing a layout, presenters, and graphics. With one click, Directors can send that scene live and the stream will be instantly updated. This is different than live directing, where a director would need to one-by-one send presenters live and update graphics. This is not desirable because to an end viewer, assets would appear one by one which doesn't look professional. With scenes, it is a smooth transition."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6389096161ab8f241cbbed89_ryan-carter-studio-explained-scenes.png",
+        "alt": "Explanation of the Studio header"
+      },
+      {
+        "type": "h2",
+        "text": "\"Program\" aka \"Broadcast\" aka \"Stream\""
+      },
+      {
+        "type": "p",
+        "text": "The most prominent piece of UI for the user is what we internally referred to as the \"Program\". Essentially, it represents the current stream that viewers are watching. Whatever is seen in the program is seen in the stream, so what the director sees here is what a viewer on Vimeo or Youtube would also see. It is also the view recorded when the user clicks the \"Record\" button.\n\nThis area is where presenters, videos, images, screen shares, banners, and overlays are positioned."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/63895f9ac22da7c483c65acd_ryan-carter-studio-explained-program.png",
+        "alt": "Explanation of the Studio program"
+      },
+      {
+        "type": "h2",
+        "text": "Presenters & Media"
+      },
+      {
+        "type": "p",
+        "text": "Anchored to the bottom of the Director's view is where presenters are housed, both actively connected and their placeholder sources. Split out in to another tab is Media, where Directors can upload videos, images, and audio."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6389621a444706ec8b7d5f74_ryan-carter-studio-explained-sources.png",
+        "alt": "Explanation of the Studio sources area"
+      },
+      {
+        "type": "h2",
+        "text": "Extra functions tabs"
+      },
+      {
+        "type": "p",
+        "text": "To house all of the extra functions that Studio offers, we implemented a vertical tab bar anchored to the right side of the screen that contains Brand (logo, colors), Banners (lower thirds), Settings (general broadcast settings), Streaming (to set up and fine tune endpoint streaming), Theater (settings for Theater, a place for the general public to watch a broadcast), and Record (view and download past recordings.)"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6389638badcfdb2b963e157b_ryan-carter-studio-explained-panel.png",
+        "alt": "Explanation of the Studio panel area"
+      },
+      {
+        "type": "h4",
+        "text": "Key constraints"
+      },
+      {
+        "type": "li",
+        "text": "Most content had to be designed around a 16:9 aspect ratio"
+      },
+      {
+        "type": "li",
+        "text": "It needed to be complex enough for pros to use, but easy enough for anyone to use without needing a training session"
+      },
+      {
+        "type": "li",
+        "text": "It had to be designed and built fast by a small, but growing team"
+      },
+      {
+        "type": "li",
+        "text": "It was largely incompatible with our existing design system"
+      },
+      {
+        "type": "li",
+        "text": "Shoflo didn't have have: Metric/data collecting, Dedicated user researchers, prototypers, data analyzers, content writers, documentation writers"
+      },
+      {
+        "type": "h4",
+        "text": "Version .0001"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/638964c2c22da79f33c6c0bf_ryan-carter-studio-v1.png",
+        "alt": "Version 1 of Shoflo Studio"
+      },
+      {
+        "type": "h4",
+        "text": "Issues"
+      },
+      {
+        "type": "li",
+        "text": "Lots of clicks involved in navigating a source through preview and to live"
+      },
+      {
+        "type": "li",
+        "text": "High amount of information present on the screen at once, including computer resources needed to render large amounts of video at once"
+      },
+      {
+        "type": "li",
+        "text": "User testing revealed that “amateur” users didn’t fully grasp the concept of Preview"
+      },
+      {
+        "type": "li",
+        "text": "Layout not conducive to responsive or smaller sized displays"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/638965cafeebd0f9d224b199_ryan-carter-studio-v1-issues2.png",
+        "alt": "Version 1 of Shoflo Studio"
+      },
+      {
+        "type": "h4",
+        "text": "Issues"
+      },
+      {
+        "type": "li",
+        "text": "Left to right layout didn’t leave a lot of room in the UI for other functions such as banners, settings, endpoints without being in a modal"
+      },
+      {
+        "type": "li",
+        "text": "Side panel would cover what you see in Live"
+      },
+      {
+        "type": "li",
+        "text": "Shifting content would cause layout issues"
+      },
+      {
+        "type": "h4",
+        "text": "Presenter View"
+      },
+      {
+        "type": "p",
+        "text": "Presenter View is where Presenters and guest speakers join in to the broadcast. Here, Presenters initialized their camera, microphone, set their name, test their connection, and start a screen share. Presenters can switch tabs to view the Live broadcast, or see only the other presenters currently connected. Additionally, Screen 1 & Screen 2 tabs give Presenters to give any of the two active screen shares.\n\nPresenters can also chat with each other, and the director."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/638966dd251e56de4d45e9fe_ryan-carter-studio-presenterView.png",
+        "alt": "Shoflo Studio Presenter View"
+      },
+      {
+        "type": "h4",
+        "text": "Readiness checker"
+      },
+      {
+        "type": "p",
+        "text": "To ensure Presenters can connect to the servers and the browser has access to camera/mic/and screen share, all presenters are required to go through a Readiness Checker before joining. If any part fails, we inform the user what went wrong and how to fix it."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/638967be04aa2661829a5444_ryan-carter-studio-readinessChecker.png",
+        "alt": "Shoflo Studio Readiness Checker"
       }
     ],
     "media": {
@@ -1513,6 +2601,450 @@
         "text": "Design systems are only as good as their documentation. While Figma is great, there is a lot more to the components shown above than what can be conveyed in Figma. Documentation like code snippets, testing rules, and interactivity to showcase varying states are all currently being built in a dedicated site for the product team to use.\n\nOur goal is to potentially showcase and open source this design system for anyone to use."
       }
     ],
+    "items": [
+      {
+        "type": "h1",
+        "text": "Shoflo's Polymer design system"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d58403ddc65b87a77fd9f23_shoflo_logo_dark.png",
+        "alt": "The Shoflo logo"
+      },
+      {
+        "type": "p",
+        "text": "Polymer is the custom design system powering a bulk of Shoflo's 2019 and onwards user interface. Designed first and foremost to be as accessible as possible and easy to use for our small but growing product team. As the sole designer and maintainer of Polymer, my duties were to design the visual language, document accessibility requirements, and facilitate the development team in its implementation and maintenance."
+      },
+      {
+        "type": "h2",
+        "text": "The problem"
+      },
+      {
+        "type": "p",
+        "text": "Prior to implementation of Polymer, Shoflo had no real set of unified visual identity. As the sole designer, the blame admittedly fell solely on me. Rather than sticking to a set of guidelines, many product design decisions were made \"in the moment.\" Over four years, these small inconsistencies had created numerous problems, such as:"
+      },
+      {
+        "type": "li",
+        "text": "10+ modal patterns. Some had buttons on the right, some on the left, some on the left and right"
+      },
+      {
+        "type": "li",
+        "text": "20+ shades of gray"
+      },
+      {
+        "type": "li",
+        "text": "2 different font families"
+      },
+      {
+        "type": "li",
+        "text": "8 different button sizes"
+      },
+      {
+        "type": "li",
+        "text": "Increased development time to make custom components"
+      },
+      {
+        "type": "li",
+        "text": "Failing WCAG accessibility guidelines"
+      },
+      {
+        "type": "li",
+        "text": "Increased effort for customer support to document different patterns"
+      },
+      {
+        "type": "p",
+        "text": "In early 2019, I set a goal to fix these problems and implement our first design system to support an upcoming product redesign. Armed with Figma and the internet, over the next several months I designed and helped to implement Polymer.\n\nI personally set a few core tenets of Polymer:"
+      },
+      {
+        "type": "li",
+        "text": "Above all else, it had to meet WCAG AA guidelines for accessibility."
+      },
+      {
+        "type": "li",
+        "text": "It had to simultaneously be flexible and rigid."
+      },
+      {
+        "type": "li",
+        "text": "It had to be predominantly on an 8px grid (with exceptions made for 4px.)"
+      },
+      {
+        "type": "li",
+        "text": "Every component has documentation for developers."
+      },
+      {
+        "type": "h2",
+        "text": "My role"
+      },
+      {
+        "type": "p",
+        "text": "As the only designer at Shoflo, my role on Polymer was pretty much everything:"
+      },
+      {
+        "type": "li",
+        "text": "Setting up the Figma project and component naming structure"
+      },
+      {
+        "type": "li",
+        "text": "Keeping up to date with Figma and making sure components used the latest Figma features"
+      },
+      {
+        "type": "li",
+        "text": "Writing documentation for components"
+      },
+      {
+        "type": "li",
+        "text": "Helping implement with the development team"
+      },
+      {
+        "type": "li",
+        "text": "Fixing \"bugs\" with components (such as improper constraints, instance swapping not preserving overrides, auto layout issues and so on)"
+      },
+      {
+        "type": "h2",
+        "text": "Components"
+      },
+      {
+        "type": "p",
+        "text": "Below is a list of components such as buttons, inputs, typography, and colors. Note: some of these components are being currently updated in Polymer as we make changes to the visual identity."
+      },
+      {
+        "type": "h4",
+        "text": "Name and logo"
+      },
+      {
+        "type": "p",
+        "text": "All good design systems need a name and a logo. I settled on \"Polymer\" since a polymer is defined as \"A substance or material consisting of very large molecules, or macromolecules, composed of many repeating subunits.\" As such, \"Polymer\" seemed fitting for a design system and it has the added bonus of starting with a \"P\", which all of our internal product codenames start with! The icon is a seven sided heptahedron; one side for each letter in polymer."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fecdbfc973b9b54161c635d_polymer-logo-blue.png",
+        "alt": "Logo for Shoflo's Polymer design system"
+      },
+      {
+        "type": "h4",
+        "text": "Accessibility and Polymer"
+      },
+      {
+        "type": "p",
+        "text": "Prior to Polymer, accessibility unfortunately was not a high priority at Shoflo. Partly because we had no design system, but mostly because it was an area I had little experience in. Starting in 2019, I started to learn more about accessibility and it quickly became a core tenet to my design and a fundamental belief that products should be useable to everyone.\n\nBut since we had been running for over four years with no design system, it was a tough task for our small product team to spend the time to make the existing product accessible through focused development across a non-consistent design. After much debate, we agreed that going forward we would make the new apps accessible from the core through a design system.\n\nP.S. I'm currently working on an accessibility side project, check it out!"
+      },
+      {
+        "type": "h4",
+        "text": "Core beliefs"
+      },
+      {
+        "type": "h5",
+        "text": "Design for everyone"
+      },
+      {
+        "type": "p",
+        "text": "\"Everyone\" is a broad group of people, and Shoflo's users span the full spectrum of human diversity. \"Everyone\" includes a veteran event director, a 21 year old VFX artist, people across time zones, different cultures, and quite literally anyone in the public who accesses a Shoflo event. By designing an accessible product from the ground up, you make it useable for everyone."
+      },
+      {
+        "type": "h5",
+        "text": "Use semantic HTML"
+      },
+      {
+        "type": "p",
+        "text": "We can eliminate a lot of the extra work of making features accessible by taking advantage of what browsers already do for us. This meant designing and building core components using semantic HTML as much as possible--things like &lt;buttons&gt; instead of button-styled-spans."
+      },
+      {
+        "type": "h5",
+        "text": "Fail inaccessible builds"
+      },
+      {
+        "type": "p",
+        "text": "We set a goal of not letting any inaccessible features reach production. After some research, I suggested and we implemented CI checks that will fail a build by a developer if it detects any accessibility violations. We ended up using cypress-axe."
+      },
+      {
+        "type": "h4",
+        "text": "Sample accessibility guidelines"
+      },
+      {
+        "type": "p",
+        "text": "This is obviously not everything, but it is a glance in to some of the accessibility guidelines built in to Polymer."
+      },
+      {
+        "type": "h5",
+        "text": "Colors"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee849f4df42884f89ac8d9_polymer-accessibility-colors-green2.png",
+        "alt": "The green color palette for Polymer showcasing contrast ratios"
+      },
+      {
+        "type": "p",
+        "text": "In Figma, all colors in a palette are shown with their contrast ratio. Every 500 level color has a contrast ratio of at least 4.5:1 with white text (this combo is used in buttons).\n\nAll colors above 500 with white text are at least 4.5:1, and all colors below 500 are at least 4.5:1 when the 1000 level color is on top.\n\nLastly, the color system is setup to ensure that all 700 level colors are accessible when placed over a 000 level background (this combo is used in alerts.)"
+      },
+      {
+        "type": "h5",
+        "text": "Forms & Inputs"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee2c95559a421a05a23109_polymer-accessibility-formInputs2.png",
+        "alt": "Default & error state handling for Polymer inputs"
+      },
+      {
+        "type": "p",
+        "text": "Form & Input rules:"
+      },
+      {
+        "type": "li",
+        "text": "Every input is labelled in some capacity. Ideally by a &lt;label&gt;, but in scenarios where a label won't fit, we use an aria-label instead (for instance, a search input)."
+      },
+      {
+        "type": "li",
+        "text": "Errors to an input are validated via three visual indicators:\n1. A red border and subtle red-tinted input background (for quick visual identification)\n2. A red triangle-exclamation icon right aligned in the input\n3. Clear and concise text explaining what the error is and how to fix it"
+      },
+      {
+        "type": "li",
+        "text": "Errors also require a unique ID, so that the error can be tied to the failing input being aria-describedby"
+      },
+      {
+        "type": "li",
+        "text": "Offer the user the ability to one-click fix errors if available"
+      },
+      {
+        "type": "h5",
+        "text": "Buttons"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee32071b58001a2bf3632e_polymer-accessibility-buttons.png",
+        "alt": "Sample of Polymer buttons with errors, disabled states, and toggle states"
+      },
+      {
+        "type": "p",
+        "text": "Button rules:"
+      },
+      {
+        "type": "li",
+        "text": "Always use a native HTML5 &lt;button&gt; element"
+      },
+      {
+        "type": "li",
+        "text": "Add a disabled prop to set the state of the button to disabled. This visually sets the appearance of the button to its disabled style and communicates it to screen readers"
+      },
+      {
+        "type": "li",
+        "text": "Toggle buttons should always have an aria-pressed value of true or false"
+      },
+      {
+        "type": "li",
+        "text": "Don't use buttons to navigate to different parts of the app, use links instead"
+      },
+      {
+        "type": "h4",
+        "text": "Grid system"
+      },
+      {
+        "type": "p",
+        "text": "Polymer was designed on an 8pt grid to create vertical rhythm. This means that all text elements, buttons, padding, margin, and inputs would be in increments of 8 (or 4 in the rare case 8 was too much, but it would still ultimately fall in increments of 8.)"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee4eed1b5800a0a5f39f6d_polymer-8px-grid-button.png",
+        "alt": "An example Polymer button conforming to an 8 pixel grid"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee4f6a5c148ac180d3bf41_polymer-8px-grid-modal2.png",
+        "alt": "A sample Polymer modal conforming to an 8 pixel grid"
+      },
+      {
+        "type": "h4",
+        "text": "Typography"
+      },
+      {
+        "type": "p",
+        "text": "After running on Open Sans for four years, we switched to using system defaults such as SF Pro Text & SF Pro Display for improved performance."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee5377148d16e301a1624d_polymer-typography.png",
+        "alt": "Polymer's various typographical elements"
+      },
+      {
+        "type": "h4",
+        "text": "Buttons"
+      },
+      {
+        "type": "p",
+        "text": "Polymer's buttons were the first components to be updated to use Figma's new Variants functionality."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee7ab09838790cfced807a_poylmer-buttons-variants2.png",
+        "alt": "Polymer form components"
+      },
+      {
+        "type": "p",
+        "text": "GIF showcasing quick swapping between Variant properties in Figma"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee7cb63d8f866a1af6e530_polymer-buttons-variants-gif.gif",
+        "alt": "Polymer form components"
+      },
+      {
+        "type": "h4",
+        "text": "Modals"
+      },
+      {
+        "type": "p",
+        "text": "We make good use of modals at Shoflo, with a lot of extra actions being completed inside of a modal. Before Polymer, we had at least three modals with different header styles and button placements. After Polymer, there is one modal style to rule them all."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6ef1aa00df078ea644a53a_cs-shoflo-modals.png",
+        "alt": "Two Polymer modal examples"
+      },
+      {
+        "type": "h4",
+        "text": "Tooltips"
+      },
+      {
+        "type": "p",
+        "text": "Tooltips offer a great way to provide extra yet concise information to UI elements. To make them accessible, tooltips can be displayed whenever a user hovers or gives keyboard focus to a tooltip's corresponding UI element."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee91fa3d451ad931aae2db_polymer-tooltips.png",
+        "alt": "Polymer's tooltip variants"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee9155ea51480ffba585b0_polymer-tooltip-gif2.gif",
+        "alt": "A gif showcasing autolayout tooltips"
+      },
+      {
+        "type": "h4",
+        "text": "Alerts"
+      },
+      {
+        "type": "p",
+        "text": "Alerts provide an...alert as to the status of an action by the user, or a particular state the user is in. For example, to provide affirmation that an action the user took was successful, we throw a success alert at the top of the screen. Or, if there is a pressing need to notify the user of a change in the state of their account, we'll throw a medium-sized alert in a prominent area of their screen.\n\nFor accessibility, alerts should contain an aria-live=\"polite\" attribute, so that screen readers will wait until existing content has been read until reading the contents of the alert.\n\nSome alerts can contain an optional link that will route a user to relevant documentation related to their action. Alerts can also contain a button which, depending on the alert, will perform an action related to the alert. If a user's action failed, the button can re-attempt the action once more. Or, if the action was successful, we can throw a button to undo the action."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5fee8c0eb7e49440968ddfc1_poylmer-alerts-variants.png",
+        "alt": "A showcase of alert variants in Polymer"
+      },
+      {
+        "type": "h4",
+        "text": "Polymer in full"
+      },
+      {
+        "type": "p",
+        "text": "What is shown above is just a small snippet of what is available in Shoflo's Figma design system. In total, the design system has 400+ named and organized components such as:"
+      },
+      {
+        "type": "li",
+        "text": "Alerts"
+      },
+      {
+        "type": "li",
+        "text": "Avatars"
+      },
+      {
+        "type": "li",
+        "text": "Badges"
+      },
+      {
+        "type": "li",
+        "text": "Breadcrumbs"
+      },
+      {
+        "type": "li",
+        "text": "Buttons"
+      },
+      {
+        "type": "li",
+        "text": "Casing, language, and grammar"
+      },
+      {
+        "type": "li",
+        "text": "Colors"
+      },
+      {
+        "type": "li",
+        "text": "Confirmations"
+      },
+      {
+        "type": "li",
+        "text": "Cursors"
+      },
+      {
+        "type": "li",
+        "text": "Dividers"
+      },
+      {
+        "type": "li",
+        "text": "Dropdowns"
+      },
+      {
+        "type": "li",
+        "text": "Forms & Inputs"
+      },
+      {
+        "type": "li",
+        "text": "Icons"
+      },
+      {
+        "type": "li",
+        "text": "Images & Logos"
+      },
+      {
+        "type": "li",
+        "text": "Labels"
+      },
+      {
+        "type": "li",
+        "text": "Lists"
+      },
+      {
+        "type": "li",
+        "text": "Mockups"
+      },
+      {
+        "type": "li",
+        "text": "Modals"
+      },
+      {
+        "type": "li",
+        "text": "Navigation"
+      },
+      {
+        "type": "li",
+        "text": "Pills"
+      },
+      {
+        "type": "li",
+        "text": "Screens"
+      },
+      {
+        "type": "li",
+        "text": "Toggles, Radios, and Checkboxes"
+      },
+      {
+        "type": "li",
+        "text": "Tooltips"
+      },
+      {
+        "type": "li",
+        "text": "Typography"
+      },
+      {
+        "type": "h4",
+        "text": "Documentation"
+      },
+      {
+        "type": "p",
+        "text": "Design systems are only as good as their documentation. While Figma is great, there is a lot more to the components shown above than what can be conveyed in Figma. Documentation like code snippets, testing rules, and interactivity to showcase varying states are all currently being built in a dedicated site for the product team to use.\n\nOur goal is to potentially showcase and open source this design system for anyone to use."
+      }
+    ],
     "media": {
       "images": [
         {
@@ -1712,6 +3244,256 @@
         "text": "Some of our core dependancies are unsupported by Internet Explorer. To combat this, we gate all Internet Explorer users at signup. This is the screen an Internet Explorer user will see with a custom illustration, explainer text, and a button to download Chrome if they don't already have it."
       }
     ],
+    "items": [
+      {
+        "type": "h1",
+        "text": "Shoflo case study"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d58403ddc65b87a77fd9f23_shoflo_logo_dark.png",
+        "alt": "The Shoflo logo"
+      },
+      {
+        "type": "p",
+        "text": "Shoflo is a software platform designed to empower event production teams to build live events in a collaborative, real time environment. Based in Orlando and founded in 2013, Shoflo has grown to service a wide variety of clients ranging from small local churches to brands like Walmart, Facebook, NASA, the Chicago Bulls, and many more.\n\nThere's a separate, in-depth case on Shoflo's Polymer design system that you can read by clicking here."
+      },
+      {
+        "type": "h2",
+        "text": "A bit of history"
+      },
+      {
+        "type": "p",
+        "text": "I joined Shoflo in May 2015 as the company's first design hire. My first project was spearheading a complete redesign of the app from it's basic MVP form into something that could accommodate product growth over the coming years.\n\nIn the time since, my responsibilities have expanded to include ownership of manual QA of features and bugs from the local environment through to full release. Additionally, in December 2015, I took on the role of providing live customer support through Intercom, eventually serving over 2,000 customer support requests.\n\nProducts and initiatives launched include: iPhone & iPad app, a PDF export wizard, design system, accessibility focus, email templates, illustrations, a teleprompter, and many more small knick knacks and features."
+      },
+      {
+        "type": "h2",
+        "text": "Streamlining Shoflo in 2019"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d645ae473b4f9d34bad8852_cs-shoflo-newdash-001.png",
+        "alt": "The new Shoflo design for 2019"
+      },
+      {
+        "type": "p",
+        "text": "In 2019, we established a goal of redesigning Shoflo. By this point, we had been running on roughly the same UI for over three years and had learned a great deal about how our increasingly varied user base was using the app. As our user base grew and we expanded industries, we steadily realized some inherent challenges with our information hierarchy and overall navigation.\n\nThusly, the project that would come to be known as \"Prometheus\" was born. The goal was to make Shoflo faster and easier to use."
+      },
+      {
+        "type": "h3",
+        "text": "Addressing legacy navigation issues"
+      },
+      {
+        "type": "video",
+        "src": "https://dl.dropboxusercontent.com/s/obcj49y8ygxcsyo/oldNavigationToElementSet_comp.mp4",
+        "poster": ""
+      },
+      {
+        "type": "video",
+        "src": "https://dl.dropboxusercontent.com/s/lstmdd9384ug2kf/newNavigationToElementSet_comp.mp4",
+        "poster": ""
+      },
+      {
+        "type": "p",
+        "text": "A challenge our users had with our legacy system was the number of clicks it took to get to where they wanted to go. For example, on first load, it took four clicks to get in to one our core products--Global Elements. Global Elements was buried in a subnav tab on their team dashboard behind an option in the side nav.\nTo fix this, we removed the side nav altogether, and defaulted users who were Team Admins to land on the team dashboard when the app loaded. This elevated the visibility of Global Elements to our users as a product, and made it only two clicks to get to instead of four."
+      },
+      {
+        "type": "h3",
+        "text": "Pioneering prototyping"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6ef25a59e5516bc9fdd1d6_cs-shoflo-newdash-prototype.png",
+        "alt": "Shoflo 2019 redesign prototype nodes"
+      },
+      {
+        "type": "p",
+        "text": "While prototyping wasn't anything new to Shoflo (we had been prototyping previous projects for quite a while), with the new design we wanted to be able to present in-depth prototypes during user testing sessions. Figma's powerful prototyping features, combined with components, made prototyping out the full flow easy and seamless. We presented this prototype during user testing sessions and the detail helped to uncover some incorrect early assumptions."
+      },
+      {
+        "type": "video",
+        "src": "https://dl.dropboxusercontent.com/s/zokhgfrozentkuy/cs-shoflo-prometheusPrototype.mp4",
+        "poster": ""
+      },
+      {
+        "type": "h3",
+        "text": "Finally, an illustration"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6ef56500df07805b44b9fd_cs-shoflo-prometheus.jpg",
+        "alt": "Promotional illustration for Promothesus"
+      },
+      {
+        "type": "p",
+        "text": "Every big project at Shoflo gets a codename from a mythological creature or person. We dubbed this one \"Prometheus\", after the Greek god who gave fire to humanity. This was an illustration that we had printed on posters to hang in the office and use in promotional material."
+      },
+      {
+        "type": "h3",
+        "text": "Early concepts"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0bae2fd62f336a20e19f_cs-shoflo-wireframe-001.png",
+        "alt": "An early concept for the Shoflo redesign"
+      },
+      {
+        "type": "h4",
+        "text": "The \"widgets\" approach"
+      },
+      {
+        "type": "p",
+        "text": "We explored the concept of adding a type of widget system, which could display info such as local event weather, activity, food booking, travel info, and more. While this idea was exciting and received positive feedback internally, in user testing sessions, feedback was lukewarm as our customers spent most of their time in the cue sheet."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0d6859e551a167fe47fe_cs-shoflo-wireframe-002.png",
+        "alt": "An early concept for the Shoflo redesign"
+      },
+      {
+        "type": "h4",
+        "text": "Pros and cons"
+      },
+      {
+        "type": "p",
+        "text": "Pros"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0edaee72d92f20a7d49c_pro.svg",
+        "alt": "Pro checkbox"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0edaee72d92f20a7d49c_pro.svg",
+        "alt": "Pro checkbox"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0edaee72d92f20a7d49c_pro.svg",
+        "alt": "Pro checkbox"
+      },
+      {
+        "type": "p",
+        "text": "Cons"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0f344c483e7c72c91970_con.svg",
+        "alt": "Con circle times"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0f344c483e7c72c91970_con.svg",
+        "alt": "Con circle times"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0f344c483e7c72c91970_con.svg",
+        "alt": "Con circle times"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0f344c483e7c72c91970_con.svg",
+        "alt": "Con circle times"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0f344c483e7c72c91970_con.svg",
+        "alt": "Con circle times"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6f0f344c483e7c72c91970_con.svg",
+        "alt": "Con circle times"
+      },
+      {
+        "type": "h2",
+        "text": "Going mobile"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d7068ccc8ca5da7154100fc_cs-shoflo-ios-001.png",
+        "alt": "The new Shoflo iOS design for 2019"
+      },
+      {
+        "type": "p",
+        "text": "In early 2017, we began work on the first ever mobile app for Shoflo on iOS devices (a majority of our users use Shoflo on an iOS device.) Bringing Shoflo on to the palm of your hand proved a challenging task and required different thinking than on the desktop.\n\nFor one, mobile inherently has two main challenges: 1) you have limited screen real estate and 2) you can't hover to reveal extra content (and the desktop app at the time had lots of hover based interactions.) Secondly, Shoflo at its core is a horizontal, table based layout which makes displaying content in portrait mode rather tricky. Nonetheless, we launched an app after nine months of work and then again in 2019 set out to make it even better."
+      },
+      {
+        "type": "h3",
+        "text": "Fixing problems"
+      },
+      {
+        "type": "video",
+        "src": "https://dl.dropboxusercontent.com/s/5753qx3nvvvcxk8/oldIOSTracking.mov",
+        "poster": ""
+      },
+      {
+        "type": "h4",
+        "text": "The problem"
+      },
+      {
+        "type": "p",
+        "text": "After the initial launch, we spent time fixing the usual bugs and crashes. Over the next few months we listened to and gathered feedback on the app from our customers. It was too difficult to find out where the Showcaller was broadcasting."
+      },
+      {
+        "type": "p",
+        "text": "In the screen here, when a Showcaller started broadcasting, we had no affordance to indicate that. To follow along, you needed to tap the icon in the upper right, then on the Showcaller's name through an action sheet."
+      },
+      {
+        "type": "video",
+        "src": "https://dl.dropboxusercontent.com/s/7ryr7b89bo575gj/cs-shoflo-tracking-new.mp4",
+        "poster": ""
+      },
+      {
+        "type": "h4",
+        "text": "The 2019 solution"
+      },
+      {
+        "type": "p",
+        "text": "To make this crucial piece of Shoflo functionality easier to discover, we implemented a bottom \"pane\" that auto appears whenever a Showcaller starts broadcasting a row. With just one tap, a user can choose to follow that Showcaller, or the pane will auto-disappear after a short while.\n\nOnce engaged, the pane updates to display the item run time of that element, and an easy to tap \"Stop following\" button that will disengage Showcaller tracking."
+      },
+      {
+        "type": "h3",
+        "text": "Finally, an illustration"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d6ef7b800df071d0d44c652_cs-shoflo-mobile-pegasus.jpg",
+        "alt": "Promotional illustration for Pegasus"
+      },
+      {
+        "type": "h2",
+        "text": "Other projects"
+      },
+      {
+        "type": "h3",
+        "text": "PDF Export Wizard"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d757360fc69ff808cdf852e_cs-shoflo-pdfExport.png",
+        "alt": "Shoflo PDF export"
+      },
+      {
+        "type": "p",
+        "text": "A popular piece of functionality in Shoflo is the ability to export your content to a PDF file. For years, customers requested the ability to have fine-tuned control over their exports through hiding/showing columns, paper sizes, and controlling where page breaks go.\n\nAfter some iterations, we launched a new PDF export in early 2019 through a full screen, interactive modal."
+      },
+      {
+        "type": "h3",
+        "text": "Internet Explorer unsupported splash"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d7576e642881e7094f90a39_cs-shoflo-internerExplorerAlert.png",
+        "alt": "Graphic for when a user loads in Internet Explorer"
+      },
+      {
+        "type": "p",
+        "text": "Some of our core dependancies are unsupported by Internet Explorer. To combat this, we gate all Internet Explorer users at signup. This is the screen an Internet Explorer user will see with a custom illustration, explainer text, and a button to download Chrome if they don't already have it."
+      }
+    ],
     "media": {
       "images": [
         {
@@ -1849,6 +3631,68 @@
         "text": "The top of the main summary page offers a quick way for a user to know how profitable this week was.\n\nIn this example, the user worked a total of 38 hours, but \"spent\" 14 of those hours on various things, for a net positive of being up 24 hours for the week.\n\nIn the main header, we offer some supplementary financial details, showcasing info such as hours worked, time spent, total income, and dollars spent. This is intended to offer a quick glance at finances.\n\nBelow that, the main section sees transactions separated by days of the week, with each transaction showing how much time of work that transaction cost.\n\nThe settings page offers the ability to adjust hourly rate, notification settings, and more."
       }
     ],
+    "items": [
+      {
+        "type": "h1",
+        "text": "thyme"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d87c0af08e53e1109f3d99d_cs-thyme-logo.png",
+        "alt": "Logo for thyme"
+      },
+      {
+        "type": "p",
+        "text": "thyme is a spend tracking app of mine being designed and developed on the side. Rather than looking at your expenditures through the lense of dollars and cents, thyme translates your transactions in to how much work time it took to fund that purchase. If you make $20/hr and you just splurged $20 on a burrito, queso, and guac; that burrito just cost you an hour of work time. Was it worth it? Probably, because burritos are awesome."
+      },
+      {
+        "type": "h2",
+        "text": "It's about thyme"
+      },
+      {
+        "type": "p",
+        "text": "In 2019 I set out to design and build a somewhat new kind of spending tracking app. After using various apps like Clarity and Mint that pull in and aggregate spending by amount, I felt like there was a missing opportunity for an app to display spending by time instead of amount.\n\nWhen looking through my expenditures, I tend to become sort of blind to the actual amount of money I spend. $50 here, $10 there, in the end are just numbers adding up. However, if one could look at those same expenses through the lens of time, it might offer new revelations about how much things cost. If you're making $10/hr, that $50 pair of pants essentially cost you 5 hours of work, or more than half a day. If you love your job, great! Reward yourself. But if you dislike your job you might begin to question if it was really worth 5 hours of your boss asking where those reports are.\n\nThe app is currently in design + development mode, ship date to be determined."
+      },
+      {
+        "type": "h2",
+        "text": "The four main screens"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d87d1c0ad1d4b0842055956_cs-thyme-states.png",
+        "alt": "Thyme UI screenshots"
+      },
+      {
+        "type": "p",
+        "text": "After the splash screen (while the app loads), a general information screen will display to prime the user on what comes next and what the app does. Since we're using Plaid as the API to connect to banks, we didn't want to go from a splash (loading) screen right in to the Plaid gateway without any sort of primer on what was happening. The explainer screen will hopefully give users some info as to what the app does and will prime them for the gateway screen."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d87ebd58de89c7f20a2bb22_cs-thyme-finalsetup.png",
+        "alt": "Final setup screen for Thyme"
+      },
+      {
+        "type": "h4",
+        "text": "Final setup screen"
+      },
+      {
+        "type": "p",
+        "text": "To make the app work to its best, we require a few final details, centered around how the end user is paid. Getting hourly vs. salaried information including their pay rate, helps the app to determine how profitable a given week is."
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d87ecb1f0c5f33b0a926ec6_cs-thyme-mainsummary.png",
+        "alt": "Main summary page for Thyme"
+      },
+      {
+        "type": "h4",
+        "text": "Main summary page"
+      },
+      {
+        "type": "p",
+        "text": "The top of the main summary page offers a quick way for a user to know how profitable this week was.\n\nIn this example, the user worked a total of 38 hours, but \"spent\" 14 of those hours on various things, for a net positive of being up 24 hours for the week.\n\nIn the main header, we offer some supplementary financial details, showcasing info such as hours worked, time spent, total income, and dollars spent. This is intended to offer a quick glance at finances.\n\nBelow that, the main section sees transactions separated by days of the week, with each transaction showing how much time of work that transaction cost.\n\nThe settings page offers the ability to adjust hourly rate, notification settings, and more."
+      }
+    ],
     "media": {
       "images": [
         {
@@ -1914,6 +3758,64 @@
       {
         "type": "h3",
         "text": "A sample challenge page"
+      }
+    ],
+    "items": [
+      {
+        "type": "h1",
+        "text": "a11y initiative"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d878da3ad1d4b5b260219b2_a11y-initiative-logo.svg",
+        "alt": "The a11y initiative logo"
+      },
+      {
+        "type": "p",
+        "text": "The a11y initiative is a side project currently in development that aims to create a community wide, month long set of challenges to make the web more accessible. Comprising an eventual 30 daily challenges, designers and developers will learn more about how to make their websites and products accessible and inclusive to a wide range of audiences."
+      },
+      {
+        "type": "h2",
+        "text": "About accessibility"
+      },
+      {
+        "type": "p",
+        "text": "Simply put, accessibility (or, a11y for short since there's 11 letters between the \"a\" and \"y\") is the practice of designing and building products so that they can be usable by as many people as possible. Products built with accessibility in mind can be used by people of all walks of life.\n\nAccessibility became a central focus of mine in late 2018 as I identified it as being a core competency that I knew little about. I championed making accessibility a central design tenant at Shoflo and worked hard on making the product team think about accessibility throughout the entire design and development process.\n\nAfter researching and finding a plethora of great resources on accessibility, I identified the need for a niche. While there are already several existing sites that offer in-depth resources on accessibility, I wasn't able to find one that brought the community together to make the web more accessible. So I took it upon myself to create it.\n\nI am currently working on the project and expect to launch it sometime in the near future."
+      },
+      {
+        "type": "h2",
+        "text": "Homepage"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d878e7c9d77334310c57d41_cs-a11y-home.png",
+        "alt": "Homepage for the a11y initiative"
+      },
+      {
+        "type": "p",
+        "text": "From the start, a11y initiative had a goal of being simple and straightforward. The home page features big bold typography (a la San Francisco) and free illustrations from undraw, and enough information to convey the goal of the project without being too overwhelming.\n\nHere is how it is intended to work:\nEvery day a new challenge is released, each one covering a different aspect of accessibility and/or inclusivity. Each tile links to a separate page containing more in-depth information on that aspect of accessibility, along with links to additional tools and resources."
+      },
+      {
+        "type": "h3",
+        "text": "The challenges (so far)"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d878fd28de89c3f619e7dfe_cs-a11y-challenges.png",
+        "alt": "Challenges section for the a11y initiative"
+      },
+      {
+        "type": "p",
+        "text": "At the time of writing this case study, there are 23 separate challenges, with the goal to get to at least 30 to cover each day of the month. Some of the challenges are intended to be easy, such as updating line height or checking color contrast, while others are more advanced. More advanced challenges include adding ARIA elements where necessary, or addressing keyboard navigation. The latest challenge is called out in blue."
+      },
+      {
+        "type": "h3",
+        "text": "A sample challenge page"
+      },
+      {
+        "type": "image",
+        "src": "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d87907a08e53ec867f14d8e_cs-a11y-challenge.png",
+        "alt": "Sample challenge page for a11y initiative"
       }
     ],
     "media": {

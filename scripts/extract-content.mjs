@@ -59,6 +59,43 @@ const extractMedia = (html) => {
   };
 };
 
+const extractOrderedItems = (html) => {
+  const mainMatch = html.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
+  const heroMatch = html.match(/<div role="contentinfo"[\s\S]*?<\/div><\/div><\/div><\/div>/i);
+  const source = `${heroMatch?.[0] ?? ""}${mainMatch?.[0] ?? html}`;
+  const tokens = [
+    ...source.matchAll(
+      /<(h1|h2|h3|h4|h5|p|li)(?:\s[^>]*)?>([\s\S]*?)<\/\1>|<img\b[^>]*>|<video\b[\s\S]*?<\/video>/gi,
+    ),
+  ];
+
+  return tokens
+    .map((match) => {
+      const raw = match[0];
+      if (/^<img/i.test(raw)) {
+        const src = attr(raw, "src");
+        const alt = attr(raw, "alt");
+        if (!src) return null;
+        if (/ryan-carter-logo|Pause\.svg|Play-24\.svg/i.test(src)) return null;
+        return { type: "image", src, alt };
+      }
+
+      if (/^<video/i.test(raw)) {
+        const sourceMatch = raw.match(/<source\b[^>]*src="([^"]+)"/i);
+        const posterMatch = raw.match(/background-image:url\(&quot;([^&]+)&quot;\)/i);
+        const src = sourceMatch ? decode(sourceMatch[1]) : "";
+        if (!src) return null;
+        return { type: "video", src, poster: posterMatch ? decode(posterMatch[1]) : "" };
+      }
+
+      const type = match[1].toLowerCase();
+      const text = decode(match[2]);
+      if (!text || ["Home", "Résumé", "Contact"].includes(text)) return null;
+      return { type, text };
+    })
+    .filter(Boolean);
+};
+
 const pageTitle = (html, fallback) => {
   const h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
   if (h1) return decode(h1[1]);
@@ -73,6 +110,7 @@ for (const page of pages) {
     slug: page,
     title: pageTitle(html, page),
     blocks: extractBlocks(html),
+    items: extractOrderedItems(html),
     media: extractMedia(html),
   };
 }

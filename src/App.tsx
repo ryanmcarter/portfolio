@@ -2,10 +2,10 @@ import { ArrowLeft, ArrowUpRight, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
+import { ArticleItems } from "@/components/ArticleItems";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { Reveal } from "@/components/Motion";
 import { SiteHeader } from "@/components/SiteHeader";
-import { TextBlocks } from "@/components/TextBlocks";
 import {
   asset,
   caseStudies,
@@ -13,15 +13,12 @@ import {
   experience,
   getCaseStudy,
   homePage,
-  mediaForPage,
+  itemsForPage,
   profileImage,
   resumeUrl,
 } from "@/data/portfolio";
 
 function HomePage() {
-  const featured = caseStudies.slice(0, 2);
-  const remaining = caseStudies.slice(2);
-
   return (
     <>
       <SiteHeader active="home" />
@@ -64,28 +61,12 @@ function HomePage() {
 
         <section className="mx-auto max-w-[1440px] border-t border-line px-4 py-12 sm:px-8">
           <Reveal>
-            <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
-              {featured.map((study) => (
-                <CaseStudyCard featured key={study.slug} {...study} />
+            <div className="grid gap-x-20 gap-y-12 lg:grid-cols-2">
+              {caseStudies.map((study) => (
+                <CaseStudyCard key={study.slug} {...study} />
               ))}
             </div>
           </Reveal>
-        </section>
-
-        <section className="mx-auto grid max-w-[1440px] gap-8 px-4 py-16 sm:px-8 lg:grid-cols-[360px_1fr]">
-          <Reveal>
-            <div className="sticky top-32">
-              <p className="font-mono text-sm uppercase leading-4 text-accent">Selected work</p>
-              <h2 className="mt-4 text-3xl font-medium leading-10 text-ink">Case studies from systems to products.</h2>
-            </div>
-          </Reveal>
-          <div className="grid gap-8">
-            {remaining.map((study, index) => (
-              <Reveal delay={index * 0.04} key={study.slug}>
-                <CaseStudyCard {...study} />
-              </Reveal>
-            ))}
-          </div>
         </section>
 
         <section className="bg-ink py-20 text-white">
@@ -121,8 +102,9 @@ function CaseStudyPage({ slug }: { slug: string }) {
 
   if (!study) return <NotFound />;
 
-  const media = mediaForPage(study.page);
-  const contentBlocks = study.page.blocks.filter((block, index) => !(index === 0 && block.type === "h1"));
+  const orderedItems = itemsForPage(study.page);
+  const clientLogo = orderedItems.find((item) => item.type === "image" && /logo/i.test(item.alt));
+  const contentItems = orderedItems.filter((item) => item.type !== "h1" && item !== clientLogo);
 
   return (
     <>
@@ -142,6 +124,9 @@ function CaseStudyPage({ slug }: { slug: string }) {
                 </a>
               </Button>
               <p className="font-mono text-sm uppercase leading-4 text-accent">{study.client}</p>
+              {clientLogo?.type === "image" && (
+                <img alt={clientLogo.alt} className="mt-6 max-h-12 w-auto object-contain" src={clientLogo.src} />
+              )}
               <h1 className="mt-4 max-w-4xl text-5xl font-medium leading-[1.08] text-ink sm:text-7xl">{study.title}</h1>
               <p className="mt-6 max-w-3xl text-xl leading-9 text-muted">{study.summary}</p>
             </motion.div>
@@ -168,46 +153,13 @@ function CaseStudyPage({ slug }: { slug: string }) {
             </motion.aside>
           </section>
 
-          <Reveal>
-            <img
-              alt=""
-              className="max-h-[720px] w-full rounded-[24px] border border-soft bg-soft object-cover"
-              src={study.image}
-            />
-          </Reveal>
-
-          <section className="grid gap-12 py-16 lg:grid-cols-[320px_minmax(0,760px)]">
+          <section className="grid gap-12 py-16 lg:grid-cols-[320px_minmax(0,900px)]">
             <Reveal>
               <p className="font-mono text-sm uppercase leading-4 text-accent">Case study</p>
             </Reveal>
             <Reveal delay={0.05}>
-              <TextBlocks blocks={contentBlocks} />
+              <ArticleItems items={contentItems} />
             </Reveal>
-          </section>
-
-          <section className="border-t border-line pt-12">
-            <Reveal>
-              <div className="mb-8 flex items-end justify-between gap-4">
-                <div>
-                  <p className="font-mono text-sm uppercase leading-4 text-accent">Media</p>
-                  <h2 className="mt-3 text-3xl font-medium leading-10 text-ink">Scraped project assets</h2>
-                </div>
-              </div>
-            </Reveal>
-            <div className="media-grid grid gap-6">
-              {media.images.map((image, index) => (
-                <Reveal delay={(index % 6) * 0.03} key={`${image.src}-${index}`}>
-                  <figure className="overflow-hidden rounded-2xl border border-line bg-soft">
-                    <img alt={image.alt || ""} className="h-full min-h-[220px] w-full object-cover" loading="lazy" src={image.src} />
-                  </figure>
-                </Reveal>
-              ))}
-              {media.videos.map((video) => (
-                <Reveal key={video}>
-                  <video className="rounded-2xl border border-line bg-soft" controls muted playsInline preload="metadata" src={video} />
-                </Reveal>
-              ))}
-            </div>
           </section>
         </article>
       </main>

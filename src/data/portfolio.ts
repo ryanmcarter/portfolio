@@ -6,10 +6,16 @@ export type TextBlock = {
   text: string;
 };
 
+export type ContentItem =
+  | TextBlock
+  | { type: "image"; src: string; alt: string }
+  | { type: "video"; src: string; poster?: string };
+
 type ScrapedPage = {
   slug: string;
   title: string;
   blocks: TextBlock[];
+  items?: ContentItem[];
   media: {
     images: { src: string; alt: string }[];
     videos: string[];
@@ -119,4 +125,12 @@ export function mediaForPage(page: ScrapedPage) {
     .filter((image) => !image.src.includes("ryan-carter-logo"));
   const videos = page.media.videos.map((video) => asset(video));
   return { images, videos };
+}
+
+export function itemsForPage(page: ScrapedPage) {
+  return (page.items ?? page.blocks).map((item) => {
+    if (item.type === "image") return { ...item, src: asset(item.src) };
+    if (item.type === "video") return { ...item, src: asset(item.src), poster: item.poster ? asset(item.poster) : undefined };
+    return item;
+  });
 }
