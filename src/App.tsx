@@ -6,6 +6,7 @@ import { ArticleItems } from "@/components/ArticleItems";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { Reveal } from "@/components/Motion";
 import { SiteHeader } from "@/components/SiteHeader";
+import SplitText from "@/components/SplitText";
 import {
   asset,
   aboutText,
@@ -31,9 +32,20 @@ function HomePage() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-[640px]"
           >
-            <h1 className="text-4xl font-medium leading-[1.18] text-ink sm:text-5xl sm:leading-[64px]">
-              I'm Ryan, a designer with 12+ YOE in Product Design & Design Systems.
-            </h1>
+            <SplitText
+              tag="h1"
+              text="I'm Ryan, a designer with 12+ YOE in Product Design & Design Systems."
+              className="text-4xl font-medium leading-[1.18] text-ink sm:text-5xl sm:leading-[64px]"
+              delay={12}
+              duration={0.65}
+              ease="power3.out"
+              splitType="words, chars"
+              from={{ opacity: 0, y: 36 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="0px"
+              textAlign="left"
+            />
             <p className="mt-6 text-xl leading-9 text-muted sm:text-2xl sm:leading-10">
               More recently, I've learned Claude Code & Codex to prototype & implement my designs.
             </p>
