@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowLeft, ArrowUpRight, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -21,9 +22,18 @@ import {
 } from "@/data/portfolio";
 
 function HomePage() {
+  const [introComplete, setIntroComplete] = useState(false);
+
   return (
     <>
-      <SiteHeader active="home" />
+      <motion.div
+        initial={false}
+        animate={introComplete ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        style={{ pointerEvents: introComplete ? "auto" : "none" }}
+      >
+        <SiteHeader active="home" />
+      </motion.div>
       <main>
         <section className="mx-auto grid max-w-[1440px] gap-16 px-4 pb-12 pt-20 sm:px-8 sm:pt-32 lg:grid-cols-2 lg:gap-24">
           <motion.div
@@ -45,66 +55,80 @@ function HomePage() {
               threshold={0.1}
               rootMargin="0px"
               textAlign="left"
+              onLetterAnimationComplete={() => setIntroComplete(true)}
             />
-            <p className="mt-6 text-xl leading-9 text-muted sm:text-2xl sm:leading-10">
-              More recently, I've learned Claude Code & Codex to prototype & implement my designs.
-            </p>
+            {introComplete && (
+              <motion.p
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-6 text-xl leading-9 text-muted sm:text-2xl sm:leading-10"
+              >
+                More recently, I've learned Claude Code & Codex to prototype & implement my designs.
+              </motion.p>
+            )}
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
-            className="self-center"
-          >
-            <div className="grid gap-0">
-              {experience.map(([dates, company, role]) => (
-                <div
-                  className="grid grid-cols-[120px_1fr] gap-4 border-b border-line py-4 text-sm leading-4 sm:grid-cols-[150px_1fr_190px]"
-                  key={company}
-                >
-                  <span className="font-mono text-muted">{dates}</span>
-                  <span className="font-medium text-ink">{company}</span>
-                  <span className="col-span-2 font-mono text-muted sm:col-span-1 sm:text-right">{role}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </section>
-
-        <section className="mx-auto max-w-[1440px] border-t border-line px-4 py-12 sm:px-8">
-          <Reveal>
-            <div className="grid gap-x-20 gap-y-12 lg:grid-cols-2">
-              {caseStudies.map((study) => (
-                <CaseStudyCard key={study.slug} {...study} />
-              ))}
-            </div>
-          </Reveal>
-        </section>
-
-        <section className="bg-ink py-20 text-white">
-          <div className="mx-auto grid max-w-[1440px] gap-12 px-4 sm:px-8 lg:grid-cols-[1fr_480px]">
-            <Reveal>
-              <div>
-                <p className="font-mono text-sm uppercase leading-4 text-rose-300">About</p>
-                <div className="mt-6 max-w-3xl space-y-5 text-lg leading-8 text-neutral-300">
-                  {aboutText
-                    .split("\n\n")
-                    .filter(Boolean)
-                    .map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                </div>
+          {introComplete && (
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
+              className="self-center"
+            >
+              <div className="grid gap-0">
+                {experience.map(([dates, company, role]) => (
+                  <div
+                    className="grid grid-cols-[120px_1fr] gap-4 border-b border-line py-4 text-sm leading-4 sm:grid-cols-[150px_1fr_190px]"
+                    key={company}
+                  >
+                    <span className="font-mono text-muted">{dates}</span>
+                    <span className="font-medium text-ink">{company}</span>
+                    <span className="col-span-2 font-mono text-muted sm:col-span-1 sm:text-right">{role}</span>
+                  </div>
+                ))}
               </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <img
-                alt="Ryan Carter"
-                className="aspect-[4/5] w-full rounded-3xl object-cover"
-                loading="lazy"
-                src={profileImage}
-              />
-            </Reveal>
-          </div>
+            </motion.div>
+          )}
         </section>
+
+        {introComplete && (
+          <>
+            <section className="mx-auto max-w-[1440px] border-t border-line px-4 py-12 sm:px-8">
+              <Reveal>
+                <div className="grid gap-x-20 gap-y-12 lg:grid-cols-2">
+                  {caseStudies.map((study) => (
+                    <CaseStudyCard key={study.slug} {...study} />
+                  ))}
+                </div>
+              </Reveal>
+            </section>
+
+            <section className="bg-ink py-20 text-white">
+              <div className="mx-auto grid max-w-[1440px] gap-12 px-4 sm:px-8 lg:grid-cols-[1fr_480px]">
+                <Reveal>
+                  <div>
+                    <p className="font-mono text-sm uppercase leading-4 text-rose-300">About</p>
+                    <div className="mt-6 max-w-3xl space-y-5 text-lg leading-8 text-neutral-300">
+                      {aboutText
+                        .split("\n\n")
+                        .filter(Boolean)
+                        .map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                    </div>
+                  </div>
+                </Reveal>
+                <Reveal delay={0.1}>
+                  <img
+                    alt="Ryan Carter"
+                    className="aspect-[4/5] w-full rounded-3xl object-cover"
+                    loading="lazy"
+                    src={profileImage}
+                  />
+                </Reveal>
+              </div>
+            </section>
+          </>
+        )}
       </main>
     </>
   );
