@@ -30,9 +30,12 @@ export function SiteHeader({ active = "home" }: SiteHeaderProps) {
             </a>
           </div>
           <Button asChild variant="accent">
-            <a href="/contact">
+            <a className="group" href="/contact">
               Get in touch
-              <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
+              <ArrowUpRight
+                aria-hidden="true"
+                className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
             </a>
           </Button>
         </div>

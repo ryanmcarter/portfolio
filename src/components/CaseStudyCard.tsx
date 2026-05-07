@@ -64,7 +64,10 @@ export function CaseStudyCard({ title, client, href, image }: CaseStudyCardProps
         <Button asChild className="shrink-0" size="sm" variant="outline">
           <a href={href}>
             <span className="hidden sm:inline">Read case study</span>
-            <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight
+              aria-hidden="true"
+              className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
           </a>
         </Button>
       </div>

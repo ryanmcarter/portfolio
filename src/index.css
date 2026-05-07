@@ -34,11 +34,9 @@ a {
 }
 
 a svg {
-  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-a:hover svg {
-  transform: translate(1px, -1px);
+  transition-property: transform, translate;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 img,

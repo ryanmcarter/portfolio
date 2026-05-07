@@ -189,21 +189,30 @@ function ContactPage() {
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Button asChild size="lg" style={{ color: "#ffffff" }}>
-              <a href="mailto:hello@ryancarter.io">
-                <Mail aria-hidden="true" className="h-4 w-4" />
+              <a className="group" href="mailto:hello@ryancarter.io">
+                <Mail
+                  aria-hidden="true"
+                  className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+                />
                 Send me an email
               </a>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href="https://www.linkedin.com/in/ryan-carter-b8902144/?skipRedirect=true" rel="noreferrer" target="_blank">
+              <a className="group" href="https://www.linkedin.com/in/ryan-carter-b8902144/?skipRedirect=true" rel="noreferrer" target="_blank">
                 LinkedIn
-                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                <ArrowUpRight
+                  aria-hidden="true"
+                  className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </a>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href={resumeUrl} rel="noreferrer" target="_blank">
+              <a className="group" href={resumeUrl} rel="noreferrer" target="_blank">
                 Resume
-                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                <ArrowUpRight
+                  aria-hidden="true"
+                  className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </a>
             </Button>
           </div>
