@@ -137,13 +137,13 @@ function HomePage() {
       {hoveredExperience && hoveredLogo ? (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none fixed left-0 top-0 z-50 hidden h-16 w-32 items-center justify-center rounded-lg border border-line bg-white px-4 shadow-[0_16px_48px_rgba(15,23,42,0.14)] sm:flex"
+          className="pointer-events-none fixed left-0 top-0 z-50 hidden h-12 w-26 items-center justify-center rounded-md border border-line bg-white px-3 shadow-[0_12px_36px_rgba(15,23,42,0.12)] sm:flex"
           initial={{ opacity: 0, scale: 0.92, x: hoveredExperience.x + 18, y: hoveredExperience.y + 18 }}
           animate={{ opacity: 1, scale: 1, x: hoveredExperience.x + 18, y: hoveredExperience.y + 18 }}
           exit={{ opacity: 0, scale: 0.92 }}
           transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
         >
-          <img alt={hoveredLogo.alt} className="max-h-9 max-w-24 object-contain" src={hoveredLogo.src} />
+          <img alt={hoveredLogo.alt} className="max-h-7 max-w-20 object-contain" src={hoveredLogo.src} />
         </motion.div>
       ) : null}
     </>
