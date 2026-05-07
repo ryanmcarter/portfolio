@@ -11,14 +11,12 @@
     "scrape:assets": "node scripts/download-assets.mjs"
   },
   "dependencies": {
-    "@gsap/react": "^2.1.2",
     "@radix-ui/react-slot": "latest",
     "@tailwindcss/vite": "latest",
     "@vitejs/plugin-react": "latest",
     "class-variance-authority": "latest",
     "clsx": "latest",
     "framer-motion": "latest",
-    "gsap": "^3.15.0",
     "lucide-react": "latest",
     "react": "latest",
     "react-dom": "latest",

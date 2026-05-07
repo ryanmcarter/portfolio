@@ -52,20 +52,6 @@ video {
   margin-top: 0.45rem;
 }
 
-.split-parent {
-  max-width: 100%;
-}
-
-.split-line {
-  overflow: hidden;
-}
-
-.split-word,
-.split-char {
-  display: inline-block;
-  will-change: transform, opacity;
-}
-
 .media-grid {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
 }
