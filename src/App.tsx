@@ -63,7 +63,7 @@ function HomePage() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-[640px]"
           >
-            <h1 className="text-4xl font-medium leading-[1.18] text-ink sm:text-5xl sm:leading-[64px]">
+            <h1 className="text-4xl font-semibold leading-[1.18] text-ink sm:text-5xl sm:leading-[64px]">
               I'm Ryan, a designer with 12+ YOE in Product Design & Design Systems.
             </h1>
             <p className="mt-6 text-xl leading-9 text-muted sm:text-2xl sm:leading-10">
