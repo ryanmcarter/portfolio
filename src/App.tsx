@@ -5,6 +5,7 @@ import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-moti
 import { Button } from "@/components/ui/button";
 import { ArticleItems } from "@/components/ArticleItems";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
+import { MarkdownArticle } from "@/components/MarkdownArticle";
 import { Reveal } from "@/components/Motion";
 import { SiteHeader } from "@/components/SiteHeader";
 import {
@@ -161,7 +162,7 @@ function CaseStudyPage({ slug }: { slug: string }) {
 
   if (!study) return <NotFound />;
 
-  const orderedItems = itemsForPage(study.page);
+  const orderedItems = study.page ? itemsForPage(study.page) : [];
   const clientLogo = orderedItems.find((item) => item.type === "image" && /logo/i.test(item.alt));
   const contentItems = orderedItems.filter((item) => item.type !== "h1" && item !== clientLogo);
 
@@ -217,7 +218,7 @@ function CaseStudyPage({ slug }: { slug: string }) {
               <p className="font-mono text-sm uppercase leading-4 text-accent">Case study</p>
             </Reveal>
             <Reveal delay={0.05}>
-              <ArticleItems items={contentItems} />
+              {study.markdown ? <MarkdownArticle markdown={study.markdown} /> : <ArticleItems items={contentItems} />}
             </Reveal>
           </section>
         </article>

@@ -1,4 +1,5 @@
 import assetManifest from "./asset-manifest.json";
+import kraidleCaseStudyMarkdown from "./kraidle-case-study.md?raw";
 import scraped from "./scraped-content.json";
 
 export type TextBlock = {
@@ -54,6 +55,7 @@ export const experience = [
 ] as const;
 
 const heroImages: Record<string, string> = {
+  kraidle: "/assets/kraidle-design-system-hero.svg",
   keel: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b592100d279c993550157c_ryancarter-keel-heroImage-thumb.png",
   quilt: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6377013615fcfec66303e1f1_ryancarter-quilt-heroImage-thumb.png",
   studio: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/63896c5c7d2c2b34b0e43421_ryancarter-studio-heroImage-thumb.png",
@@ -64,7 +66,18 @@ const heroImages: Record<string, string> = {
     "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d879df208e53e521cf1d965_cs-a11y-hero.png",
 };
 
+const markdownPages: Record<string, string> = {
+  kraidle: kraidleCaseStudyMarkdown,
+};
+
 const metadata: Record<string, { client: string; title: string; summary: string; toolset?: string }> = {
+  kraidle: {
+    client: "Gradle Technologies",
+    title: "Kraidle Design System",
+    summary:
+      "A connected, AI-augmented design system that treats Figma, code, and AI-assisted workflows as coordinated views of one source of truth.",
+    toolset: "Figma, design tokens, React, Storybook, ESLint, GitHub Actions, Claude Code",
+  },
   keel: {
     client: "NYSHEX",
     title: "Keel Design System",
@@ -121,6 +134,7 @@ export const caseStudies = Object.keys(metadata).map((slug) => ({
   ...metadata[slug],
   href: `/case-studies/${slug}`,
   image: asset(heroImages[slug]),
+  markdown: markdownPages[slug],
   page: pages[slug],
 }));
 

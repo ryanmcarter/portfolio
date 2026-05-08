@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Kraidle Design System</title>
+  <desc id="desc">Abstract interface showing connected design tokens, Figma canvas, code, and automation workflows.</desc>
+  <rect width="1280" height="720" fill="#101114"/>
+  <path d="M0 96h1280" stroke="#2f3137" stroke-width="1"/>
+  <path d="M0 624h1280" stroke="#2f3137" stroke-width="1"/>
+  <path d="M144 0v720M1136 0v720" stroke="#2f3137" stroke-width="1"/>
+  <circle cx="1034" cy="146" r="220" fill="#4dc9c0" opacity=".12"/>
+  <circle cx="246" cy="580" r="180" fill="#f43f5e" opacity=".09"/>
+
+  <g transform="translate(144 118)">
+    <rect width="420" height="484" rx="28" fill="#f8fafc"/>
+    <rect x="28" y="30" width="116" height="14" rx="7" fill="#101114"/>
+    <rect x="28" y="62" width="216" height="10" rx="5" fill="#a1a1aa"/>
+    <rect x="28" y="112" width="364" height="124" rx="18" fill="#e4e4e7"/>
+    <rect x="52" y="140" width="126" height="14" rx="7" fill="#101114"/>
+    <rect x="52" y="170" width="296" height="10" rx="5" fill="#71717a"/>
+    <rect x="52" y="194" width="220" height="10" rx="5" fill="#71717a"/>
+    <g transform="translate(28 272)">
+      <rect width="104" height="80" rx="16" fill="#101114"/>
+      <rect x="130" width="104" height="80" rx="16" fill="#4dc9c0"/>
+      <rect x="260" width="104" height="80" rx="16" fill="#f43f5e"/>
+      <rect x="24" y="26" width="56" height="10" rx="5" fill="#fafafa"/>
+      <rect x="154" y="26" width="56" height="10" rx="5" fill="#101114"/>
+      <rect x="284" y="26" width="56" height="10" rx="5" fill="#fafafa"/>
+    </g>
+    <rect x="28" y="396" width="180" height="18" rx="9" fill="#101114"/>
+    <rect x="28" y="430" width="328" height="10" rx="5" fill="#a1a1aa"/>
+  </g>
+
+  <g transform="translate(622 118)">
+    <rect width="514" height="484" rx="28" fill="#181a20" stroke="#2f3137"/>
+    <rect x="30" y="28" width="120" height="16" rx="8" fill="#4dc9c0"/>
+    <rect x="30" y="76" width="454" height="1" fill="#2f3137"/>
+    <text x="30" y="128" fill="#fafafa" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="22" font-weight="600">component-inventory.json</text>
+    <g fill="none" stroke-width="2">
+      <path d="M58 196h148v-42h122" stroke="#4dc9c0"/>
+      <path d="M58 260h148v42h122" stroke="#f43f5e"/>
+      <path d="M328 154h100v148H328" stroke="#71717a"/>
+    </g>
+    <g>
+      <rect x="30" y="174" width="128" height="44" rx="12" fill="#252832"/>
+      <rect x="30" y="238" width="128" height="44" rx="12" fill="#252832"/>
+      <rect x="328" y="132" width="128" height="44" rx="12" fill="#252832"/>
+      <rect x="328" y="280" width="128" height="44" rx="12" fill="#252832"/>
+      <text x="56" y="202" fill="#fafafa" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">tokens</text>
+      <text x="53" y="266" fill="#fafafa" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">Figma</text>
+      <text x="354" y="160" fill="#fafafa" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">React</text>
+      <text x="354" y="308" fill="#fafafa" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">Claude</text>
+    </g>
+    <rect x="30" y="382" width="454" height="58" rx="14" fill="#101114"/>
+    <circle cx="62" cy="411" r="8" fill="#4dc9c0"/>
+    <rect x="84" y="400" width="164" height="10" rx="5" fill="#fafafa"/>
+    <rect x="84" y="420" width="286" height="8" rx="4" fill="#71717a"/>
+  </g>
+</svg>
