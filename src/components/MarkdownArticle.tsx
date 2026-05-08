@@ -29,6 +29,16 @@ function isTableDivider(line: string) {
   return /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line);
 }
 
+function slugifyHeading(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/&/g, "")
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s/g, "-");
+}
+
 function parseMarkdown(markdown: string): MarkdownBlock[] {
   const lines = markdown.replace(/\r\n/g, "\n").split("\n");
   const blocks: MarkdownBlock[] = [];
@@ -214,14 +224,18 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
           if (block.depth === 1) return null;
           if (block.depth === 2) {
             return (
-              <h2 className="mt-14 font-mono text-sm font-semibold uppercase leading-4 text-accent first:mt-0" key={index}>
+              <h2
+                className="mt-14 scroll-mt-28 font-mono text-sm font-semibold uppercase leading-4 text-accent first:mt-0"
+                id={slugifyHeading(block.text)}
+                key={index}
+              >
                 {block.text.replace(/^\d+\.\s*/, "")}
               </h2>
             );
           }
 
           return (
-            <h3 className="mt-8 text-2xl font-medium leading-8 text-ink" key={index}>
+            <h3 className="mt-8 scroll-mt-28 text-2xl font-medium leading-8 text-ink" id={slugifyHeading(block.text)} key={index}>
               {block.text}
             </h3>
           );
