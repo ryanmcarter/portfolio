@@ -160,7 +160,7 @@ function renderInline(text: string): ReactNode[] {
       );
     } else if (match[4]) {
       nodes.push(
-        <code className="rounded-[4px] bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.92em] text-ink" key={`${match.index}-code`}>
+        <code className="break-words rounded-[4px] bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.92em] text-ink" key={`${match.index}-code`}>
           {match[4]}
         </code>,
       );
@@ -187,7 +187,7 @@ function renderInline(text: string): ReactNode[] {
 
 function MarkdownTable({ block }: { block: Extract<MarkdownBlock, { type: "table" }> }) {
   return (
-    <div className="my-8 overflow-x-auto rounded-[8px] border border-line">
+    <div className="my-8 max-w-full overflow-x-auto rounded-[8px] border border-line">
       <table className="w-full min-w-[620px] border-collapse bg-white text-left text-sm leading-6">
         <thead className="bg-soft font-mono text-xs uppercase tracking-normal text-muted">
           <tr>
@@ -218,7 +218,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
   const blocks = parseMarkdown(markdown);
 
   return (
-    <div className="content-text">
+    <div className="content-text min-w-0">
       {blocks.map((block, index) => {
         if (block.type === "heading") {
           if (block.depth === 1) return null;
@@ -276,7 +276,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
 
         if (block.type === "code") {
           return (
-            <figure className="my-8 overflow-hidden rounded-[8px] border border-line bg-[#101114]" key={index}>
+            <figure className="my-8 max-w-full overflow-hidden rounded-[8px] border border-line bg-[#101114]" key={index}>
               {block.language && (
                 <figcaption className="border-b border-white/10 px-4 py-2 font-mono text-xs uppercase text-neutral-400">
                   {block.language}

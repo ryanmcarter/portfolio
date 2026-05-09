@@ -213,7 +213,7 @@ function CaseStudyPage({ slug }: { slug: string }) {
             </motion.aside>
           </section>
 
-          <section className="grid gap-12 py-16 lg:grid-cols-[320px_minmax(0,900px)]">
+          <section className="grid min-w-0 gap-12 py-16 lg:grid-cols-[320px_minmax(0,900px)]">
             <Reveal>
               <p className="font-mono text-sm uppercase leading-4 text-accent">Case study</p>
             </Reveal>

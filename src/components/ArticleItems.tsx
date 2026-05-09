@@ -112,7 +112,7 @@ function ProConItem({ children, tone }: { children: string; tone: "pro" | "con" 
 function ShofloProsConsPanel({ image }: { image: Extract<ContentItem, { type: "image" }> }) {
   return (
     <section
-      className="my-12 grid gap-10 lg:w-[min(1120px,calc(100vw-420px))] lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.9fr)] lg:items-start"
+      className="my-12 grid max-w-full gap-10 lg:w-[min(1120px,calc(100vw-420px))] lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.9fr)] lg:items-start"
       data-testid="shoflo-pros-cons"
     >
       <figure className="overflow-hidden bg-white shadow-[0_24px_56px_rgba(15,23,42,0.16)]">
@@ -300,5 +300,5 @@ export function ArticleItems({ items }: { items: ContentItem[] }) {
 
   flushList(listItems, "list-end", output);
 
-  return <div className="content-text">{output}</div>;
+  return <div className="content-text min-w-0">{output}</div>;
 }
