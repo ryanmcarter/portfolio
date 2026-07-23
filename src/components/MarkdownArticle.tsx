@@ -5,6 +5,7 @@ type MarkdownBlock =
   | { type: "code"; code: string; language?: string }
   | { type: "heading"; depth: number; text: string }
   | { type: "hr" }
+  | { type: "image"; alt: string; src: string }
   | { type: "list"; ordered: boolean; items: string[] }
   | { type: "paragraph"; text: string }
   | { type: "table"; headers: string[]; rows: string[][] };
@@ -81,6 +82,13 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
       continue;
     }
 
+    const image = line.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+    if (image) {
+      blocks.push({ type: "image", alt: cleanInline(image[1]), src: image[2].trim() });
+      index += 1;
+      continue;
+    }
+
     if (line.trim().startsWith(">")) {
       const quote: string[] = [];
       while (index < lines.length && lines[index].trim().startsWith(">")) {
@@ -128,6 +136,7 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
       lines[index].trim() &&
       !lines[index].match(/^```/) &&
       !lines[index].match(/^(#{1,6})\s+/) &&
+      !lines[index].match(/^!\[[^\]]*\]\([^)]+\)\s*$/) &&
       !lines[index].trim().startsWith(">") &&
       !/^---+\s*$/.test(lines[index]) &&
       !(lines[index].includes("|") && lines[index + 1] && isTableDivider(lines[index + 1])) &&
@@ -255,6 +264,14 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
             <blockquote className="my-8 rounded-[8px] border border-line bg-soft p-5 text-base leading-8 text-ink" key={index}>
               {renderInline(block.text)}
             </blockquote>
+          );
+        }
+
+        if (block.type === "image") {
+          return (
+            <figure className="my-8 max-w-full overflow-hidden rounded-[16px] border border-line bg-soft" key={index}>
+              <img alt={block.alt} className="h-auto w-full" decoding="async" loading="lazy" src={block.src} />
+            </figure>
           );
         }
 

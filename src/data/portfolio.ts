@@ -1,4 +1,5 @@
 import assetManifest from "./asset-manifest.json";
+import dynamicPlanCaseStudyMarkdown from "./dynamic-plan-case-study.md?raw";
 import kraidleCaseStudyMarkdown from "./kraidle-case-study.md?raw";
 import scraped from "./scraped-content.json";
 
@@ -55,6 +56,7 @@ export const experience = [
 ] as const;
 
 const heroImages: Record<string, string> = {
+  "dynamic-plan": "/assets/dynamic-plan-v3-overview.png",
   kraidle: "/assets/kraidle-design-system-hero.svg",
   keel: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b592100d279c993550157c_ryancarter-keel-heroImage-thumb.png",
   quilt: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6377013615fcfec66303e1f1_ryancarter-quilt-heroImage-thumb.png",
@@ -67,10 +69,18 @@ const heroImages: Record<string, string> = {
 };
 
 const markdownPages: Record<string, string> = {
+  "dynamic-plan": dynamicPlanCaseStudyMarkdown,
   kraidle: kraidleCaseStudyMarkdown,
 };
 
 const metadata: Record<string, { client: string; title: string; summary: string; toolset?: string }> = {
+  "dynamic-plan": {
+    client: "NYSHEX",
+    title: "NYSHEX Dynamic Plan data management platform",
+    summary:
+      "A data management and analytics platform that helped ocean carriers and shippers filter, understand, and directly edit complex plan data.",
+    toolset: "Figma, Miro",
+  },
   kraidle: {
     client: "Gradle Technologies",
     title: "Kraidle Design System",
