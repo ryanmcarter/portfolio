@@ -163,19 +163,26 @@ function renderInline(text: string): ReactNode[] {
 
     if (match[2] && match[3]) {
       nodes.push(
-        <a className="font-medium text-ink underline underline-offset-4" href={match[3]} key={`${match.index}-link`}>
+        <a
+          className="font-medium text-stone-900 underline decoration-neutral-400 underline-offset-4 hover:decoration-stone-900"
+          href={match[3]}
+          key={`${match.index}-link`}
+        >
           {match[2]}
         </a>,
       );
     } else if (match[4]) {
       nodes.push(
-        <code className="break-words rounded-[4px] bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.92em] text-ink" key={`${match.index}-code`}>
+        <code
+          className="break-words rounded-sm bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.92em] text-stone-900"
+          key={`${match.index}-code`}
+        >
           {match[4]}
         </code>,
       );
     } else if (match[5]) {
       nodes.push(
-        <strong className="font-semibold text-ink" key={`${match.index}-strong`}>
+        <strong className="font-semibold text-stone-900" key={`${match.index}-strong`}>
           {match[5]}
         </strong>,
       );
@@ -196,22 +203,22 @@ function renderInline(text: string): ReactNode[] {
 
 function MarkdownTable({ block }: { block: Extract<MarkdownBlock, { type: "table" }> }) {
   return (
-    <div className="my-8 max-w-full overflow-x-auto rounded-[8px] border border-line">
+    <div className="my-8 max-w-full overflow-x-auto rounded-lg border border-neutral-200">
       <table className="w-full min-w-[620px] border-collapse bg-white text-left text-sm leading-6">
-        <thead className="bg-soft font-mono text-xs uppercase tracking-normal text-muted">
+        <thead className="bg-stone-50 font-mono text-xs uppercase tracking-normal text-neutral-500">
           <tr>
             {block.headers.map((header) => (
-              <th className="border-b border-line px-4 py-3 font-semibold" key={header}>
+              <th className="border-b border-neutral-200 px-4 py-3 font-semibold" key={header}>
                 {renderInline(header)}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-line">
+        <tbody className="divide-y divide-neutral-200">
           {block.rows.map((row, rowIndex) => (
             <tr key={`${row.join("-")}-${rowIndex}`}>
               {block.headers.map((header, columnIndex) => (
-                <td className="px-4 py-3 align-top text-muted" key={`${header}-${columnIndex}`}>
+                <td className="px-4 py-3 align-top text-neutral-600" key={`${header}-${columnIndex}`}>
                   {renderInline(row[columnIndex] ?? "")}
                 </td>
               ))}
@@ -223,8 +230,32 @@ function MarkdownTable({ block }: { block: Extract<MarkdownBlock, { type: "table
   );
 }
 
-export function MarkdownArticle({ markdown }: { markdown: string }) {
-  const blocks = parseMarkdown(markdown);
+export function MarkdownArticle({
+  hideLead = false,
+  markdown,
+}: {
+  hideLead?: boolean;
+  markdown: string;
+}) {
+  let blocks = parseMarkdown(markdown);
+
+  if (hideLead) {
+    const firstSectionIndex = blocks.findIndex(
+      (block) => block.type === "heading" && block.depth === 2,
+    );
+    blocks = firstSectionIndex >= 0 ? blocks.slice(firstSectionIndex) : blocks;
+
+    if (
+      blocks[0]?.type === "heading" &&
+      blocks[0].depth === 2 &&
+      /^table of contents$/i.test(blocks[0].text)
+    ) {
+      const nextSectionIndex = blocks.findIndex(
+        (block, index) => index > 0 && block.type === "heading" && block.depth === 2,
+      );
+      blocks = nextSectionIndex >= 0 ? blocks.slice(nextSectionIndex) : [];
+    }
+  }
 
   return (
     <div className="content-text min-w-0">
@@ -234,17 +265,21 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
           if (block.depth === 2) {
             return (
               <h2
-                className="mt-14 scroll-mt-28 font-mono text-sm font-semibold uppercase leading-4 text-accent first:mt-0"
+                className="mt-10 scroll-mt-24 text-xl font-semibold leading-8 text-stone-900 first:mt-0"
                 id={slugifyHeading(block.text)}
                 key={index}
               >
-                {block.text.replace(/^\d+\.\s*/, "")}
+                {block.text}
               </h2>
             );
           }
 
           return (
-            <h3 className="mt-8 scroll-mt-28 text-2xl font-medium leading-8 text-ink" id={slugifyHeading(block.text)} key={index}>
+            <h3
+              className="mt-8 scroll-mt-24 text-xl font-semibold leading-8 text-stone-900"
+              id={slugifyHeading(block.text)}
+              key={index}
+            >
               {block.text}
             </h3>
           );
@@ -253,7 +288,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
         if (block.type === "paragraph") {
           if (/^Table of contents$/i.test(block.text)) return null;
           return (
-            <p className="mt-4 text-base leading-8 text-muted" key={index}>
+            <p className="mt-3 text-lg leading-8 text-stone-900 sm:text-xl" key={index}>
               {renderInline(block.text)}
             </p>
           );
@@ -261,7 +296,10 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
 
         if (block.type === "blockquote") {
           return (
-            <blockquote className="my-8 rounded-[8px] border border-line bg-soft p-5 text-base leading-8 text-ink" key={index}>
+            <blockquote
+              className="my-8 rounded-2xl border border-neutral-200 bg-stone-50 p-5 text-lg leading-8 text-stone-900 sm:text-xl"
+              key={index}
+            >
               {renderInline(block.text)}
             </blockquote>
           );
@@ -269,7 +307,10 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
 
         if (block.type === "image") {
           return (
-            <figure className="my-8 max-w-full overflow-hidden rounded-[16px] border border-line bg-soft" key={index}>
+            <figure
+              className="my-6 max-w-full overflow-hidden rounded-2xl border border-neutral-200 bg-stone-50"
+              key={index}
+            >
               <img alt={block.alt} className="h-auto w-full" decoding="async" loading="lazy" src={block.src} />
             </figure>
           );
@@ -279,7 +320,9 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
           const ListTag = block.ordered ? "ol" : "ul";
           return (
             <ListTag
-              className={`mt-4 pl-5 text-base leading-7 text-muted ${block.ordered ? "list-decimal" : "list-disc"}`}
+              className={`mt-3 space-y-2 pl-5 text-lg leading-8 text-stone-900 sm:text-xl ${
+                block.ordered ? "list-decimal" : "list-disc"
+              }`}
               key={index}
             >
               {block.items.map((item) => (
@@ -293,7 +336,10 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
 
         if (block.type === "code") {
           return (
-            <figure className="my-8 max-w-full overflow-hidden rounded-[8px] border border-line bg-[#101114]" key={index}>
+            <figure
+              className="my-8 max-w-full overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950"
+              key={index}
+            >
               {block.language && (
                 <figcaption className="border-b border-white/10 px-4 py-2 font-mono text-xs uppercase text-neutral-400">
                   {block.language}
@@ -306,7 +352,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
           );
         }
 
-        return <hr className="my-10 border-line" key={index} />;
+        return <hr className="my-10 border-neutral-200" key={index} />;
       })}
     </div>
   );

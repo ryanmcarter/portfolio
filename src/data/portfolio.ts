@@ -48,24 +48,19 @@ Previously, I built design systems at NYSHEX and Ribbon, led design for a data a
 Design systems are my specialty, but I’m also highly hands-on across UX, UI, prototyping, accessibility, research, design QA, and AI-assisted implementation workflows.`;
 
 export const experience = [
-  ["2024-present", "Gradle Technologies", "Senior Product Designer"],
-  ["2023-2024", "New York Shipping Exchange", "Senior Product Designer"],
-  ["2022-2022", "Ribbon Homes", "Senior Systems Designer"],
-  ["2015-2022", "Shoflo (acquired)", "Founding Product Designer"],
-  ["2014-present", "Western Pixel", "Freelance Product Designer"],
+  ["2024—present", "Gradle Technologies", "Senior Product Designer"],
+  ["2023—2024", "New York Shipping Exchange", "Senior Product Designer"],
+  ["2022", "Ribbon Homes", "Senior Systems Designer"],
+  ["2015—2022", "Shoflo (acquired)", "Founding Product Designer"],
+  ["2014—present", "Western Pixel", "Freelance Product Designer"],
 ] as const;
 
 const heroImages: Record<string, string> = {
   "dynamic-plan": "/assets/dynamic-plan-v3-overview.png",
-  kraidle: "/assets/kraidle-design-system-hero.svg",
-  keel: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/65b592100d279c993550157c_ryancarter-keel-heroImage-thumb.png",
+  kraidle: "/assets/kraidle-card-art-figma.png",
+  keel: "/assets/keel-card-art.png",
   quilt: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6377013615fcfec66303e1f1_ryancarter-quilt-heroImage-thumb.png",
   studio: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/63896c5c7d2c2b34b0e43421_ryancarter-studio-heroImage-thumb.png",
-  polymer: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5feeac03148d1628f8a1f3fe_ryan-carter-polymer-promo.png",
-  shoflo: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d743c2b34bd3659eee23557_cs-shoflo-hero.png",
-  thyme: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d87b40808e53eeb22f2edd3_cs-thyme-promo.png",
-  "a11y-initiative":
-    "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/5d879df208e53e521cf1d965_cs-a11y-hero.png",
 };
 
 const markdownPages: Record<string, string> = {
@@ -73,23 +68,39 @@ const markdownPages: Record<string, string> = {
   kraidle: kraidleCaseStudyMarkdown,
 };
 
-const metadata: Record<string, { client: string; title: string; summary: string; toolset?: string }> = {
+const metadata: Record<
+  string,
+  {
+    client: string;
+    date: string;
+    role: string;
+    summary: string;
+    title: string;
+    toolset: string;
+  }
+> = {
   "dynamic-plan": {
-    client: "NYSHEX",
+    client: "New York Shipping Exchange",
+    date: "Late 2023",
+    role: "Lead Product Designer",
     title: "NYSHEX Dynamic Plan data management platform",
     summary:
-      "A data management and analytics platform that helped ocean carriers and shippers filter, understand, and directly edit complex plan data.",
-    toolset: "Figma, Miro",
+      "Dynamic Plan turned complex ocean-shipping plan data into a workspace where carriers and shippers could understand performance, narrow the data to what mattered, and make updates without leaving the product.",
+    toolset: "Figma, Miro, Tokens Studio, VSCode",
   },
   kraidle: {
     client: "Gradle Technologies",
+    date: "2025—2026",
+    role: "Product Designer & Design Engineer",
     title: "Kraidle Design System",
     summary:
       "A connected, AI-augmented design system that treats Figma, code, and AI-assisted workflows as coordinated views of one source of truth.",
     toolset: "Figma, design tokens, React, Storybook, ESLint, GitHub Actions, Claude Code",
   },
   keel: {
-    client: "NYSHEX",
+    client: "New York Shipping Exchange",
+    date: "2023—2024",
+    role: "Design Systems Lead",
     title: "Keel Design System",
     summary:
       "Keel is a bespoke design system built in Figma on top of a comprehensive atomic design token architecture for the NYSHEX product team.",
@@ -97,6 +108,8 @@ const metadata: Record<string, { client: string; title: string; summary: string;
   },
   quilt: {
     client: "Ribbon Homes",
+    date: "2022",
+    role: "Senior Systems Designer",
     title: "Quilt Design System",
     summary:
       "Quilt is a Figma-based design system for Ribbon's design and engineering team, built rapidly with documentation and accessibility.",
@@ -104,42 +117,24 @@ const metadata: Record<string, { client: string; title: string; summary: string;
   },
   studio: {
     client: "Shoflo",
+    date: "2020",
+    role: "Founding Product Designer",
     title: "Shoflo Studio",
     summary:
       "A browser-based live streaming studio designed and launched during COVID with the Shoflo team.",
     toolset: "Figma, prototyping, product design, QA",
   },
-  polymer: {
-    client: "Shoflo",
-    title: "Polymer Design System",
-    summary:
-      "Polymer is the accessible design system Ryan designed and maintained for the Shoflo product team.",
-    toolset: "Figma, accessibility, component documentation",
-  },
-  shoflo: {
-    client: "Shoflo",
-    title: "Shoflo Collected Works",
-    summary:
-      "Collected product design work for the collaborative live event production platform.",
-    toolset: "Figma, Sketch, Affinity Designer, After Effects, Photoshop, Webflow",
-  },
-  thyme: {
-    client: "Personal",
-    title: "Thyme",
-    summary:
-      "A finance side project that reframes spending through the lens of time rather than dollars.",
-    toolset: "Figma, SwiftUI",
-  },
-  "a11y-initiative": {
-    client: "Personal",
-    title: "a11y initiative",
-    summary:
-      "A community accessibility project with month-long challenges for designers and developers.",
-    toolset: "Webflow, Figma",
-  },
 };
 
-export const caseStudies = Object.keys(metadata).map((slug) => ({
+const caseStudyOrder = [
+  "dynamic-plan",
+  "kraidle",
+  "keel",
+  "quilt",
+  "studio",
+];
+
+export const caseStudies = caseStudyOrder.map((slug) => ({
   slug,
   ...metadata[slug],
   href: `/case-studies/${slug}`,

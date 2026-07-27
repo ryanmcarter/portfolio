@@ -7,7 +7,7 @@ type SiteHeaderProps = {
   active?: "home" | "resume" | "contact";
 };
 
-export function SiteHeader({ active = "home" }: SiteHeaderProps) {
+export function SiteHeader({ active }: SiteHeaderProps) {
   return (
     <header className="sticky top-0 z-40 border border-line bg-white/90 backdrop-blur-md">
       <nav className="mx-auto flex h-[88px] max-w-[1440px] items-center justify-between px-4 sm:px-8">
@@ -17,7 +17,11 @@ export function SiteHeader({ active = "home" }: SiteHeaderProps) {
         </a>
         <div className="flex items-center gap-3 sm:gap-8">
           <div className="hidden items-center gap-6 font-mono text-sm uppercase leading-4 sm:flex">
-            <a className={active === "home" ? "font-semibold text-accent" : "text-muted hover:text-ink"} href="/">
+            <a
+              aria-current={active === "home" ? "page" : undefined}
+              className={active === "home" ? "font-semibold text-accent" : "text-muted hover:text-ink"}
+              href="/"
+            >
               Home
             </a>
             <a
@@ -27,10 +31,15 @@ export function SiteHeader({ active = "home" }: SiteHeaderProps) {
               target="_blank"
             >
               Resume
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
           </div>
           <Button asChild variant="accent">
-            <a className="group" href="/contact">
+            <a
+              aria-current={active === "contact" ? "page" : undefined}
+              className="group"
+              href="/contact"
+            >
               Get in touch
               <ArrowUpRight
                 aria-hidden="true"
