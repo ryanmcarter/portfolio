@@ -1,23 +1,17 @@
-import { useState } from "react";
-import { ArrowLeft, ArrowUpRight, Mail } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 
-import { Button } from "@/components/ui/button";
-import { ArticleItems } from "@/components/ArticleItems";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
-import { MarkdownArticle } from "@/components/MarkdownArticle";
-import { Reveal } from "@/components/Motion";
+import { CaseStudyDrawer } from "@/components/CaseStudyDrawer";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Button } from "@/components/ui/button";
 import {
   asset,
-  aboutText,
   caseStudies,
   contactPage,
   experience,
   getCaseStudy,
-  homePage,
-  itemsForPage,
-  profileImage,
   resumeUrl,
 } from "@/data/portfolio";
 
@@ -44,44 +38,209 @@ const experienceLogos: Record<string, { alt: string; src: string }> = {
   },
 };
 
-function HomePage() {
+type HomePageProps = {
+  onCloseStudy: () => void;
+  onSelectStudy: (slug: string) => void;
+  selectedSlug?: string;
+};
+
+function SkipLink() {
+  return (
+    <a
+      className="skip-link"
+      href="#main-content"
+      onClick={() => {
+        window.requestAnimationFrame(() => {
+          document.getElementById("main-content")?.focus({ preventScroll: true });
+        });
+      }}
+    >
+      Skip to main content
+    </a>
+  );
+}
+
+function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) {
   const shouldReduceMotion = useReducedMotion();
   const [hoveredCompany, setHoveredCompany] = useState<string | null>(null);
+  const [drawerSlug, setDrawerSlug] = useState(selectedSlug);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const isClosingDrawerRef = useRef(false);
+  const lastTriggerRef = useRef<HTMLAnchorElement | null>(null);
+  const navigateAfterCloseRef = useRef(false);
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
   const previewX = useSpring(cursorX, { stiffness: 520, damping: 36, mass: 0.28 });
   const previewY = useSpring(cursorY, { stiffness: 520, damping: 36, mass: 0.28 });
   const hoveredLogo = hoveredCompany ? experienceLogos[hoveredCompany] : null;
 
+  const restoreStudyFocus = (slug?: string) => {
+    window.requestAnimationFrame(() => {
+      const fallbackTrigger = slug
+        ? document.querySelector<HTMLAnchorElement>(
+            `.case-study-card a[href="/case-studies/${slug}"]`,
+          )
+        : null;
+
+      (lastTriggerRef.current ?? fallbackTrigger)?.focus({ preventScroll: true });
+    });
+  };
+
+  useEffect(() => {
+    if (selectedSlug) {
+      if (!isClosingDrawerRef.current) {
+        setDrawerSlug(selectedSlug);
+        const openFrame = window.requestAnimationFrame(() => {
+          setIsDrawerOpen(true);
+        });
+
+        return () => window.cancelAnimationFrame(openFrame);
+      }
+      return;
+    }
+
+    navigateAfterCloseRef.current = false;
+    if (drawerSlug) {
+      isClosingDrawerRef.current = true;
+      setIsDrawerOpen(false);
+    } else {
+      isClosingDrawerRef.current = false;
+    }
+  }, [drawerSlug, selectedSlug]);
+
+  const handleSelectStudy = (slug: string, trigger: HTMLAnchorElement) => {
+    lastTriggerRef.current = trigger;
+    isClosingDrawerRef.current = false;
+    navigateAfterCloseRef.current = false;
+    setDrawerSlug(slug);
+    onSelectStudy(slug);
+  };
+
+  const handleDrawerOpenChange = (open: boolean) => {
+    if (open) return;
+
+    isClosingDrawerRef.current = true;
+    navigateAfterCloseRef.current = Boolean(selectedSlug);
+    setIsDrawerOpen(false);
+  };
+
+  const handleDrawerOpenChangeComplete = (open: boolean) => {
+    if (open) return;
+
+    const closingSlug = drawerSlug;
+    const shouldNavigate = navigateAfterCloseRef.current;
+    navigateAfterCloseRef.current = false;
+
+    if (shouldNavigate) onCloseStudy();
+
+    setDrawerSlug(undefined);
+    restoreStudyFocus(closingSlug);
+
+    if (!selectedSlug) isClosingDrawerRef.current = false;
+  };
+
   return (
     <>
-      <SiteHeader active="home" />
-      <main>
-        <section className="mx-auto grid max-w-[1440px] gap-16 px-4 pb-12 pt-20 sm:px-8 sm:pt-32 lg:grid-cols-2 lg:gap-24">
+      <SkipLink />
+      <main
+        className="flex min-h-svh flex-col overflow-hidden bg-stone-50 text-stone-900 focus:outline-none"
+        id="main-content"
+        tabIndex={-1}
+      >
+        <section className="home-intro mx-auto grid w-full max-w-[1440px] gap-y-10 px-4 pt-8 sm:px-8 sm:pt-12 xl:grid-cols-[600px_492px] xl:grid-rows-[auto_1fr] xl:justify-between xl:gap-y-0 xl:px-16 xl:pt-16">
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-[640px]"
+            className="xl:col-start-1 xl:row-start-1"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-4xl font-semibold leading-[1.18] text-ink sm:text-5xl sm:leading-[64px]">
-              I'm Ryan, a designer with 12+ YOE in Product Design & Design Systems.
-            </h1>
-            <p className="mt-6 text-xl leading-9 text-muted sm:text-2xl sm:leading-10">
-              More recently, I've learned Claude Code & Codex to prototype & implement my designs.
+            <h1 className="text-[32px] font-semibold leading-[1.2]">Ryan Carter</h1>
+            <p className="mt-1 text-lg leading-6 text-stone-500">Product Designer</p>
+          </motion.div>
+
+          <motion.nav
+            aria-label="Ryan Carter links"
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-wrap gap-3 sm:gap-4 xl:col-start-2 xl:row-start-1 xl:justify-self-end xl:pt-5"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+            transition={{ delay: 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Button asChild size="lg" variant="floating">
+              <a
+                className="group"
+                href="https://www.linkedin.com/in/ryan-carter-b8902144/?skipRedirect=true"
+                rel="noreferrer"
+                target="_blank"
+              >
+                LinkedIn
+                <span className="sr-only"> (opens in a new tab)</span>
+                <ArrowUpRight
+                  aria-hidden="true"
+                  className="size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="floating">
+              <a className="group" href={resumeUrl} rel="noreferrer" target="_blank">
+                Résumé
+                <span className="sr-only"> (opens in a new tab)</span>
+                <ArrowUpRight
+                  aria-hidden="true"
+                  className="size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="floating">
+              <a className="group" href="mailto:ryanmichael.carter@gmail.com">
+                Email
+                <ArrowUpRight
+                  aria-hidden="true"
+                  className="size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </a>
+            </Button>
+          </motion.nav>
+
+          <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            className="home-intro-copy space-y-8 text-lg leading-8 sm:text-xl xl:col-start-1 xl:row-start-2 xl:mt-12"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+            transition={{ delay: 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p>
+              Hi. I’m a Product Designer with 12+ YOE in Product Design &amp; Design Systems.
+              Currently I’m leveraging Claude Code &amp; Codex to ship what I’m designing in
+              Figma.
+            </p>
+            <p>
+              In the past, I’ve led or contributed to Product Design &amp; Design Systems at
+              Gradle, NYSHEX, Ribbon Homes, &amp; Shoflo. I’ve also been freelancing as a
+              Founding Designer &amp; Design Engineer on a web &amp; mobile eLearning platform
+              for entrepreneurs.
+            </p>
+            <p>
+              I’m currently open to new roles as a Staff or Founding Designer and would love to
+              chat.
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
+          <motion.section
+            aria-labelledby="experience-heading"
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
-            className="self-center"
+            className="xl:col-start-2 xl:row-start-2 xl:mt-6"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+            transition={{ delay: 0.18, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="grid gap-0">
+            <h2
+              className="mb-4 text-base font-semibold leading-6 text-neutral-800"
+              id="experience-heading"
+            >
+              Experience
+            </h2>
+            <div>
               {experience.map(([dates, company, role]) => (
                 <div
-                  className="relative grid grid-cols-[120px_1fr] gap-4 border-b border-line py-4 text-sm leading-4 sm:grid-cols-[150px_1fr_260px]"
+                  className="relative grid grid-cols-[minmax(0,1fr)_minmax(9rem,auto)] items-center gap-4 border-b border-neutral-200 py-2 text-sm leading-4"
                   key={company}
                   onPointerEnter={(event) => {
                     if (event.pointerType !== "mouse") return;
@@ -101,128 +260,64 @@ function HomePage() {
                     cursorY.set(event.clientY + 14);
                   }}
                 >
-                  <span className="font-mono text-muted">{dates}</span>
-                  <span className="font-medium text-ink">{company}</span>
-                  <span className="col-span-2 font-mono text-muted sm:col-span-1 sm:whitespace-nowrap sm:text-right">{role}</span>
+                  <div className="min-w-0">
+                    <p className="truncate font-medium text-neutral-800">{company}</p>
+                    <p className="mt-2 font-mono text-neutral-500">{dates}</p>
+                  </div>
+                  <p className="font-mono text-neutral-500 sm:whitespace-nowrap sm:text-right">
+                    {role}
+                  </p>
                 </div>
               ))}
             </div>
-          </motion.div>
+          </motion.section>
         </section>
 
-        <section className="mx-auto max-w-[1440px] border-t border-line px-4 py-12 sm:px-8">
-          <Reveal>
-            <div className="grid gap-x-20 gap-y-12 lg:grid-cols-2">
-              {caseStudies.map((study) => (
-                <CaseStudyCard key={study.slug} {...study} />
-              ))}
-            </div>
-          </Reveal>
-        </section>
-
-        <section className="bg-ink py-20 text-white">
-          <div className="mx-auto grid max-w-[1440px] gap-12 px-4 sm:px-8 lg:grid-cols-[1fr_480px]">
-            <Reveal>
-              <div>
-                <p className="font-mono text-sm uppercase leading-4 text-rose-300">About</p>
-                <div className="mt-6 max-w-3xl space-y-5 text-lg leading-8 text-neutral-300">
-                  {aboutText
-                    .split("\n\n")
-                    .filter(Boolean)
-                    .map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                </div>
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <img
-                alt="Ryan Carter"
-                className="aspect-[4/5] w-full rounded-3xl object-cover"
-                loading="lazy"
-                src={profileImage}
+        <section
+          aria-labelledby="selected-work-heading"
+          className="mx-auto mt-12 w-full max-w-[1440px] px-4 pb-12 sm:px-8 xl:px-16"
+        >
+          <h2 className="sr-only" id="selected-work-heading">
+            Selected work
+          </h2>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {caseStudies.map((study, index) => (
+              <CaseStudyCard
+                {...study}
+                index={index}
+                key={study.slug}
+                onSelect={handleSelectStudy}
               />
-            </Reveal>
+            ))}
           </div>
         </section>
       </main>
+
       {hoveredLogo ? (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none fixed left-0 top-0 z-50 hidden h-12 w-26 items-center justify-center rounded-md border border-line bg-white px-3 shadow-[0_12px_36px_rgba(15,23,42,0.12)] will-change-transform sm:flex"
-          style={{ x: shouldReduceMotion ? cursorX : previewX, y: shouldReduceMotion ? cursorY : previewY }}
+          className="pointer-events-none fixed left-0 top-0 z-40 hidden h-12 w-26 items-center justify-center rounded-md border border-neutral-200 bg-white px-3 shadow-xl shadow-neutral-950/10 will-change-transform sm:flex"
+          style={{
+            x: shouldReduceMotion ? cursorX : previewX,
+            y: shouldReduceMotion ? cursorY : previewY,
+          }}
         >
-          <img alt={hoveredLogo.alt} className="max-h-7 max-w-20 object-contain" src={hoveredLogo.src} />
+          <img
+            alt=""
+            className="max-h-7 max-w-20 object-contain"
+            src={hoveredLogo.src}
+          />
         </motion.div>
       ) : null}
-    </>
-  );
-}
 
-function CaseStudyPage({ slug }: { slug: string }) {
-  const study = getCaseStudy(slug);
-
-  if (!study) return <NotFound />;
-
-  const orderedItems = study.page ? itemsForPage(study.page) : [];
-  const clientLogo = orderedItems.find((item) => item.type === "image" && /logo/i.test(item.alt));
-  const contentItems = orderedItems.filter((item) => item.type !== "h1" && item !== clientLogo);
-
-  return (
-    <>
-      <SiteHeader />
-      <main>
-        <article className="mx-auto max-w-[1440px] px-4 pb-20 sm:px-8">
-          <section className="grid gap-10 pb-12 pt-12 sm:pt-20 lg:grid-cols-[1fr_420px]">
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Button asChild className="mb-12" variant="ghost">
-                <a href="/">
-                  <ArrowLeft aria-hidden="true" className="h-4 w-4" />
-                  Back home
-                </a>
-              </Button>
-              <p className="font-mono text-sm uppercase leading-4 text-accent">{study.client}</p>
-              {clientLogo?.type === "image" && (
-                <img alt={clientLogo.alt} className="mt-6 max-h-12 w-auto object-contain" src={clientLogo.src} />
-              )}
-              <h1 className="mt-4 max-w-4xl text-5xl font-medium leading-[1.08] text-ink sm:text-7xl">{study.title}</h1>
-              <p className="mt-6 max-w-3xl text-xl leading-9 text-muted">{study.summary}</p>
-            </motion.div>
-            <motion.aside
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-              className="self-end border-y border-line py-6"
-            >
-              <dl className="grid gap-5 font-mono text-sm leading-5">
-                <div>
-                  <dt className="text-muted">Project</dt>
-                  <dd className="mt-1 text-ink">{study.title}</dd>
-                </div>
-                <div>
-                  <dt className="text-muted">Client</dt>
-                  <dd className="mt-1 text-ink">{study.client}</dd>
-                </div>
-                <div>
-                  <dt className="text-muted">Toolset</dt>
-                  <dd className="mt-1 text-ink">{study.toolset}</dd>
-                </div>
-              </dl>
-            </motion.aside>
-          </section>
-
-          <section className="grid min-w-0 gap-12 py-16 lg:grid-cols-[320px_minmax(0,900px)]">
-            <Reveal>
-              <p className="font-mono text-sm uppercase leading-4 text-accent">Case study</p>
-            </Reveal>
-            <Reveal delay={0.05}>
-              {study.markdown ? <MarkdownArticle markdown={study.markdown} /> : <ArticleItems items={contentItems} />}
-            </Reveal>
-          </section>
-        </article>
-      </main>
+      {drawerSlug ? (
+        <CaseStudyDrawer
+          onOpenChange={handleDrawerOpenChange}
+          onOpenChangeComplete={handleDrawerOpenChangeComplete}
+          open={isDrawerOpen}
+          slug={drawerSlug}
+        />
+      ) : null}
     </>
   );
 }
@@ -230,46 +325,58 @@ function CaseStudyPage({ slug }: { slug: string }) {
 function ContactPage() {
   return (
     <>
+      <SkipLink />
       <SiteHeader active="contact" />
-      <main className="mx-auto grid min-h-[calc(100svh-88px)] max-w-[1440px] content-center px-4 py-20 sm:px-8">
+      <main
+        className="mx-auto grid min-h-[calc(100svh-88px)] max-w-[1440px] content-center px-4 py-20 focus:outline-none sm:px-8"
+        id="main-content"
+        tabIndex={-1}
+      >
         <motion.section
-          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="font-mono text-sm uppercase leading-4 text-accent">Contact</p>
           <h1 className="mt-4 max-w-3xl text-5xl font-medium leading-[1.08] text-ink sm:text-7xl">
-            {contactPage.blocks[0]?.text ?? "Let's get in touch"}
+            {contactPage.blocks[0]?.text ?? "Let’s get in touch"}
           </h1>
           <p className="mt-6 max-w-2xl text-xl leading-9 text-muted">
             {contactPage.blocks[1]?.text ??
               "Send an email and I will get back to you as soon as I can."}
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Button asChild size="lg" style={{ color: "#ffffff" }}>
-              <a className="group" href="mailto:hello@ryancarter.io">
+            <Button asChild size="lg">
+              <a className="group" href="mailto:ryanmichael.carter@gmail.com">
                 <Mail
                   aria-hidden="true"
-                  className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+                  className="size-4 group-hover:translate-x-0.5"
                 />
                 Send me an email
               </a>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a className="group" href="https://www.linkedin.com/in/ryan-carter-b8902144/?skipRedirect=true" rel="noreferrer" target="_blank">
+              <a
+                className="group"
+                href="https://www.linkedin.com/in/ryan-carter-b8902144/?skipRedirect=true"
+                rel="noreferrer"
+                target="_blank"
+              >
                 LinkedIn
+                <span className="sr-only"> (opens in a new tab)</span>
                 <ArrowUpRight
                   aria-hidden="true"
-                  className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  className="size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
               </a>
             </Button>
             <Button asChild size="lg" variant="outline">
               <a className="group" href={resumeUrl} rel="noreferrer" target="_blank">
                 Resume
+                <span className="sr-only"> (opens in a new tab)</span>
                 <ArrowUpRight
                   aria-hidden="true"
-                  className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  className="size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
               </a>
             </Button>
@@ -283,8 +390,13 @@ function ContactPage() {
 function NotFound() {
   return (
     <>
+      <SkipLink />
       <SiteHeader />
-      <main className="mx-auto flex min-h-[calc(100svh-88px)] max-w-[1440px] flex-col justify-center px-4 py-20 sm:px-8">
+      <main
+        className="mx-auto flex min-h-[calc(100svh-88px)] max-w-[1440px] flex-col justify-center px-4 py-20 focus:outline-none sm:px-8"
+        id="main-content"
+        tabIndex={-1}
+      >
         <p className="font-mono text-sm uppercase leading-4 text-accent">404</p>
         <h1 className="mt-4 text-5xl font-medium text-ink">Page not found</h1>
         <Button asChild className="mt-8 w-fit" variant="outline">
@@ -296,15 +408,57 @@ function NotFound() {
 }
 
 function App() {
-  const path = window.location.pathname;
+  const [path, setPath] = useState(window.location.pathname);
 
-  if (path === "/" || path === "/portfolio/") return <HomePage />;
+  useEffect(() => {
+    const handlePopState = () => setPath(window.location.pathname);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const openStudy = (slug: string) => {
+    const nextPath = `/case-studies/${slug}`;
+    if (path === nextPath) return;
+
+    window.history.pushState({ portfolioDrawer: true }, "", nextPath);
+    setPath(nextPath);
+  };
+
+  const closeStudy = () => {
+    if (window.history.state?.portfolioDrawer) {
+      window.history.back();
+      return;
+    }
+
+    window.history.replaceState(window.history.state, "", "/");
+    setPath("/");
+  };
+
+  const selectedSlug = path.startsWith("/case-studies/")
+    ? path.split("/").filter(Boolean).at(-1)
+    : undefined;
+
+  if (path === "/" || path === "/portfolio/") {
+    return <HomePage onCloseStudy={closeStudy} onSelectStudy={openStudy} />;
+  }
+
+  if (selectedSlug && getCaseStudy(selectedSlug)) {
+    return (
+      <HomePage
+        onCloseStudy={closeStudy}
+        onSelectStudy={openStudy}
+        selectedSlug={selectedSlug}
+      />
+    );
+  }
+
   if (path === "/contact") return <ContactPage />;
-  if (path.startsWith("/case-studies/")) return <CaseStudyPage slug={path.split("/").filter(Boolean).at(-1) ?? ""} />;
+
   if (path.endsWith(".pdf")) {
     window.location.href = asset(path);
     return null;
   }
+
   return <NotFound />;
 }
 

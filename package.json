@@ -11,6 +11,7 @@
     "scrape:assets": "node scripts/download-assets.mjs"
   },
   "dependencies": {
+    "@base-ui/react": "^1.6.0",
     "@radix-ui/react-slot": "latest",
     "@tailwindcss/vite": "latest",
     "@vitejs/plugin-react": "latest",

@@ -11,13 +11,16 @@ const buttonVariants = cva(
       variant: {
         default: "border-neutral-900 bg-neutral-900 text-white hover:bg-neutral-700",
         outline: "border-neutral-900 bg-white text-neutral-900 hover:bg-neutral-50",
-        accent: "border-rose-500 bg-white text-rose-500 hover:bg-rose-50",
+        accent: "border-rose-700 bg-white text-rose-700 hover:bg-rose-50",
+        floating:
+          "rounded-xl border-0 bg-white font-sans text-neutral-800 shadow-[0_0_16px] shadow-stone-200 hover:bg-white hover:shadow-[0_4px_20px] hover:shadow-stone-300",
         ghost: "border-transparent bg-transparent text-neutral-500 hover:text-neutral-900",
       },
       size: {
         default: "h-8",
         sm: "h-7 px-2.5 text-xs",
         lg: "h-10 px-4",
+        icon: "size-10 p-0",
       },
     },
     defaultVariants: {
