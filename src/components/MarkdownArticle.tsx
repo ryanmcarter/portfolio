@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { parseMarkdownList } from "@/lib/markdown-list";
+
 type MarkdownBlock =
   | { type: "blockquote"; text: string }
   | { type: "code"; code: string; language?: string }
@@ -117,16 +119,14 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
     const ordered = line.match(/^\s*\d+\.\s+(.+)$/);
     if (unordered || ordered) {
       const isOrdered = Boolean(ordered);
-      const items: string[] = [];
+      const list = parseMarkdownList(lines, index, isOrdered);
+      index = list.nextIndex;
 
-      while (index < lines.length) {
-        const match = isOrdered ? lines[index].match(/^\s*\d+\.\s+(.+)$/) : lines[index].match(/^\s*[-*]\s+(.+)$/);
-        if (!match) break;
-        items.push(cleanInline(match[1]));
-        index += 1;
-      }
-
-      blocks.push({ type: "list", ordered: isOrdered, items });
+      blocks.push({
+        type: "list",
+        ordered: isOrdered,
+        items: list.items.map(cleanInline),
+      });
       continue;
     }
 
@@ -325,8 +325,8 @@ export function MarkdownArticle({
               }`}
               key={index}
             >
-              {block.items.map((item) => (
-                <li key={item}>{renderInline(item)}</li>
+              {block.items.map((item, itemIndex) => (
+                <li key={`${itemIndex}-${item}`}>{renderInline(item)}</li>
               ))}
             </ListTag>
           );
