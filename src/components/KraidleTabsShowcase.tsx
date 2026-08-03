@@ -81,9 +81,9 @@ export function KraidleTabsShowcase() {
       role="group"
     >
       <div className="relative after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-8 after:bg-gradient-to-l after:from-[#090909] after:to-transparent after:content-[''] sm:after:hidden">
-        <div className="overflow-x-auto pr-8 [scrollbar-width:none] sm:pr-0 [&::-webkit-scrollbar]:hidden">
+        <div className="overflow-x-auto pr-8 [scrollbar-width:none] sm:flex sm:pr-0 [&::-webkit-scrollbar]:hidden">
           <div
-            className="relative inline-flex min-w-max items-center gap-1 rounded-lg border border-neutral-800 bg-neutral-950 p-1"
+            className="relative inline-flex min-w-max items-center gap-1 rounded-lg border border-neutral-800 bg-neutral-950 p-1 sm:mx-auto sm:shrink-0"
             onMouseLeave={() => setHoveredTab(null)}
             ref={listRef}
           >
