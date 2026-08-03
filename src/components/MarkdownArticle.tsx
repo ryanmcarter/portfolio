@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { KraidleTabsShowcase } from "@/components/KraidleTabsShowcase";
 import { parseMarkdownList } from "@/lib/markdown-list";
 
 type MarkdownBlock =
@@ -8,6 +9,7 @@ type MarkdownBlock =
   | { type: "heading"; depth: number; text: string }
   | { type: "hr" }
   | { type: "image"; alt: string; src: string }
+  | { type: "kraidle-tabs" }
   | { type: "list"; ordered: boolean; items: string[] }
   | { type: "paragraph"; text: string }
   | { type: "table"; headers: string[]; rows: string[][] };
@@ -77,6 +79,12 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
       continue;
     }
 
+    if (/^<KraidleTabsShowcase\s*\/>\s*$/.test(line)) {
+      blocks.push({ type: "kraidle-tabs" });
+      index += 1;
+      continue;
+    }
+
     const heading = line.match(/^(#{1,6})\s+(.+)$/);
     if (heading) {
       blocks.push({ type: "heading", depth: heading[1].length, text: cleanInline(heading[2]) });
@@ -137,6 +145,7 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
       !lines[index].match(/^```/) &&
       !lines[index].match(/^(#{1,6})\s+/) &&
       !lines[index].match(/^!\[[^\]]*\]\([^)]+\)\s*$/) &&
+      !lines[index].match(/^<KraidleTabsShowcase\s*\/>\s*$/) &&
       !lines[index].trim().startsWith(">") &&
       !/^---+\s*$/.test(lines[index]) &&
       !(lines[index].includes("|") && lines[index + 1] && isTableDivider(lines[index + 1])) &&
@@ -315,6 +324,8 @@ export function MarkdownArticle({
             </figure>
           );
         }
+
+        if (block.type === "kraidle-tabs") return <KraidleTabsShowcase key={index} />;
 
         if (block.type === "list") {
           const ListTag = block.ordered ? "ol" : "ul";

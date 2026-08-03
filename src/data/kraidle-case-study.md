@@ -195,6 +195,18 @@ kraidle/
 
 ---
 
+## A production component, live
+
+This is a live port of Kraidle's tabbed navigation pattern—the same component
+shown in the Develocity capability experience. Its selected state, hover motion,
+and responsive overflow come from the production component; the labels are
+intentionally non-navigating in this portfolio showcase, and the design-system
+tokens are mapped locally so the example remains self-contained.
+
+<KraidleTabsShowcase />
+
+---
+
 ## My role and strategy
 
 As Product Designer and Design Engineer, I designed Kraidle across the boundary
