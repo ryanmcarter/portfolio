@@ -52,6 +52,11 @@ textarea {
   outline-offset: 3px;
 }
 
+.kraidle-tab-demo-button:focus-visible {
+  outline-color: #2ca7be;
+  outline-offset: 2px;
+}
+
 .skip-link {
   position: fixed;
   top: 1rem;
