@@ -1,9 +1,12 @@
-import type { ReactNode } from "react";
+import type { ReactNode, RefObject } from "react";
+
+import { GuidingPrinciplesStack } from "@/components/GuidingPrinciplesStack";
 
 type MarkdownBlock =
   | { type: "blockquote"; text: string }
   | { type: "code"; code: string; language?: string }
   | { type: "heading"; depth: number; text: string }
+  | { type: "guiding-principles" }
   | { type: "hr" }
   | { type: "image"; alt: string; src: string }
   | { type: "list"; ordered: boolean; items: string[] }
@@ -233,9 +236,11 @@ function MarkdownTable({ block }: { block: Extract<MarkdownBlock, { type: "table
 export function MarkdownArticle({
   hideLead = false,
   markdown,
+  scrollContainerRef,
 }: {
   hideLead?: boolean;
   markdown: string;
+  scrollContainerRef?: RefObject<HTMLElement | null>;
 }) {
   let blocks = parseMarkdown(markdown);
 
@@ -257,9 +262,33 @@ export function MarkdownArticle({
     }
   }
 
+  const principlesStartIndex = blocks.findIndex(
+    (block) =>
+      block.type === "heading" &&
+      block.depth === 2 &&
+      /goals\s*&\s*guiding principles$/i.test(block.text),
+  );
+
+  if (principlesStartIndex >= 0) {
+    const nextDividerIndex = blocks.findIndex(
+      (block, index) => index > principlesStartIndex && block.type === "hr",
+    );
+    const principlesEndIndex = nextDividerIndex >= 0 ? nextDividerIndex + 1 : principlesStartIndex + 1;
+
+    blocks = [
+      ...blocks.slice(0, principlesStartIndex),
+      { type: "guiding-principles" },
+      ...blocks.slice(principlesEndIndex),
+    ];
+  }
+
   return (
     <div className="content-text min-w-0">
       {blocks.map((block, index) => {
+        if (block.type === "guiding-principles") {
+          return <GuidingPrinciplesStack key={index} scrollContainerRef={scrollContainerRef} />;
+        }
+
         if (block.type === "heading") {
           if (block.depth === 1) return null;
           if (block.depth === 2) {

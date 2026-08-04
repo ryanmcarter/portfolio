@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 
 import { ArticleItems } from "@/components/ArticleItems";
@@ -47,6 +47,7 @@ export function CaseStudyDrawer({
   slug,
 }: CaseStudyDrawerProps) {
   const study = getCaseStudy(slug);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!study || !open) return;
@@ -95,7 +96,10 @@ export function CaseStudyDrawer({
           </DrawerClose>
         </div>
 
-        <div className="case-study-sheet-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-20 sm:px-8">
+        <div
+          className="case-study-sheet-scroll relative min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-20 sm:px-8"
+          ref={scrollContainerRef}
+        >
           <article className="mx-auto w-full max-w-[1120px] pt-6">
             <figure className="h-[clamp(200px,25vw,312px)] overflow-hidden rounded-3xl bg-stone-200">
               <img
@@ -161,7 +165,11 @@ export function CaseStudyDrawer({
 
             <section className="mx-auto mt-16 w-full max-w-[770px]">
               {study.markdown ? (
-                <MarkdownArticle hideLead markdown={study.markdown} />
+                <MarkdownArticle
+                  hideLead
+                  markdown={study.markdown}
+                  scrollContainerRef={scrollContainerRef}
+                />
               ) : (
                 <ArticleItems items={contentItems} />
               )}
