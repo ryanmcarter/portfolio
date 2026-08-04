@@ -342,8 +342,10 @@ export function MarkdownArticle({
             >
               <video
                 aria-label={block.title}
+                autoPlay
                 className="h-auto w-full"
                 controls
+                muted
                 playsInline
                 preload="metadata"
               >

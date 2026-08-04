@@ -13,30 +13,36 @@ Lastly, one major requirement was that any product page on the marketing site co
 
 > **The goal: ** Create a token-powered design system with Claude Code, complete with Code Connect linkages to Figma components, all powering web pages that could be written by anyone via markdown.
 
-## 2. Goals & guiding principles
+## My role and strategy
+
+As one of only four members of the Gradle design team, and the one with the most experience in design systems & Claude, I volunteered to create the design system, mostly as a way to continue to learn how to use AI to ship code to production. 
+
+Overall, I created about 95% of the design system (the remaining 5% were deeply technical/network/infrastructure tasks that a separate front-end engineer took on that were just a bit beyond my comfort zone.) 
+
+This included the token architecture, coded components, Figma Code Connect mappings, automated testing, marketing page templates, and the markdown to NextJS converter.
+
+## Goals & guiding principles
 
 Seven principles, in priority order:
 
-1. **Token-first.** No hardcoded values anywhere — color, spacing,
+1. **Token-first. ** No hardcoded values anywhere — color, spacing,
    radius, shadow, typography, motion. Every visual decision is a
    token.
-2. **Single source of truth.** Tokens live in *one* file
-   (`packages/tokens/tokens/tokens.json`). The Figma library and the
-   codebase are both *derived*. There is no second place to look.
-3. **AI-augmented, not AI-dependent.** Every layer (tokens, lint, CI,
+2. **AI-augmented, not AI-dependent. ** Every layer (tokens, lint, CI,
    Storybook) works without Claude Code. AI just compresses the loop.
-4. **Enforcement by default.** The lint layer makes the right path the
+3. **Enforcement by default. ** The lint layer makes the right path the
    easy path. Wrong paths fail before review.
-5. **Bidirectional sync.** Tokens flow from Figma to code via Tokens
+4. **Bidirectional sync. ** Tokens flow from Figma to code via Tokens
    Studio (two-way git sync). Components flow back to Figma via Code
    Connect. Generated pages can be serialized into the Figma file as
    library-bound frames.
-6. **Quality shifts left.** A passive linter runs in the Figma canvas;
+5. **Quality shifts left. ** A passive linter runs in the Figma canvas;
    ESLint runs at author time; axe runs in CI; token impact previews
    land on the PR before merge. Issues surface where they're cheapest.
-7. **The system grows itself.** Unmapped Figma elements automatically
+6. **The system grows itself. ** Unmapped Figma elements automatically
    become labelled GitHub issues — every gap becomes a tracked
    component request rather than a silently improvised stub.
+7. **Enforcement on the Figma canvas: ** To further ensure compliance, one Figma plugin allowed for a full page audit on system usage, and a live widget tracked design values not mapped to a token.
 
 ---
 
@@ -85,26 +91,9 @@ apps/web    component-inventory.json (1,043 lines,   Storybook
                         └────────────────────────────────────┘
 ```
 
-### Three guarantees holding the system together
-
-```
-1. Tokens are the only source of visual truth.
-   ↳ Components reference --kr-* vars or Tailwind classes that resolve
-     through @theme inline. ESLint blocks any hex/rgb/hsl/oklch literal.
-
-2. The component inventory is the only source of "what exists".
-   ↳ component-inventory.json is generated from the codebase.
-     AI consumers read it. Gaps emit component-request blocks.
-     CI converts those blocks into labelled GitHub issues.
-
-3. Enforcement lives at the lint layer, not the review layer.
-   ↳ Five custom ESLint rules. Six CI workflows. One Figma widget.
-     Reviewers focus on intent; the machine handles compliance.
-```
-
 ---
 
-## 4. Repository architecture
+## Repository architecture
 
 A single Turborepo monorepo, npm workspaces, Node ≥ 20, npm ≥ 11.3.0.
 No global tools required.
@@ -120,7 +109,7 @@ kraidle/
 │
 ├── packages/
 │   ├── tokens/                       @kraidle/tokens
-│   │   ├── tokens/tokens.json        ← 235 lines, single source of truth
+│   │   ├── tokens.json               ← 235 lines, single source of truth
 │   │   ├── build.js                  Style Dictionary config
 │   │   └── dist/                     ← generated; do not edit
 │   │       ├── tokens.css            313 lines of --kr-* CSS vars
@@ -181,18 +170,6 @@ kraidle/
 └── turbo.json
 ```
 
-### Why a monorepo?
-
-- **One PR can change a token, regenerate `dist/`, update consuming
-  components, and refresh the inventory.** No coordinated multi-repo
-  release dance.
-- **Turbo's task graph** lets `apps/web` build only after `@kraidle/ui`
-  builds only after `@kraidle/tokens` builds — automatically derived
-  from `package.json` `dependencies`, no manual ordering.
-- **Shared TypeScript and ESLint configs** live in their own packages
-  (`@kraidle/typescript-config`, `@kraidle/eslint-config`), so adding a
-  new app inherits the same rules in two lines.
-
 ---
 
 ## A production component, live
@@ -218,26 +195,6 @@ incomplete content cannot silently ship.
 <Video src="/assets/kraidle-markdown-c3.mp4" title="Screen recording of authoring a Kraidle page from an empty content file" />
 
 ---
-
-## My role and strategy
-
-As Product Designer and Design Engineer, I designed Kraidle across the boundary
-between Figma and code. That included the token architecture, component model,
-Figma-to-code mappings, quality checks, and the context an AI agent needs to use
-the system correctly.
-
-I framed the work around three design constraints:
-
-1. **One source for visual decisions.** Figma variables and code tokens should
-   derive from the same data rather than being manually matched.
-2. **One inventory of reusable parts.** People and AI agents should be able to
-   discover the same components, variants, imports, stories, and token usage.
-3. **Quality enforced where work happens.** Problems should surface on the
-   Figma canvas, in the editor, and on the pull request—not during a final design
-   review.
-
-This shifted the design system from a library that teams reference into an
-operating layer that actively guides how interfaces are created.
 
 ## One system, three connected layers
 
