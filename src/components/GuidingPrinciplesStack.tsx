@@ -307,7 +307,7 @@ export function GuidingPrinciplesStack({ scrollContainerRef }: GuidingPrinciples
           </p>
         </div>
 
-        <ol className={shouldStack ? "mt-8 grid pb-12 sm:pb-24" : "mt-8 space-y-6"}>
+        <ol className={shouldStack ? "mt-8 grid pb-24" : "mt-8 space-y-6"}>
           {principles.map((principle, cardIndex) => (
             <StackedPrincipleCard
               cardIndex={cardIndex}
