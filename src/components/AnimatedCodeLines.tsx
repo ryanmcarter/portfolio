@@ -21,10 +21,12 @@ export function lineMotionAtProgress(progress: number, lineIndex: number, lineCo
   const lineStep = 1 / (lineCount + 1);
   const lineWindow = lineStep / (1 - lineProgressOverlap);
   const lineStart = lineIndex * lineStep;
-  const lineProgress = Math.min(1, Math.max(0, (progress - lineStart) / lineWindow));
+  const lineEnd = lineStart + lineWindow;
+  const lineProgress =
+    progress <= lineStart ? 0 : progress >= lineEnd ? 1 : (progress - lineStart) / lineWindow;
 
   return {
-    opacity: lineProgress,
+    opacity: lineProgress > 0 ? 1 : 0,
     y: 8 * (1 - lineProgress),
   };
 }
@@ -69,15 +71,16 @@ export function AnimatedCodeLines({
       shouldReduceMotion !== false ||
       !pre ||
       !scrollContainer ||
-      typeof window.requestAnimationFrame !== "function"
+      typeof window.requestAnimationFrame !== "function" ||
+      typeof window.cancelAnimationFrame !== "function"
     ) {
       clearLineStyles(lineElements);
       return;
     }
 
-    let frameId = 0;
+    let frameId: number | null = null;
     const updateLines = () => {
-      frameId = 0;
+      frameId = null;
       const scrollportRect = scrollContainer.getBoundingClientRect();
       const blockRect = pre.getBoundingClientRect();
       const progress = codeBlockProgress(
@@ -89,7 +92,7 @@ export function AnimatedCodeLines({
       applyLineProgress(lineElements, progress);
     };
     const scheduleUpdate = () => {
-      if (frameId) return;
+      if (frameId !== null) return;
       frameId = window.requestAnimationFrame(updateLines);
     };
 
@@ -100,10 +103,10 @@ export function AnimatedCodeLines({
     return () => {
       scrollContainer.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
-      window.cancelAnimationFrame(frameId);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
       clearLineStyles(lineElements);
     };
-  }, [scrollContainerRef, shouldReduceMotion]);
+  }, [code, scrollContainerRef, shouldReduceMotion]);
 
   return (
     <pre
