@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useRef, type RefObject } from "react";
-import { useAnimate, useInView, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 
-const lineDuration = 0.36;
-const staggerWindow = 0.28;
-const lineEase = [0.22, 1, 0.36, 1] as const;
+export const codeScrollStart = 0.88;
+export const codeScrollEnd = 0.28;
+export const lineProgressOverlap = 0.5;
 const lineSelector = "[data-animated-code-line]";
 
 function codeLineElements(pre: HTMLPreElement | null) {
@@ -17,20 +17,36 @@ function clearLineStyles(lines: HTMLElement[]) {
   });
 }
 
-export function scheduleAfterPaint(
-  callback: FrameRequestCallback,
-  requestFrame = window.requestAnimationFrame,
-  cancelFrame = window.cancelAnimationFrame,
-) {
-  let secondFrame = 0;
-  const firstFrame = requestFrame(() => {
-    secondFrame = requestFrame(callback);
-  });
+export function lineMotionAtProgress(progress: number, lineIndex: number, lineCount: number) {
+  const lineStep = 1 / (lineCount + 1);
+  const lineWindow = lineStep / (1 - lineProgressOverlap);
+  const lineStart = lineIndex * lineStep;
+  const lineProgress = Math.min(1, Math.max(0, (progress - lineStart) / lineWindow));
 
-  return () => {
-    cancelFrame(firstFrame);
-    cancelFrame(secondFrame);
+  return {
+    opacity: lineProgress,
+    y: 8 * (1 - lineProgress),
   };
+}
+
+export function codeBlockProgress(
+  blockTop: number,
+  blockHeight: number,
+  scrollportHeight: number,
+) {
+  const startPosition = scrollportHeight * codeScrollStart;
+  const scrollDistance = blockHeight + scrollportHeight * (codeScrollStart - codeScrollEnd);
+
+  if (scrollDistance <= 0) return 1;
+  return Math.min(1, Math.max(0, (startPosition - blockTop) / scrollDistance));
+}
+
+function applyLineProgress(lines: HTMLElement[], progress: number) {
+  lines.forEach((line, lineIndex) => {
+    const motion = lineMotionAtProgress(progress, lineIndex, lines.length);
+    line.style.opacity = motion.opacity.toString();
+    line.style.transform = `translateY(${motion.y}px)`;
+  });
 }
 
 export function AnimatedCodeLines({
@@ -40,63 +56,54 @@ export function AnimatedCodeLines({
   code: string;
   scrollContainerRef?: RefObject<HTMLElement | null>;
 }) {
-  const [preRef, animate] = useAnimate<HTMLPreElement>();
-  const hasAnimated = useRef(false);
+  const preRef = useRef<HTMLPreElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const isInView = useInView(preRef, {
-    amount: "some",
-    margin: "0px 0px -12% 0px",
-    once: true,
-    root: scrollContainerRef,
-  });
   const lines = code.split("\n");
-  const lineDelay = lines.length > 1 ? staggerWindow / (lines.length - 1) : 0;
 
   useEffect(() => {
     const lineElements = codeLineElements(preRef.current);
+    const pre = preRef.current;
+    const scrollContainer = scrollContainerRef?.current;
 
-    if (shouldReduceMotion) {
-      hasAnimated.current = true;
+    if (
+      shouldReduceMotion !== false ||
+      !pre ||
+      !scrollContainer ||
+      typeof window.requestAnimationFrame !== "function"
+    ) {
       clearLineStyles(lineElements);
       return;
     }
 
-    if (
-      shouldReduceMotion !== false ||
-      !isInView ||
-      hasAnimated.current ||
-      lineElements.length === 0
-    ) {
-      return;
-    }
-
-    hasAnimated.current = true;
-    lineElements.forEach((line) => {
-      line.style.opacity = "0";
-      line.style.transform = "translateY(8px)";
-    });
-
-    const cancelAnimationStart = scheduleAfterPaint(() => {
-      void animate(
-        lineSelector,
-        { opacity: 1, transform: "translateY(0px)" },
-        {
-          delay: (lineIndex) => lineIndex * lineDelay,
-          duration: lineDuration,
-          ease: lineEase,
-        },
+    let frameId = 0;
+    const updateLines = () => {
+      frameId = 0;
+      const scrollportRect = scrollContainer.getBoundingClientRect();
+      const blockRect = pre.getBoundingClientRect();
+      const progress = codeBlockProgress(
+        blockRect.top - scrollportRect.top,
+        blockRect.height,
+        scrollportRect.height,
       );
-    });
-    const fallbackTimer = window.setTimeout(
-      () => clearLineStyles(lineElements),
-      (lineDuration + staggerWindow) * 1000 + 160,
-    );
+
+      applyLineProgress(lineElements, progress);
+    };
+    const scheduleUpdate = () => {
+      if (frameId) return;
+      frameId = window.requestAnimationFrame(updateLines);
+    };
+
+    scrollContainer.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    scheduleUpdate();
 
     return () => {
-      cancelAnimationStart();
-      window.clearTimeout(fallbackTimer);
+      scrollContainer.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.cancelAnimationFrame(frameId);
+      clearLineStyles(lineElements);
     };
-  }, [animate, isInView, lineDelay, shouldReduceMotion]);
+  }, [scrollContainerRef, shouldReduceMotion]);
 
   return (
     <pre
