@@ -102,7 +102,7 @@ export function CaseStudyDrawer({
                 alt={`${study.title} project overview`}
                 className="size-full object-cover"
                 decoding="async"
-                src={study.image}
+                src={study.detailHeroImage ?? study.image}
               />
             </figure>
 

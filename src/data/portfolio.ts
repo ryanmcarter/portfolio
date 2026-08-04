@@ -63,6 +63,10 @@ const heroImages: Record<string, string> = {
   studio: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/63896c5c7d2c2b34b0e43421_ryancarter-studio-heroImage-thumb.png",
 };
 
+const detailHeroImages: Partial<Record<string, string>> = {
+  kraidle: "/assets/kraidle-case-study-hero.png",
+};
+
 const markdownPages: Record<string, string> = {
   "dynamic-plan": dynamicPlanCaseStudyMarkdown,
   kraidle: kraidleCaseStudyMarkdown,
@@ -139,6 +143,9 @@ export const caseStudies = caseStudyOrder.map((slug) => ({
   ...metadata[slug],
   href: `/case-studies/${slug}`,
   image: asset(heroImages[slug]),
+  detailHeroImage: detailHeroImages[slug]
+    ? asset(detailHeroImages[slug])
+    : undefined,
   markdown: markdownPages[slug],
   page: pages[slug],
 }));
