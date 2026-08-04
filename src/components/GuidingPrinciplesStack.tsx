@@ -191,7 +191,7 @@ function StackedPrincipleCard({
     cardIndex === 0
       ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
       : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
-    cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(4px)", "blur(0px)"],
+    cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(3px)", "blur(0px)"],
     { ease: stageEase },
   );
   const contentFilter = useTransform(
@@ -199,7 +199,7 @@ function StackedPrincipleCard({
     cardIndex === 0
       ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
       : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
-    cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(1px)", "blur(0px)"],
+    cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(3px)", "blur(0px)"],
     { ease: stageEase },
   );
   const contentY = useTransform(
