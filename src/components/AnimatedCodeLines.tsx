@@ -1,5 +1,5 @@
-import { Fragment, useRef, type RefObject } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { Fragment, useEffect, useRef, type RefObject } from "react";
+import { useAnimate, useInView, useReducedMotion } from "framer-motion";
 
 const lineDuration = 0.3;
 const staggerWindow = 0.25;
@@ -12,7 +12,8 @@ export function AnimatedCodeLines({
   code: string;
   scrollContainerRef?: RefObject<HTMLElement | null>;
 }) {
-  const preRef = useRef<HTMLPreElement>(null);
+  const [preRef, animate] = useAnimate<HTMLPreElement>();
+  const hasAnimated = useRef(false);
   const shouldReduceMotion = useReducedMotion();
   const isInView = useInView(preRef, {
     amount: "some",
@@ -22,7 +23,31 @@ export function AnimatedCodeLines({
   });
   const lines = code.split("\n");
   const lineDelay = lines.length > 1 ? staggerWindow / (lines.length - 1) : 0;
-  const shouldShowLines = shouldReduceMotion || isInView;
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      hasAnimated.current = true;
+      void animate(
+        "[data-animated-code-line]",
+        { opacity: 1, y: 0 },
+        { duration: 0 },
+      );
+      return;
+    }
+
+    if (shouldReduceMotion !== false || !isInView || hasAnimated.current) return;
+
+    hasAnimated.current = true;
+    void animate(
+      "[data-animated-code-line]",
+      { opacity: [0, 1], y: [4, 0] },
+      {
+        delay: (lineIndex) => lineIndex * lineDelay,
+        duration: lineDuration,
+        ease: lineEase,
+      },
+    );
+  }, [animate, isInView, lineDelay, shouldReduceMotion]);
 
   return (
     <pre
@@ -32,22 +57,9 @@ export function AnimatedCodeLines({
       <code>
         {lines.map((line, lineIndex) => (
           <Fragment key={lineIndex}>
-            <motion.span
-              animate={shouldShowLines ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
-              className="inline-block"
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 4 }}
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : {
-                      delay: lineIndex * lineDelay,
-                      duration: lineDuration,
-                      ease: lineEase,
-                    }
-              }
-            >
+            <span className="inline-block" data-animated-code-line="">
               {line}
-            </motion.span>
+            </span>
             {lineIndex < lines.length - 1 ? "\n" : null}
           </Fragment>
         ))}
