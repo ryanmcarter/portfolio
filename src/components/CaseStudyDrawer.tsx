@@ -77,7 +77,7 @@ export function CaseStudyDrawer({
       swipeDirection="down"
     >
       <DrawerContent
-        className="h-[calc(100svh-1.5rem)] max-h-[calc(100svh-1.5rem)] min-h-[calc(100svh-1.5rem)] overflow-hidden rounded-t-3xl bg-white shadow-[0_-8px_16px] shadow-stone-200 [--drawer-bleed-background:var(--color-white)]"
+        className="h-[calc(100svh-0.5rem)] max-h-[calc(100svh-0.5rem)] min-h-[calc(100svh-0.5rem)] overflow-hidden rounded-t-3xl bg-white shadow-[0_-8px_16px] shadow-stone-200 [--drawer-bleed-background:var(--color-white)] sm:h-[calc(100svh-1.5rem)] sm:max-h-[calc(100svh-1.5rem)] sm:min-h-[calc(100svh-1.5rem)]"
         id="case-study-drawer"
       >
         <div className="relative h-16 shrink-0 bg-white">
