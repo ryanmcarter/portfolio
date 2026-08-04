@@ -102,11 +102,11 @@ function useStickyCardLayout() {
   const [matches, setMatches] = useState(() =>
     typeof window === "undefined"
       ? false
-      : window.matchMedia("(min-width: 768px) and (min-height: 640px)").matches,
+      : window.matchMedia("(min-height: 640px)").matches,
   );
 
   useEffect(() => {
-    const query = window.matchMedia("(min-width: 768px) and (min-height: 640px)");
+    const query = window.matchMedia("(min-height: 640px)");
     const update = () => setMatches(query.matches);
 
     update();
@@ -230,7 +230,7 @@ function StackedPrincipleCard({
     <motion.li
       className={
         shouldStack
-          ? "col-start-1 row-start-1 flex min-h-37 items-center gap-6 overflow-hidden rounded-3xl p-6"
+          ? "col-start-1 row-start-1 flex min-h-37 items-start gap-4 overflow-hidden rounded-3xl p-5 sm:items-center sm:gap-6 sm:p-6"
           : "flex items-start gap-4 overflow-hidden rounded-3xl p-5 sm:min-h-37 sm:items-center sm:gap-6 sm:p-6"
       }
       style={
