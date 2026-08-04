@@ -97,7 +97,7 @@ export function CaseStudyDrawer({
         </div>
 
         <div
-          className="case-study-sheet-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-20 sm:px-8"
+          className="case-study-sheet-scroll relative min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-20 sm:px-8"
           ref={scrollContainerRef}
         >
           <article className="mx-auto w-full max-w-[1120px] pt-6">
