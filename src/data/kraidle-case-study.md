@@ -274,23 +274,9 @@ At the time of this case study, the system included:
 | Reusable UI | **27 React components**, each with a Storybook story and Code Connect file |
 | Machine-readable context | A generated inventory covering all 27 components |
 | Code enforcement | **5 custom ESLint rules** |
-| Pull-request automation | **6 GitHub Actions workflows** spanning tokens, lint, accessibility, visual review, and component requests |
+| Pull-request automation | **6 GitHub Actions workflows ** spanning tokens, lint, accessibility, visual review, and component requests |
 | Design feedback | A Figma plugin and passive canvas widget for token and component checks |
 
-These numbers describe implementation coverage, not business impact. The more
-meaningful outcome was a coherent workflow: design decisions could travel from
-tokens to components to generated interfaces without relying on memory or
-manual translation at every step.
+From start to the go-live rebranding date, kraidle took just over a month from the first Claude prompt for tokens through to the MVP of the landing pages and all necessary components being created.  Overall, kraidle drastically increased the speed at which the web team can create new pages.  It also let team leads, subject matter experts, and non-technical employees create pages to their liking via the markdown converter, without ever having to write a line of code.
 
-Three lessons shaped the final system:
-
-- **Context matters more than clever prompting.** AI became more useful when
-  component APIs, usage rules, and design decisions were explicit.
-- **Governance should be deterministic.** Lint, accessibility tests, and visual
-  checks make quality repeatable whether the author is a person or an agent.
-- **Exceptions should improve the system.** Turning unmapped elements into
-  component requests makes new product work a source of design-system insight.
-
-Kraidle is AI-augmented, not AI-dependent. Its strongest contribution is not
-automatic interface generation; it is the connected foundation that makes
-generated work understandable, reviewable, and reusable.
+For me personally, kraidle was an incredibly boost to my design engineering skills, and was the first large scale engineering project I undertook as a designer.  It was lots of fun to learn a new skill and be able to ship code to production and to bring my designs to life.
