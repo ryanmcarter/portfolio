@@ -186,12 +186,20 @@ function StackedPrincipleCard({
       return cardIndex * 24;
     }),
   );
-  const contentFilter = useTransform(
+  const iconFilter = useTransform(
     progress,
     cardIndex === 0
       ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
       : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
     cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(4px)", "blur(0px)"],
+    { ease: stageEase },
+  );
+  const contentFilter = useTransform(
+    progress,
+    cardIndex === 0
+      ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
+      : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
+    cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(1px)", "blur(0px)"],
     { ease: stageEase },
   );
   const contentY = useTransform(
@@ -238,7 +246,7 @@ function StackedPrincipleCard({
             }
       }
     >
-      <motion.div style={shouldStack ? { filter: contentFilter, y: contentY } : undefined}>
+      <motion.div style={shouldStack ? { filter: iconFilter, y: contentY } : undefined}>
         <PrincipleIcon icon={principle.icon} />
       </motion.div>
       <motion.div
