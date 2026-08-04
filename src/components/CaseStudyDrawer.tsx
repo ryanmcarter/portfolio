@@ -80,12 +80,12 @@ export function CaseStudyDrawer({
         className="h-[calc(100svh-0.5rem)] max-h-[calc(100svh-0.5rem)] min-h-[calc(100svh-0.5rem)] overflow-hidden rounded-t-3xl bg-white shadow-[0_-8px_16px] shadow-stone-200 [--drawer-bleed-background:var(--color-white)] sm:h-[calc(100svh-1.5rem)] sm:max-h-[calc(100svh-1.5rem)] sm:min-h-[calc(100svh-1.5rem)]"
         id="case-study-drawer"
       >
-        <div className="relative h-16 shrink-0 bg-white">
+        <div className="relative h-[max(4rem,calc(env(safe-area-inset-top)+2.5rem))] shrink-0 bg-white sm:h-16">
           <DrawerClose
             aria-label={`Close ${study.title}`}
             render={
               <Button
-                className="absolute right-4 top-4 z-20"
+                className="absolute right-4 top-[max(1rem,calc(env(safe-area-inset-top)-0.5rem))] z-20 sm:top-4"
                 size="icon"
                 type="button"
                 variant="floating"
