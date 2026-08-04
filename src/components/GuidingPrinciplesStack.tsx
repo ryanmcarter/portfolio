@@ -210,6 +210,14 @@ function StackedPrincipleCard({
     cardIndex === 0 ? [0, 0] : [4, 0],
     { ease: stageEase },
   );
+  const contentOpacity = useTransform(progress, (latestProgress) => {
+    const nextCardIndex = cardIndex + 1;
+    const contentStart = surfaceRevealThreshold(cardIndex);
+    const contentEnd =
+      nextCardIndex < principles.length ? surfaceRevealThreshold(nextCardIndex) : Infinity;
+
+    return latestProgress >= contentStart && latestProgress < contentEnd ? 1 : 0;
+  });
   const boxShadow = useStageTransform(
     progress,
     stagePoints.map((_, stageIndex) => {
@@ -246,12 +254,20 @@ function StackedPrincipleCard({
             }
       }
     >
-      <motion.div style={shouldStack ? { filter: iconFilter, y: contentY } : undefined}>
+      <motion.div
+        style={
+          shouldStack ? { filter: iconFilter, opacity: contentOpacity, y: contentY } : undefined
+        }
+      >
         <PrincipleIcon icon={principle.icon} />
       </motion.div>
       <motion.div
         className="min-w-0 flex-1 text-base leading-6 sm:text-xl sm:leading-8"
-        style={shouldStack ? { filter: contentFilter, y: contentY } : undefined}
+        style={
+          shouldStack
+            ? { filter: contentFilter, opacity: contentOpacity, y: contentY }
+            : undefined
+        }
       >
         <h3 className="font-medium">{principle.title}</h3>
         <p className="!mt-1">{principle.body}</p>
