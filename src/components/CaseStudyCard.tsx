@@ -209,10 +209,18 @@ export function CaseStudyCard({
                   <span className="truncate text-sm font-semibold">{title}</span>
                   <span className="truncate text-xs">{client}</span>
                 </span>
-                <span className="relative min-h-0 flex-1 overflow-hidden rounded-[20px] bg-white">
+                <span
+                  className={`relative min-h-0 flex-1 overflow-hidden rounded-[20px] ${
+                    slug === "kraidle" ? "bg-neutral-950" : "bg-white"
+                  }`}
+                >
                   <img
                     alt=""
-                    className="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                    className={`size-full transition-transform duration-500 ease-out ${
+                      slug === "kraidle"
+                        ? "object-contain"
+                        : "object-cover group-hover:scale-[1.015]"
+                    }`}
                     loading={index < 2 ? "eager" : "lazy"}
                     src={image}
                   />
