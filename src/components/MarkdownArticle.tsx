@@ -1,14 +1,21 @@
-import type { ReactNode } from "react";
+import type { ReactNode, RefObject } from "react";
+
+import { GuidingPrinciplesStack } from "@/components/GuidingPrinciplesStack";
+import { KraidleTabsShowcase } from "@/components/KraidleTabsShowcase";
+import { parseMarkdownList } from "@/lib/markdown-list";
 
 type MarkdownBlock =
   | { type: "blockquote"; text: string }
   | { type: "code"; code: string; language?: string }
   | { type: "heading"; depth: number; text: string }
+  | { type: "guiding-principles" }
   | { type: "hr" }
   | { type: "image"; alt: string; src: string }
+  | { type: "kraidle-tabs" }
   | { type: "list"; ordered: boolean; items: string[] }
   | { type: "paragraph"; text: string }
-  | { type: "table"; headers: string[]; rows: string[][] };
+  | { type: "table"; headers: string[]; rows: string[][] }
+  | { type: "video"; src: string; title: string };
 
 function cleanInline(text: string) {
   return text
@@ -75,6 +82,12 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
       continue;
     }
 
+    if (/^<KraidleTabsShowcase\s*\/>\s*$/.test(line)) {
+      blocks.push({ type: "kraidle-tabs" });
+      index += 1;
+      continue;
+    }
+
     const heading = line.match(/^(#{1,6})\s+(.+)$/);
     if (heading) {
       blocks.push({ type: "heading", depth: heading[1].length, text: cleanInline(heading[2]) });
@@ -85,6 +98,13 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
     const image = line.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
     if (image) {
       blocks.push({ type: "image", alt: cleanInline(image[1]), src: image[2].trim() });
+      index += 1;
+      continue;
+    }
+
+    const video = line.match(/^<Video\s+src="([^"]+)"\s+title="([^"]+)"\s*\/>\s*$/);
+    if (video) {
+      blocks.push({ type: "video", src: video[1], title: cleanInline(video[2]) });
       index += 1;
       continue;
     }
@@ -117,16 +137,14 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
     const ordered = line.match(/^\s*\d+\.\s+(.+)$/);
     if (unordered || ordered) {
       const isOrdered = Boolean(ordered);
-      const items: string[] = [];
+      const list = parseMarkdownList(lines, index, isOrdered);
+      index = list.nextIndex;
 
-      while (index < lines.length) {
-        const match = isOrdered ? lines[index].match(/^\s*\d+\.\s+(.+)$/) : lines[index].match(/^\s*[-*]\s+(.+)$/);
-        if (!match) break;
-        items.push(cleanInline(match[1]));
-        index += 1;
-      }
-
-      blocks.push({ type: "list", ordered: isOrdered, items });
+      blocks.push({
+        type: "list",
+        ordered: isOrdered,
+        items: list.items.map(cleanInline),
+      });
       continue;
     }
 
@@ -137,6 +155,8 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
       !lines[index].match(/^```/) &&
       !lines[index].match(/^(#{1,6})\s+/) &&
       !lines[index].match(/^!\[[^\]]*\]\([^)]+\)\s*$/) &&
+      !lines[index].match(/^<Video\s+src="[^"]+"\s+title="[^"]+"\s*\/>\s*$/) &&
+      !lines[index].match(/^<KraidleTabsShowcase\s*\/>\s*$/) &&
       !lines[index].trim().startsWith(">") &&
       !/^---+\s*$/.test(lines[index]) &&
       !(lines[index].includes("|") && lines[index + 1] && isTableDivider(lines[index + 1])) &&
@@ -233,9 +253,11 @@ function MarkdownTable({ block }: { block: Extract<MarkdownBlock, { type: "table
 export function MarkdownArticle({
   hideLead = false,
   markdown,
+  scrollContainerRef,
 }: {
   hideLead?: boolean;
   markdown: string;
+  scrollContainerRef?: RefObject<HTMLElement | null>;
 }) {
   let blocks = parseMarkdown(markdown);
 
@@ -257,9 +279,33 @@ export function MarkdownArticle({
     }
   }
 
+  const principlesStartIndex = blocks.findIndex(
+    (block) =>
+      block.type === "heading" &&
+      block.depth === 2 &&
+      /goals\s*&\s*guiding principles$/i.test(block.text),
+  );
+
+  if (principlesStartIndex >= 0) {
+    const nextDividerIndex = blocks.findIndex(
+      (block, index) => index > principlesStartIndex && block.type === "hr",
+    );
+    const principlesEndIndex = nextDividerIndex >= 0 ? nextDividerIndex + 1 : principlesStartIndex + 1;
+
+    blocks = [
+      ...blocks.slice(0, principlesStartIndex),
+      { type: "guiding-principles" },
+      ...blocks.slice(principlesEndIndex),
+    ];
+  }
+
   return (
     <div className="content-text min-w-0">
       {blocks.map((block, index) => {
+        if (block.type === "guiding-principles") {
+          return <GuidingPrinciplesStack key={index} scrollContainerRef={scrollContainerRef} />;
+        }
+
         if (block.type === "heading") {
           if (block.depth === 1) return null;
           if (block.depth === 2) {
@@ -316,6 +362,31 @@ export function MarkdownArticle({
           );
         }
 
+        if (block.type === "video") {
+          return (
+            <figure
+              className="my-6 max-w-full overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950"
+              key={index}
+            >
+              <video
+                aria-label={block.title}
+                autoPlay
+                className="h-auto w-full"
+                controls
+                muted
+                playsInline
+                preload="metadata"
+              >
+                <source src={block.src} type="video/mp4" />
+                Your browser does not support embedded video. You can{" "}
+                <a href={block.src}>open the screen recording directly</a>.
+              </video>
+            </figure>
+          );
+        }
+
+        if (block.type === "kraidle-tabs") return <KraidleTabsShowcase key={index} />;
+
         if (block.type === "list") {
           const ListTag = block.ordered ? "ol" : "ul";
           return (
@@ -325,8 +396,8 @@ export function MarkdownArticle({
               }`}
               key={index}
             >
-              {block.items.map((item) => (
-                <li key={item}>{renderInline(item)}</li>
+              {block.items.map((item, itemIndex) => (
+                <li key={`${itemIndex}-${item}`}>{renderInline(item)}</li>
               ))}
             </ListTag>
           );

@@ -47,9 +47,14 @@ textarea {
   font: inherit;
 }
 
-:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+:where(a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])):focus-visible {
   outline: 2px solid var(--color-neutral-900);
   outline-offset: 3px;
+}
+
+.kraidle-tab-demo-button:focus-visible {
+  outline-color: #2ca7be;
+  outline-offset: 2px;
 }
 
 .skip-link {
