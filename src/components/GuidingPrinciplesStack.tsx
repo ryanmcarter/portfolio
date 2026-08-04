@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import {
+  cubicBezier,
   motion,
   useReducedMotion,
   useScroll,
@@ -12,8 +13,42 @@ type GuidingPrinciplesStackProps = {
 };
 
 const stagePoints = [0, 0.25, 0.5, 0.75, 1];
+const stageHold = 0.055;
+const motionPoints = stagePoints.flatMap((point, index) =>
+  index < stagePoints.length - 1 ? [point, point + stageHold] : [point],
+);
 const depthScales = [1, 0.9, 0.81, 0.729, 0.6561];
 const depthOpacities = [1, 0.8, 0.6, 0.4, 0.2];
+const stageEase = cubicBezier(0.22, 1, 0.36, 1);
+
+function holdAtEachStage<T>(output: T[]) {
+  return output.flatMap((value, index) =>
+    index < output.length - 1 ? [value, value] : [value],
+  );
+}
+
+function useStageTransform<T extends number | string>(
+  progress: MotionValue<number>,
+  output: T[],
+) {
+  return useTransform(progress, motionPoints, holdAtEachStage(output), { ease: stageEase });
+}
+
+function transitionThreshold(cardIndex: number, position: number) {
+  if (cardIndex === 0) return 0;
+
+  const transitionStart = stagePoints[cardIndex - 1] + stageHold;
+  const transitionEnd = stagePoints[cardIndex];
+  return transitionStart + (transitionEnd - transitionStart) * position;
+}
+
+function surfaceRevealThreshold(cardIndex: number) {
+  return transitionThreshold(cardIndex, 0.24);
+}
+
+function copyRevealThreshold(cardIndex: number) {
+  return transitionThreshold(cardIndex, 0.36);
+}
 
 const principles = [
   {
@@ -109,33 +144,41 @@ function StackedPrincipleCard({
   progress: MotionValue<number>;
   shouldStack: boolean;
 }) {
-  const scale = useTransform(
+  const scale = useStageTransform(
     progress,
-    stagePoints,
     stagePoints.map((_, stageIndex) => {
       if (stageIndex < cardIndex) return 1;
       return depthScales[stageIndex - cardIndex];
     }),
   );
-  const opacity = useTransform(
+  const stagedOpacity = useStageTransform(
     progress,
-    stagePoints,
     stagePoints.map((_, stageIndex) => {
       if (stageIndex < cardIndex) return 0;
       return depthOpacities[stageIndex - cardIndex];
     }),
   );
-  const filter = useTransform(
+  const opacity = useTransform(
+    [progress, stagedOpacity],
+    ([latestProgress, latestOpacity]: number[]) => {
+      if (cardIndex > 0 && latestProgress < surfaceRevealThreshold(cardIndex)) return 0;
+
+      const nextCardIndex = cardIndex + 1;
+      if (nextCardIndex >= principles.length) return 1;
+      if (latestProgress < copyRevealThreshold(nextCardIndex)) return 1;
+
+      return latestOpacity;
+    },
+  );
+  const filter = useStageTransform(
     progress,
-    stagePoints,
     stagePoints.map((_, stageIndex) => {
       const depth = stageIndex - cardIndex;
       return `blur(${depth > 0 ? depth : 0}px)`;
     }),
   );
-  const y = useTransform(
+  const y = useStageTransform(
     progress,
-    stagePoints,
     stagePoints.map((_, stageIndex) => {
       if (stageIndex < cardIndex) return cardIndex * 24 + 120;
       if (cardIndex === 0 && stageIndex === 1) return 7.4;
@@ -143,19 +186,17 @@ function StackedPrincipleCard({
       return cardIndex * 24;
     }),
   );
-  const contentOpacity = useTransform(
+  const contentOpacity = useTransform(progress, (latestProgress) => {
+    const copyIsRevealed = latestProgress >= copyRevealThreshold(cardIndex);
+    const nextCardIndex = cardIndex + 1;
+    const nextCopyIsRevealed =
+      nextCardIndex < principles.length &&
+      latestProgress >= copyRevealThreshold(nextCardIndex);
+
+    return copyIsRevealed && !nextCopyIsRevealed ? 1 : 0;
+  });
+  const boxShadow = useStageTransform(
     progress,
-    stagePoints,
-    stagePoints.map((_, stageIndex) => {
-      if (stageIndex < cardIndex) return 0;
-      if (stageIndex === cardIndex) return 1;
-      if (cardIndex === 0 && stageIndex === 1) return 1;
-      return 0;
-    }),
-  );
-  const boxShadow = useTransform(
-    progress,
-    stagePoints,
     stagePoints.map((_, stageIndex) => {
       const alpha = cardIndex === 1 && stageIndex === 1 ? 0.2 : 0.1;
       return `0 0 16px rgba(${principle.shadow}, ${alpha})`;
@@ -179,6 +220,7 @@ function StackedPrincipleCard({
               opacity,
               scale,
               transformOrigin: "top center",
+              willChange: "transform, opacity, filter",
               y,
               zIndex: cardIndex + 1,
             }
