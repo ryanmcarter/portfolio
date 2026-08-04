@@ -186,14 +186,37 @@ function StackedPrincipleCard({
       return cardIndex * 24;
     }),
   );
+  const iconFilter = useTransform(
+    progress,
+    cardIndex === 0
+      ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
+      : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
+    cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(3px)", "blur(0px)"],
+    { ease: stageEase },
+  );
+  const contentFilter = useTransform(
+    progress,
+    cardIndex === 0
+      ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
+      : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
+    cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(3px)", "blur(0px)"],
+    { ease: stageEase },
+  );
+  const contentY = useTransform(
+    progress,
+    cardIndex === 0
+      ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
+      : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
+    cardIndex === 0 ? [0, 0] : [4, 0],
+    { ease: stageEase },
+  );
   const contentOpacity = useTransform(progress, (latestProgress) => {
-    const copyIsRevealed = latestProgress >= copyRevealThreshold(cardIndex);
     const nextCardIndex = cardIndex + 1;
-    const nextCopyIsRevealed =
-      nextCardIndex < principles.length &&
-      latestProgress >= copyRevealThreshold(nextCardIndex);
+    const contentStart = surfaceRevealThreshold(cardIndex);
+    const contentEnd =
+      nextCardIndex < principles.length ? surfaceRevealThreshold(nextCardIndex) : Infinity;
 
-    return copyIsRevealed && !nextCopyIsRevealed ? 1 : 0;
+    return latestProgress >= contentStart && latestProgress < contentEnd ? 1 : 0;
   });
   const boxShadow = useStageTransform(
     progress,
@@ -231,12 +254,20 @@ function StackedPrincipleCard({
             }
       }
     >
-      <motion.div style={shouldStack ? { opacity: contentOpacity } : undefined}>
+      <motion.div
+        style={
+          shouldStack ? { filter: iconFilter, opacity: contentOpacity, y: contentY } : undefined
+        }
+      >
         <PrincipleIcon icon={principle.icon} />
       </motion.div>
       <motion.div
         className="min-w-0 flex-1 text-base leading-6 sm:text-xl sm:leading-8"
-        style={shouldStack ? { opacity: contentOpacity } : undefined}
+        style={
+          shouldStack
+            ? { filter: contentFilter, opacity: contentOpacity, y: contentY }
+            : undefined
+        }
       >
         <h3 className="font-medium">{principle.title}</h3>
         <p className="!mt-1">{principle.body}</p>
