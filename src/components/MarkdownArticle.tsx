@@ -1,5 +1,6 @@
 import type { ReactNode, RefObject } from "react";
 
+import { AnimatedCodeLines } from "@/components/AnimatedCodeLines";
 import { GuidingPrinciplesStack } from "@/components/GuidingPrinciplesStack";
 import { KraidleTabsShowcase } from "@/components/KraidleTabsShowcase";
 import { parseMarkdownList } from "@/lib/markdown-list";
@@ -16,6 +17,27 @@ type MarkdownBlock =
   | { type: "paragraph"; text: string }
   | { type: "table"; headers: string[]; rows: string[][] }
   | { type: "video"; src: string; title: string };
+
+const lineAnimatedCodeSections = new Set(["3. The system at a glance", "Repository architecture"]);
+
+function lineAnimatedCodeBlockIndexes(blocks: MarkdownBlock[]) {
+  const indexes = new Set<number>();
+  let animateNextCodeBlock = false;
+
+  blocks.forEach((block, index) => {
+    if (block.type === "heading" && block.depth === 2) {
+      animateNextCodeBlock = lineAnimatedCodeSections.has(block.text);
+      return;
+    }
+
+    if (block.type === "code" && animateNextCodeBlock) {
+      indexes.add(index);
+      animateNextCodeBlock = false;
+    }
+  });
+
+  return indexes;
+}
 
 function cleanInline(text: string) {
   return text
@@ -299,6 +321,8 @@ export function MarkdownArticle({
     ];
   }
 
+  const animatedCodeBlockIndexes = lineAnimatedCodeBlockIndexes(blocks);
+
   return (
     <div className="content-text min-w-0">
       {blocks.map((block, index) => {
@@ -416,9 +440,16 @@ export function MarkdownArticle({
                   {block.language}
                 </figcaption>
               )}
-              <pre className="overflow-x-auto p-4 text-sm leading-6 text-neutral-100">
-                <code>{block.code}</code>
-              </pre>
+              {animatedCodeBlockIndexes.has(index) ? (
+                <AnimatedCodeLines
+                  code={block.code}
+                  scrollContainerRef={scrollContainerRef}
+                />
+              ) : (
+                <pre className="overflow-x-auto p-4 text-sm leading-6 text-neutral-100">
+                  <code>{block.code}</code>
+                </pre>
+              )}
             </figure>
           );
         }
