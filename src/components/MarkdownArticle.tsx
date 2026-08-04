@@ -12,7 +12,8 @@ type MarkdownBlock =
   | { type: "kraidle-tabs" }
   | { type: "list"; ordered: boolean; items: string[] }
   | { type: "paragraph"; text: string }
-  | { type: "table"; headers: string[]; rows: string[][] };
+  | { type: "table"; headers: string[]; rows: string[][] }
+  | { type: "video"; src: string; title: string };
 
 function cleanInline(text: string) {
   return text
@@ -99,6 +100,13 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
       continue;
     }
 
+    const video = line.match(/^<Video\s+src="([^"]+)"\s+title="([^"]+)"\s*\/>\s*$/);
+    if (video) {
+      blocks.push({ type: "video", src: video[1], title: cleanInline(video[2]) });
+      index += 1;
+      continue;
+    }
+
     if (line.trim().startsWith(">")) {
       const quote: string[] = [];
       while (index < lines.length && lines[index].trim().startsWith(">")) {
@@ -145,6 +153,7 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
       !lines[index].match(/^```/) &&
       !lines[index].match(/^(#{1,6})\s+/) &&
       !lines[index].match(/^!\[[^\]]*\]\([^)]+\)\s*$/) &&
+      !lines[index].match(/^<Video\s+src="[^"]+"\s+title="[^"]+"\s*\/>\s*$/) &&
       !lines[index].match(/^<KraidleTabsShowcase\s*\/>\s*$/) &&
       !lines[index].trim().startsWith(">") &&
       !/^---+\s*$/.test(lines[index]) &&
@@ -321,6 +330,27 @@ export function MarkdownArticle({
               key={index}
             >
               <img alt={block.alt} className="h-auto w-full" decoding="async" loading="lazy" src={block.src} />
+            </figure>
+          );
+        }
+
+        if (block.type === "video") {
+          return (
+            <figure
+              className="my-6 max-w-full overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950"
+              key={index}
+            >
+              <video
+                aria-label={block.title}
+                className="h-auto w-full"
+                controls
+                playsInline
+                preload="metadata"
+              >
+                <source src={block.src} type="video/mp4" />
+                Your browser does not support embedded video. You can{" "}
+                <a href={block.src}>open the screen recording directly</a>.
+              </video>
             </figure>
           );
         }

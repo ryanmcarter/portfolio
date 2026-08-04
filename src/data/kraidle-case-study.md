@@ -207,6 +207,18 @@ and the design-system tokens are mapped locally so the example remains self-cont
 
 ---
 
+## Authoring pages via a markdown to NextJS engine.
+
+Kraidle turns structured page content into typed Next.js templates through a
+small parsing and resolution layer. In development, a preview parser lets an
+author begin with an empty file and see the page take shape as fields are added;
+production keeps the full schema, slug, value, and reference-integrity checks so
+incomplete content cannot silently ship.
+
+<Video src="/assets/kraidle-markdown-c3.mp4" title="Screen recording of authoring a Kraidle page from an empty content file" />
+
+---
+
 ## My role and strategy
 
 As Product Designer and Design Engineer, I designed Kraidle across the boundary
