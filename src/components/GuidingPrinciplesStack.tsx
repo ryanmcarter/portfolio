@@ -186,15 +186,22 @@ function StackedPrincipleCard({
       return cardIndex * 24;
     }),
   );
-  const contentOpacity = useTransform(progress, (latestProgress) => {
-    const copyIsRevealed = latestProgress >= copyRevealThreshold(cardIndex);
-    const nextCardIndex = cardIndex + 1;
-    const nextCopyIsRevealed =
-      nextCardIndex < principles.length &&
-      latestProgress >= copyRevealThreshold(nextCardIndex);
-
-    return copyIsRevealed && !nextCopyIsRevealed ? 1 : 0;
-  });
+  const contentFilter = useTransform(
+    progress,
+    cardIndex === 0
+      ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
+      : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
+    cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(4px)", "blur(0px)"],
+    { ease: stageEase },
+  );
+  const contentY = useTransform(
+    progress,
+    cardIndex === 0
+      ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
+      : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
+    cardIndex === 0 ? [0, 0] : [4, 0],
+    { ease: stageEase },
+  );
   const boxShadow = useStageTransform(
     progress,
     stagePoints.map((_, stageIndex) => {
@@ -231,12 +238,12 @@ function StackedPrincipleCard({
             }
       }
     >
-      <motion.div style={shouldStack ? { opacity: contentOpacity } : undefined}>
+      <motion.div style={shouldStack ? { filter: contentFilter, y: contentY } : undefined}>
         <PrincipleIcon icon={principle.icon} />
       </motion.div>
       <motion.div
         className="min-w-0 flex-1 text-base leading-6 sm:text-xl sm:leading-8"
-        style={shouldStack ? { opacity: contentOpacity } : undefined}
+        style={shouldStack ? { filter: contentFilter, y: contentY } : undefined}
       >
         <h3 className="font-medium">{principle.title}</h3>
         <p className="!mt-1">{principle.body}</p>
