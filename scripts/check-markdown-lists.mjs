@@ -43,6 +43,6 @@ assert.notEqual(principlesStart, -1);
 
 const principles = parseMarkdownList(caseStudyLines, principlesStart, true);
 assert.equal(principles.items.length, 7);
-assert.match(principles.items[6], /^\*\*The system grows itself\.\*\*/);
+assert.match(principles.items[6], /^\*\*Enforcement on the Figma canvas: \*\*/);
 
 console.log("Markdown wrapped-list checks passed.");

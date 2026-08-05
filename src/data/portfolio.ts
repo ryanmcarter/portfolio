@@ -94,12 +94,12 @@ const metadata: Record<
   },
   kraidle: {
     client: "Gradle Technologies",
-    date: "2025—2026",
+    date: "Summer 2026",
     role: "Product Designer & Design Engineer",
-    title: "Kraidle Design System",
+    title: "Creating a token-powered design system with Claude Code",
     summary:
       "A connected, AI-augmented design system that treats Figma, code, and AI-assisted workflows as coordinated views of one source of truth.",
-    toolset: "Figma, design tokens, React, Storybook, ESLint, GitHub Actions, Claude Code",
+    toolset: "Claude Code, Figma, Tokens Studio, Storybook",
   },
   keel: {
     client: "New York Shipping Exchange",
