@@ -170,13 +170,6 @@ function StackedPrincipleCard({
       return latestOpacity;
     },
   );
-  const filter = useStageTransform(
-    progress,
-    stagePoints.map((_, stageIndex) => {
-      const depth = stageIndex - cardIndex;
-      return `blur(${depth > 0 ? depth : 0}px)`;
-    }),
-  );
   const y = useStageTransform(
     progress,
     stagePoints.map((_, stageIndex) => {
@@ -185,22 +178,6 @@ function StackedPrincipleCard({
       if (cardIndex === 1 && stageIndex === 1) return 32;
       return cardIndex * 24;
     }),
-  );
-  const iconFilter = useTransform(
-    progress,
-    cardIndex === 0
-      ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
-      : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
-    cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(3px)", "blur(0px)"],
-    { ease: stageEase },
-  );
-  const contentFilter = useTransform(
-    progress,
-    cardIndex === 0
-      ? [stagePoints[0], stagePoints[stagePoints.length - 1]]
-      : [copyRevealThreshold(cardIndex), stagePoints[cardIndex]],
-    cardIndex === 0 ? ["blur(0px)", "blur(0px)"] : ["blur(3px)", "blur(0px)"],
-    { ease: stageEase },
   );
   const contentY = useTransform(
     progress,
@@ -239,11 +216,10 @@ function StackedPrincipleCard({
               backgroundColor: principle.background,
               boxShadow,
               color: principle.text,
-              filter,
               opacity,
               scale,
               transformOrigin: "top center",
-              willChange: "transform, opacity, filter",
+              willChange: "transform, opacity",
               y,
               zIndex: cardIndex + 1,
             }
@@ -255,18 +231,14 @@ function StackedPrincipleCard({
       }
     >
       <motion.div
-        style={
-          shouldStack ? { filter: iconFilter, opacity: contentOpacity, y: contentY } : undefined
-        }
+        style={shouldStack ? { opacity: contentOpacity, y: contentY } : undefined}
       >
         <PrincipleIcon icon={principle.icon} />
       </motion.div>
       <motion.div
         className="min-w-0 flex-1 text-base leading-6 sm:text-xl sm:leading-8"
         style={
-          shouldStack
-            ? { filter: contentFilter, opacity: contentOpacity, y: contentY }
-            : undefined
+          shouldStack ? { opacity: contentOpacity, y: contentY } : undefined
         }
       >
         <h3 className="font-medium">{principle.title}</h3>
