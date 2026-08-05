@@ -3,13 +3,14 @@
 Kraidle connects Figma, production code, and AI-assisted workflows through one
 set of shared foundations and enforceable rules.
 
-## The ask
+## The need for a new design system
 
-Prior to kraidle, there was an existing design system called...kradle.  Kradle was mostly just a design system in name only, it was built by our marketing/graphic designer and never fully maintained.  This naturally led to component drift, numerous variants of common components such as cards, inconsistent color usage and so on (all the usual challenges of a non-regularly maintained design system). On the engineering side, complaints were starting to arise around maintaining these variants and the time/resources necessary to adapt new slight variants of existing components.  During all of these, the original creator of the design system left the company.
+The existing design system, Kradle, had fallen out of maintenance. Component variants multiplied, visual consistency drifted, and engineering spent increasing time supporting one-off patterns. When its original creator left, ownership became even less clear.
 
-Fast forward to early-mid 2026 and Gradle (which briefly became Gradle Technologies) was embarking on a total rebrand to develocity.ai, which presented an opportunity for a new design system. One that was built with AI in mind, one that was token-based, and most important, one that could be built fast.  Thus, kr**AI**dle was born (a crafty way of keeping the existing kradle name, but reflecting the new age of AI).
+Gradle’s 2026 rebrand to develocity.ai created an opportunity to rebuild the system around tokens, AI-assisted workflows, and speed. That became krAIdle: a new foundation that kept a link to the original name while reflecting how the system would work.
 
-Lastly, one major requirement was that any product page on the marketing site could be authored in markdown by non-technical coworkers, so I also created a markdown-to-NextJS converter to accomplish this.
+Kraidle also needed to let non-technical teammates author marketing pages in Markdown, so I built a Markdown-to-Next.js converter alongside the design system.
+
 
 > **The goal: ** Create a token-powered design system with Claude Code, complete with Code Connect linkages to Figma components, all powering web pages that could be written by anyone via markdown.
 
@@ -21,11 +22,12 @@ Overall, I created about 95% of the design system (the remaining 5% were deeply 
 
 This included the token architecture, coded components, Figma Code Connect mappings, automated testing, marketing page templates, and the markdown to NextJS converter.
 
-## Goals & guiding principles
+
+## Kraidle's goals & guiding principles
 
 Seven principles, in priority order:
 
-1. **Token-first. ** No hardcoded values anywhere — color, spacing,
+1. **Token-first.** No hardcoded values anywhere — color, spacing,
    radius, shadow, typography, motion. Every visual decision is a
    token.
 2. **AI-augmented, not AI-dependent. ** Every layer (tokens, lint, CI,
@@ -46,7 +48,7 @@ Seven principles, in priority order:
 
 ---
 
-## 3. The system at a glance
+## High level overview of kraidle's project structure
 
 ```
                           ┌──────────────────────┐
@@ -184,7 +186,7 @@ and the design-system tokens are mapped locally so the example remains self-cont
 
 ---
 
-## Authoring pages via a markdown to NextJS engine.
+## Authoring pages via a markdown to NextJS engine
 
 Kraidle turns structured page content into typed Next.js templates through a
 small parsing and resolution layer. In development, a preview parser lets an
@@ -244,26 +246,6 @@ the entire design-to-code loop.
 
 These checks were designed to catch drift early and consistently. They also
 hold human-authored and AI-generated work to the same standard.
-
-## How the loop works
-
-One page moving from design to implementation follows a short, reviewable path:
-
-1. A designer builds the Figma frame with library components and token-bound
-   values. The canvas linter exposes gaps before handoff.
-2. The AI workflow receives the Figma frame plus Kraidle's generated component
-   inventory and token context.
-3. The agent maps the frame to existing React components. Anything unmapped is
-   returned as a component request rather than improvised code.
-4. The resulting implementation enters the normal pull-request process, where
-   lint, accessibility, token-impact, and visual checks run automatically.
-5. Design and engineering review the exceptions and intent while automated
-   checks handle repeatable compliance work.
-
-The loop is bidirectional: production component mappings can inform Figma, and
-responsive implementations can be brought back for design review. Figma, code,
-and the AI agent remain different tools, but they operate from shared context
-instead of separate interpretations.
 
 ## Results and lessons
 
