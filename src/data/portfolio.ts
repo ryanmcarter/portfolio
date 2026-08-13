@@ -58,7 +58,7 @@ export const experience = [
 
 const heroImages: Record<string, string> = {
   "dynamic-plan": "/assets/dynamic-plan-v3-overview.png",
-  "elearning-saas": "/assets/elearning-saas-success-markers.png",
+  htss: "/assets/elearning-saas-success-markers.png",
   kraidle: "/assets/kraidle-card-art-figma.png",
   keel: "/assets/keel-card-art.png",
   quilt: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6377013615fcfec66303e1f1_ryancarter-quilt-heroImage-thumb.png",
@@ -71,7 +71,7 @@ const detailHeroImages: Partial<Record<string, string>> = {
 
 const markdownPages: Record<string, string> = {
   "dynamic-plan": dynamicPlanCaseStudyMarkdown,
-  "elearning-saas": elearningSaasCaseStudyMarkdown,
+  htss: elearningSaasCaseStudyMarkdown,
   kraidle: kraidleCaseStudyMarkdown,
 };
 
@@ -95,7 +95,7 @@ const metadata: Record<
       "Dynamic Plan turned complex ocean-shipping plan data into a workspace where carriers and shippers could understand performance, narrow the data to what mattered, and make updates without leaving the product.",
     toolset: "Figma, Miro, Tokens Studio, VSCode",
   },
-  "elearning-saas": {
+  htss: {
     client: "How to Start Something",
     date: "2024",
     role: "Product Designer",
@@ -143,7 +143,7 @@ const metadata: Record<
 };
 
 const caseStudyOrder = [
-  "elearning-saas",
+  "htss",
   "dynamic-plan",
   "kraidle",
   "keel",
@@ -154,7 +154,7 @@ const caseStudyOrder = [
 export const caseStudies = caseStudyOrder.map((slug) => ({
   slug,
   ...metadata[slug],
-  href: `/case-studies/${slug}`,
+  href: slug === "htss" ? "/htss" : `/case-studies/${slug}`,
   image: asset(heroImages[slug]),
   detailHeroImage: detailHeroImages[slug]
     ? asset(detailHeroImages[slug])

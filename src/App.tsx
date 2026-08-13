@@ -76,9 +76,10 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
 
   const restoreStudyFocus = (slug?: string) => {
     window.requestAnimationFrame(() => {
-      const fallbackTrigger = slug
+      const studyHref = slug ? getCaseStudy(slug)?.href : undefined;
+      const fallbackTrigger = studyHref
         ? document.querySelector<HTMLAnchorElement>(
-            `.case-study-card a[href="/case-studies/${slug}"]`,
+            `.case-study-card a[href="${studyHref}"]`,
           )
         : null;
 
@@ -417,11 +418,11 @@ function App() {
   }, []);
 
   const openStudy = (slug: string) => {
-    const nextPath = `/case-studies/${slug}`;
-    if (path === nextPath) return;
+    const study = getCaseStudy(slug);
+    if (!study || path === study.href) return;
 
-    window.history.pushState({ portfolioDrawer: true }, "", nextPath);
-    setPath(nextPath);
+    window.history.pushState({ portfolioDrawer: true }, "", study.href);
+    setPath(study.href);
   };
 
   const closeStudy = () => {
@@ -434,9 +435,7 @@ function App() {
     setPath("/");
   };
 
-  const selectedSlug = path.startsWith("/case-studies/")
-    ? path.split("/").filter(Boolean).at(-1)
-    : undefined;
+  const selectedSlug = caseStudies.find((study) => study.href === path)?.slug;
 
   if (path === "/" || path === "/portfolio/") {
     return <HomePage onCloseStudy={closeStudy} onSelectStudy={openStudy} />;
