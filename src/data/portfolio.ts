@@ -1,5 +1,6 @@
 import assetManifest from "./asset-manifest.json";
 import dynamicPlanCaseStudyMarkdown from "./dynamic-plan-case-study.md?raw";
+import elearningSaasCaseStudyMarkdown from "./elearning-saas-case-study.md?raw";
 import kraidleCaseStudyMarkdown from "./kraidle-case-study.md?raw";
 import scraped from "./scraped-content.json";
 
@@ -57,6 +58,7 @@ export const experience = [
 
 const heroImages: Record<string, string> = {
   "dynamic-plan": "/assets/dynamic-plan-v3-overview.png",
+  "elearning-saas": "/assets/elearning-saas-success-markers.png",
   kraidle: "/assets/kraidle-card-art-figma.png",
   keel: "/assets/keel-card-art.png",
   quilt: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6377013615fcfec66303e1f1_ryancarter-quilt-heroImage-thumb.png",
@@ -69,6 +71,7 @@ const detailHeroImages: Partial<Record<string, string>> = {
 
 const markdownPages: Record<string, string> = {
   "dynamic-plan": dynamicPlanCaseStudyMarkdown,
+  "elearning-saas": elearningSaasCaseStudyMarkdown,
   kraidle: kraidleCaseStudyMarkdown,
 };
 
@@ -91,6 +94,15 @@ const metadata: Record<
     summary:
       "Dynamic Plan turned complex ocean-shipping plan data into a workspace where carriers and shippers could understand performance, narrow the data to what mattered, and make updates without leaving the product.",
     toolset: "Figma, Miro, Tokens Studio, VSCode",
+  },
+  "elearning-saas": {
+    client: "How to Start Something",
+    date: "2024",
+    role: "Product Designer",
+    title: "How to Start Something: eLearning SaaS",
+    summary:
+      "Placeholder summary: an eLearning SaaS experience that helps aspiring founders learn, connect with mentors, and turn progress into concrete next steps.",
+    toolset: "Figma, prototyping, product design",
   },
   kraidle: {
     client: "Gradle Technologies",
@@ -131,6 +143,7 @@ const metadata: Record<
 };
 
 const caseStudyOrder = [
+  "elearning-saas",
   "dynamic-plan",
   "kraidle",
   "keel",
