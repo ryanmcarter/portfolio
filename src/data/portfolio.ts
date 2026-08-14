@@ -1,6 +1,6 @@
 import assetManifest from "./asset-manifest.json";
 import dynamicPlanCaseStudyMarkdown from "./dynamic-plan-case-study.md?raw";
-import elearningSaasCaseStudyMarkdown from "./elearning-saas-case-study.md?raw";
+import elearningSaasCaseStudyMarkdown from "./htss-case-study.md?raw";
 import kraidleCaseStudyMarkdown from "./kraidle-case-study.md?raw";
 import scraped from "./scraped-content.json";
 
