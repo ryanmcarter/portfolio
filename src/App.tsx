@@ -322,7 +322,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
           <div className="min-w-0">
             <h1
               aria-label={`I’m a Product Designer ${heroLines.map((line) => line.text).join(" ")}`}
-              className="min-h-[7.2rem] text-[32px] leading-[1.2] tracking-[-0.01em] sm:min-h-[9.6rem]"
+              className="min-h-[7.2rem] text-[32px] leading-[1.2] tracking-[-0.01em] sm:min-h-[9.6rem] xl:min-h-[12rem]"
             >
               <span className="block font-medium">I’m a Product Designer</span>
               <motion.span
