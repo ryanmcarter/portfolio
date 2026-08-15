@@ -1,4 +1,4 @@
-# How to Start Something: eLearning SaaS
+# Modernizing how aspiring entrepreneurs launch their venture
 
 Placeholder introduction: this case study will describe the product opportunity, design process, and outcomes for the How to Start Something eLearning SaaS experience.
 
