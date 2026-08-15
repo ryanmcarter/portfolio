@@ -12,6 +12,7 @@ type CaseStudyCardProps = {
   onPointerEnter: (slug: string, event: PointerEvent<HTMLAnchorElement>) => void;
   onSelect: (slug: string, trigger: HTMLAnchorElement) => void;
   slug: string;
+  summary: string;
   title: string;
 };
 
@@ -25,6 +26,7 @@ export function CaseStudyCard({
   onPointerEnter,
   onSelect,
   slug,
+  summary,
   title,
 }: CaseStudyCardProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -61,7 +63,7 @@ export function CaseStudyCard({
         boxShadow: active
           ? "0 0 16px rgba(28, 25, 23, 0.12)"
           : "0 0 0 rgba(28, 25, 23, 0)",
-        opacity: dimmed ? 0.3 : 1,
+        opacity: 1,
         y: 0,
         zIndex: active ? 20 : 1,
       }}
@@ -83,6 +85,7 @@ export function CaseStudyCard({
     >
       <a
         aria-haspopup="dialog"
+        aria-describedby={`case-study-summary-${slug}`}
         aria-label={`Read ${title} case study`}
         className="group relative flex size-full flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border border-stone-200 bg-white p-4 text-center outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-inset"
         href={href}
@@ -91,8 +94,15 @@ export function CaseStudyCard({
         onKeyDown={handleKeyDown}
         onPointerEnter={(event) => onPointerEnter(slug, event)}
       >
+        <span className="sr-only" id={`case-study-summary-${slug}`}>
+          {summary}
+        </span>
+
         <motion.span
-          animate={{ opacity: active ? 0.08 : 1, scale: active ? 1.02 : 1 }}
+          animate={{
+            opacity: active ? 0 : dimmed ? 0.22 : 1,
+            scale: active ? 1.02 : 1,
+          }}
           aria-hidden="true"
           className="relative min-h-0 w-full flex-1 overflow-hidden rounded-sm bg-white"
           transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.3 }}

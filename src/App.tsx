@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { FocusEvent } from "react";
+import type { FocusEvent, KeyboardEvent } from "react";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 
@@ -185,6 +185,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
   const [cardMorph, setCardMorph] = useState<CardMorph | null>(null);
   const isClosingDrawerRef = useRef(false);
   const isOpeningFromCardRef = useRef(false);
+  const emailLinkRef = useRef<HTMLAnchorElement | null>(null);
   const lastTriggerRef = useRef<HTMLAnchorElement | null>(null);
   const navigateAfterCloseRef = useRef(false);
   const cursorX = useMotionValue(0);
@@ -269,6 +270,21 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
     }
 
     setFocusedSlug(null);
+  };
+
+  const handleGridKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "Tab" || !event.shiftKey) return;
+
+    const firstCard = event.currentTarget.querySelector<HTMLAnchorElement>("a");
+    if (event.target !== firstCard) return;
+
+    event.preventDefault();
+    setFocusedSlug(null);
+    setPointerSlug(null);
+
+    window.requestAnimationFrame(() => {
+      emailLinkRef.current?.focus({ preventScroll: true });
+    });
   };
 
   const handleDrawerOpenChange = (open: boolean) => {
@@ -377,7 +393,11 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
                     </a>
                   </Button>
                   <Button asChild size="lg" variant="floating">
-                    <a className="group" href="mailto:ryanmichael.carter@gmail.com">
+                    <a
+                      className="group"
+                      href="mailto:ryanmichael.carter@gmail.com"
+                      ref={emailLinkRef}
+                    >
                       Email
                       <ArrowUpRight
                         aria-hidden="true"
@@ -466,6 +486,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
             <div
               className="grid grid-cols-1 gap-1 sm:grid-cols-2"
               onBlurCapture={handleGridBlur}
+              onKeyDownCapture={handleGridKeyDown}
               onPointerLeave={(event) => {
                 if (event.pointerType === "mouse") setPointerSlug(null);
               }}
@@ -484,6 +505,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
                   }}
                   onSelect={handleSelectStudy}
                   slug={study.slug}
+                  summary={study.summary}
                   title={study.title}
                 />
               ))}
