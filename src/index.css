@@ -124,6 +124,15 @@ video {
   transition-duration: 0ms;
 }
 
+[data-slot="drawer-popup"][data-shared-morph="closing"] {
+  opacity: 0;
+}
+
+[data-slot="drawer-overlay"][data-shared-morph="closing"] {
+  opacity: 0;
+  transition-duration: 180ms;
+}
+
 [data-slot="drawer-popup"][data-shared-morph="concealing"] [data-slot="drawer-content"],
 [data-slot="drawer-popup"][data-shared-morph="revealing"] [data-slot="drawer-content"] {
   transition-duration: 180ms;
