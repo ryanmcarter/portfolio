@@ -109,6 +109,30 @@ video {
   scrollbar-gutter: stable;
 }
 
+[data-slot="drawer-popup"][data-shared-morph] {
+  transition-duration: 0ms !important;
+}
+
+[data-slot="drawer-popup"][data-shared-morph][data-starting-style],
+[data-slot="drawer-popup"][data-shared-morph][data-ending-style] {
+  transform: none !important;
+}
+
+[data-slot="drawer-popup"][data-shared-morph="opening"] [data-slot="drawer-content"],
+[data-slot="drawer-popup"][data-shared-morph="closing"] [data-slot="drawer-content"] {
+  opacity: 0;
+  transition-duration: 0ms;
+}
+
+[data-slot="drawer-popup"][data-shared-morph="concealing"] [data-slot="drawer-content"],
+[data-slot="drawer-popup"][data-shared-morph="revealing"] [data-slot="drawer-content"] {
+  transition-duration: 180ms;
+}
+
+[data-slot="drawer-popup"][data-shared-morph="concealing"] [data-slot="drawer-content"] {
+  opacity: 0;
+}
+
 @media (min-width: 80rem) and (max-height: 899px) {
   .home-intro {
     padding-top: 2rem;

@@ -136,42 +136,110 @@ function AnimatedHeroLines({
 }
 
 type CardMorph = {
-  height: number;
-  left: number;
-  top: number;
-  width: number;
+  phase: "closing" | "concealing" | "opening" | "revealing";
+  rect: {
+    height: number;
+    left: number;
+    top: number;
+    width: number;
+  };
+  slug: string;
+  snapshotActive: boolean;
 };
 
-function CardSurfaceMorph({ morph, onComplete }: { morph: CardMorph; onComplete: () => void }) {
+type CardMorphOrigin = Omit<CardMorph, "phase">;
+
+function CardSurfaceMorph({
+  morph,
+  onPhaseComplete,
+}: {
+  morph: CardMorph;
+  onPhaseComplete: (phase: CardMorph["phase"]) => void;
+}) {
+  const study = getCaseStudy(morph.slug);
   const targetTop = window.matchMedia("(min-width: 640px)").matches ? 24 : 8;
+  const isReturningToCard = morph.phase === "closing";
+  const isCrossfading = morph.phase === "concealing" || morph.phase === "revealing";
+  const targetRect = isReturningToCard
+    ? morph.rect
+    : {
+        height: window.innerHeight - targetTop,
+        left: 0,
+        top: targetTop,
+        width: window.innerWidth,
+      };
 
   return (
     <motion.div
       animate={{
-        borderRadius: [16, 24, 24],
-        height: window.innerHeight - targetTop,
-        left: 0,
-        opacity: [1, 1, 0],
-        top: targetTop,
-        width: window.innerWidth,
+        borderRadius: isReturningToCard ? 16 : 24,
+        height: targetRect.height,
+        left: targetRect.left,
+        opacity: morph.phase === "revealing" ? 0 : 1,
+        top: targetRect.top,
+        width: targetRect.width,
       }}
       aria-hidden="true"
-      className="pointer-events-none fixed z-[60] border border-stone-200 bg-white shadow-[0_-8px_16px_rgba(231,229,228,0.8)]"
-      initial={{
-        borderRadius: 16,
-        height: morph.height,
-        left: morph.left,
-        opacity: 1,
-        top: morph.top,
-        width: morph.width,
-      }}
-      onAnimationComplete={onComplete}
-      transition={{
-        borderRadius: { damping: 38, mass: 0.7, stiffness: 460, type: "spring" },
-        default: { damping: 38, mass: 0.7, stiffness: 460, type: "spring" },
-        opacity: { duration: 0.48, ease: [0.22, 1, 0.36, 1], times: [0, 0.72, 1] },
-      }}
-    />
+      className="pointer-events-none fixed z-[60] overflow-hidden border border-stone-200 bg-white shadow-[0_-8px_16px_rgba(231,229,228,0.8)]"
+      initial={
+        morph.phase === "opening"
+          ? {
+              borderRadius: 16,
+              height: morph.rect.height,
+              left: morph.rect.left,
+              opacity: 1,
+              top: morph.rect.top,
+              width: morph.rect.width,
+            }
+          : {
+              borderRadius: 24,
+              height: window.innerHeight - targetTop,
+              left: 0,
+              opacity: 0,
+              top: targetTop,
+              width: window.innerWidth,
+            }
+      }
+      onAnimationComplete={() => onPhaseComplete(morph.phase)}
+      transition={
+        isCrossfading
+          ? { duration: 0.18, ease: [0.22, 1, 0.36, 1] }
+          : {
+              borderRadius: { damping: 38, mass: 0.7, stiffness: 460, type: "spring" },
+              default: { damping: 38, mass: 0.7, stiffness: 460, type: "spring" },
+              opacity: { duration: 0 },
+            }
+      }
+    >
+      <div className="relative flex size-full flex-col items-center justify-center gap-4 bg-white p-4 text-center">
+        {study && !morph.snapshotActive ? (
+          <>
+            <span className="relative min-h-0 w-full flex-1 overflow-hidden rounded-sm bg-white">
+              <img alt="" className="size-full object-cover" src={study.image} />
+            </span>
+            <span className="flex w-full shrink-0 flex-col items-center gap-1 whitespace-nowrap">
+              <span className="text-xs leading-3 text-stone-500">Product Design</span>
+              <span className="w-full truncate text-sm font-medium leading-4 text-stone-900">
+                {study.title}
+              </span>
+            </span>
+          </>
+        ) : study ? (
+          <span className="flex flex-col items-center justify-center gap-4">
+            <span className="flex max-w-full flex-col items-center gap-1">
+              <span className="text-xs leading-3 text-stone-500">Product Design</span>
+              <span className="max-w-full text-balance text-sm font-medium leading-4 text-stone-900">
+                {study.title}
+              </span>
+            </span>
+            <span className="flex items-center gap-2 rounded-xl bg-gradient-to-b from-sky-800 to-sky-900 px-4 py-3 text-sm leading-4 text-stone-50 shadow-sm">
+              Read case study
+              <ArrowUpRight aria-hidden="true" className="size-4" />
+            </span>
+          </span>
+        ) : null}
+      </div>
+    </motion.div>
   );
 }
 
@@ -183,8 +251,8 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
   const [drawerSlug, setDrawerSlug] = useState(selectedSlug);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [cardMorph, setCardMorph] = useState<CardMorph | null>(null);
+  const cardMorphOriginRef = useRef<CardMorphOrigin | null>(null);
   const isClosingDrawerRef = useRef(false);
-  const isOpeningFromCardRef = useRef(false);
   const emailLinkRef = useRef<HTMLAnchorElement | null>(null);
   const lastTriggerRef = useRef<HTMLAnchorElement | null>(null);
   const navigateAfterCloseRef = useRef(false);
@@ -224,13 +292,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
     if (selectedSlug) {
       if (!isClosingDrawerRef.current) {
         setDrawerSlug(selectedSlug);
-        const openDelay = isOpeningFromCardRef.current ? 90 : 0;
-        const openTimeout = window.setTimeout(() => {
-          isOpeningFromCardRef.current = false;
-          setIsDrawerOpen(true);
-        }, openDelay);
-
-        return () => window.clearTimeout(openTimeout);
+        setIsDrawerOpen(true);
       }
       return;
     }
@@ -238,26 +300,43 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
     navigateAfterCloseRef.current = false;
     if (drawerSlug) {
       isClosingDrawerRef.current = true;
-      setIsDrawerOpen(false);
+      const origin = cardMorphOriginRef.current;
+
+      if (!shouldReduceMotion && origin?.slug === drawerSlug) {
+        const morphOrigin = origin as CardMorphOrigin;
+        setCardMorph((current) =>
+          current?.slug === morphOrigin.slug
+            ? { ...current, phase: "closing" }
+            : { ...morphOrigin, phase: "concealing" },
+        );
+      } else {
+        setIsDrawerOpen(false);
+      }
     } else {
       isClosingDrawerRef.current = false;
     }
-  }, [drawerSlug, selectedSlug]);
+  }, [drawerSlug, selectedSlug, shouldReduceMotion]);
 
   const handleSelectStudy = (slug: string, trigger: HTMLAnchorElement) => {
     lastTriggerRef.current = trigger;
     isClosingDrawerRef.current = false;
     navigateAfterCloseRef.current = false;
-    isOpeningFromCardRef.current = !shouldReduceMotion;
 
-    if (!shouldReduceMotion) {
-      const rect = trigger.getBoundingClientRect();
-      setCardMorph({
+    const rect = trigger.getBoundingClientRect();
+    const origin: CardMorphOrigin = {
+      rect: {
         height: rect.height,
         left: rect.left,
         top: rect.top,
         width: rect.width,
-      });
+      },
+      slug,
+      snapshotActive: activeSlug === slug,
+    };
+    cardMorphOriginRef.current = origin;
+
+    if (!shouldReduceMotion) {
+      setCardMorph({ ...origin, phase: "opening" });
     }
 
     setDrawerSlug(slug);
@@ -289,9 +368,40 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
 
   const handleDrawerOpenChange = (open: boolean) => {
     if (open) return;
+    if (isClosingDrawerRef.current) return;
 
     isClosingDrawerRef.current = true;
     navigateAfterCloseRef.current = Boolean(selectedSlug);
+    const origin = cardMorphOriginRef.current;
+
+    if (!shouldReduceMotion && origin?.slug === drawerSlug) {
+      const morphOrigin = origin as CardMorphOrigin;
+      setCardMorph((current) =>
+        current?.slug === morphOrigin.slug
+          ? { ...current, phase: "closing" }
+          : { ...morphOrigin, phase: "concealing" },
+      );
+    } else {
+      setIsDrawerOpen(false);
+    }
+  };
+
+  const handleMorphPhaseComplete = (phase: CardMorph["phase"]) => {
+    if (phase === "opening") {
+      setCardMorph((current) => (current ? { ...current, phase: "revealing" } : null));
+      return;
+    }
+
+    if (phase === "revealing") {
+      setCardMorph(null);
+      return;
+    }
+
+    if (phase === "concealing") {
+      setCardMorph((current) => (current ? { ...current, phase: "closing" } : null));
+      return;
+    }
+
     setIsDrawerOpen(false);
   };
 
@@ -306,6 +416,8 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
 
     setDrawerSlug(undefined);
     restoreStudyFocus(closingSlug);
+    cardMorphOriginRef.current = null;
+    setCardMorph(null);
 
     if (!selectedSlug) isClosingDrawerRef.current = false;
   };
@@ -504,6 +616,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
                     if (event.pointerType === "mouse") setPointerSlug(slug);
                   }}
                   onSelect={handleSelectStudy}
+                  morphing={cardMorph?.slug === study.slug}
                   slug={study.slug}
                   summary={study.summary}
                   title={study.title}
@@ -536,12 +649,13 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
           onOpenChange={handleDrawerOpenChange}
           onOpenChangeComplete={handleDrawerOpenChangeComplete}
           open={isDrawerOpen}
+          sharedMorphPhase={cardMorph?.phase}
           slug={drawerSlug}
         />
       ) : null}
 
       {cardMorph ? (
-        <CardSurfaceMorph morph={cardMorph} onComplete={() => setCardMorph(null)} />
+        <CardSurfaceMorph morph={cardMorph} onPhaseComplete={handleMorphPhaseComplete} />
       ) : null}
     </>
   );

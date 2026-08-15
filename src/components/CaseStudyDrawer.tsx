@@ -37,6 +37,7 @@ type CaseStudyDrawerProps = {
   onOpenChangeComplete: (open: boolean) => void;
   onOpenChange: (open: boolean) => void;
   open: boolean;
+  sharedMorphPhase?: "closing" | "concealing" | "opening" | "revealing";
   slug: string;
 };
 
@@ -44,6 +45,7 @@ export function CaseStudyDrawer({
   onOpenChangeComplete,
   onOpenChange,
   open,
+  sharedMorphPhase,
   slug,
 }: CaseStudyDrawerProps) {
   const study = getCaseStudy(slug);
@@ -78,6 +80,7 @@ export function CaseStudyDrawer({
     >
       <DrawerContent
         className="h-[calc(100svh-0.5rem)] max-h-[calc(100svh-0.5rem)] min-h-[calc(100svh-0.5rem)] overflow-hidden rounded-t-3xl bg-white shadow-[0_-8px_16px] shadow-stone-200 [--drawer-bleed-background:var(--color-white)] sm:h-[calc(100svh-1.5rem)] sm:max-h-[calc(100svh-1.5rem)] sm:min-h-[calc(100svh-1.5rem)]"
+        data-shared-morph={sharedMorphPhase}
         id="case-study-drawer"
       >
         <div className="relative h-[max(4rem,calc(env(safe-area-inset-top)+2.5rem))] shrink-0 bg-white sm:h-16">
