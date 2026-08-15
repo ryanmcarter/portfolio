@@ -80,6 +80,10 @@ const metadata: Record<
   {
     client: string;
     date: string;
+    hoverHeadline: {
+      emphasis: string;
+      lead: string;
+    };
     role: string;
     summary: string;
     title: string;
@@ -89,6 +93,10 @@ const metadata: Record<
   "dynamic-plan": {
     client: "New York Shipping Exchange",
     date: "Late 2023",
+    hoverHeadline: {
+      lead: "who designed a complex data management and charting product for the",
+      emphasis: "New York Shipping Exchange",
+    },
     role: "Lead Product Designer",
     title: "NYSHEX Dynamic Plan data management platform",
     summary:
@@ -98,6 +106,10 @@ const metadata: Record<
   htss: {
     client: "How to Start Something",
     date: "2024",
+    hoverHeadline: {
+      lead: "who designed an eLearning SaaS experience for aspiring entrepreneurs with",
+      emphasis: "How to Start Something",
+    },
     role: "Product Designer",
     title: "How to Start Something: eLearning SaaS",
     summary:
@@ -107,6 +119,10 @@ const metadata: Record<
   kraidle: {
     client: "Gradle Technologies",
     date: "Summer 2026",
+    hoverHeadline: {
+      lead: "who designed and engineered an AI-augmented design system for",
+      emphasis: "Gradle Technologies",
+    },
     role: "Product Designer & Design Engineer",
     title: "Creating a token-powered design system with Claude Code",
     summary:
@@ -116,6 +132,10 @@ const metadata: Record<
   keel: {
     client: "New York Shipping Exchange",
     date: "2023—2024",
+    hoverHeadline: {
+      lead: "who built a token-based product design system for",
+      emphasis: "New York Shipping Exchange",
+    },
     role: "Design Systems Lead",
     title: "Keel Design System",
     summary:
@@ -125,6 +145,10 @@ const metadata: Record<
   quilt: {
     client: "Ribbon Homes",
     date: "2022",
+    hoverHeadline: {
+      lead: "who rapidly built an accessible design system for",
+      emphasis: "Ribbon Homes",
+    },
     role: "Senior Systems Designer",
     title: "Quilt Design System",
     summary:
@@ -134,6 +158,10 @@ const metadata: Record<
   studio: {
     client: "Shoflo",
     date: "2020",
+    hoverHeadline: {
+      lead: "who designed and launched a browser-based live streaming studio with",
+      emphasis: "Shoflo",
+    },
     role: "Founding Product Designer",
     title: "Shoflo Studio",
     summary:
