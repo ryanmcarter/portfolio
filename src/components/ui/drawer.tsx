@@ -95,7 +95,7 @@ function DrawerContent({
   sharedMorphPhase,
   ...props
 }: DrawerPrimitive.Popup.Props & {
-  sharedMorphPhase?: "closing" | "concealing" | "opening" | "revealing";
+  sharedMorphPhase?: "closing" | "opening";
 }) {
   const { hasSnapPoints, modal, showSwipeHandle, swipeDirection } = useDrawer();
   const swipeAxis = swipeDirection === "down" || swipeDirection === "up" ? "y" : "x";

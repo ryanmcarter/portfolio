@@ -65,11 +65,11 @@ export function CaseStudyCard({
         boxShadow: active
           ? "0 0 16px rgba(28, 25, 23, 0.12)"
           : "0 0 0 rgba(28, 25, 23, 0)",
-        opacity: 1,
+        opacity: dimmed ? 0.3 : 1,
         y: 0,
         zIndex: active ? 20 : 1,
       }}
-      className="case-study-card relative aspect-[319/177] min-h-0 w-full rounded-2xl"
+      className="case-study-card relative aspect-[319/177] min-h-0 w-full rounded-2xl xl:aspect-auto xl:h-[169px]"
       initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
       style={{ visibility: morphing ? "hidden" : "visible" }}
       transition={
@@ -90,7 +90,7 @@ export function CaseStudyCard({
         aria-haspopup="dialog"
         aria-describedby={`case-study-summary-${slug}`}
         aria-label={`Read ${title} case study`}
-        className="group relative flex size-full flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border border-stone-200 bg-white p-4 text-center outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-inset"
+        className={`group relative flex size-full flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border-[0.5px] bg-white p-4 text-center outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-inset ${active ? "border-transparent" : "border-stone-200"}`}
         href={href}
         onClick={handleClick}
         onFocus={handleFocus}
@@ -103,11 +103,12 @@ export function CaseStudyCard({
 
         <motion.span
           animate={{
-            opacity: active ? 0 : dimmed ? 0.22 : 1,
+            opacity: active ? 0.08 : 1,
             scale: active ? 1.02 : 1,
           }}
           aria-hidden="true"
           className="relative min-h-0 w-full flex-1 overflow-hidden rounded-sm bg-white"
+          data-card-image
           transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.3 }}
         >
           <img

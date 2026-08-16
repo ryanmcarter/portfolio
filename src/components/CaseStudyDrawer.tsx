@@ -37,7 +37,7 @@ type CaseStudyDrawerProps = {
   onOpenChangeComplete: (open: boolean) => void;
   onOpenChange: (open: boolean) => void;
   open: boolean;
-  sharedMorphPhase?: "closing" | "concealing" | "opening" | "revealing";
+  sharedMorphPhase?: "closing" | "opening";
   slug: string;
 };
 
