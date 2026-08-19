@@ -46,17 +46,17 @@ function QuiltAccessibilityPanel({
       className="my-10 rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_12px_40px] shadow-neutral-950/10 sm:p-10"
       data-testid="quilt-accessibility-panel"
     >
-      <h3 className="text-xl font-semibold leading-8 text-stone-900">Accessibility</h3>
-      <div className="mt-4 space-y-8 text-lg leading-8 text-stone-900 sm:text-xl">
+      <h3 className="text-xl font-semibold leading-8 text-neutral-900">Accessibility</h3>
+      <div className="mt-4 space-y-8 text-lg leading-8 text-neutral-900 sm:text-xl">
         <p>{introParts[0]}</p>
       </div>
 
-      <h4 className="mt-8 text-xl font-semibold leading-8 text-stone-900">Sample accessibility guidelines</h4>
-      <h5 className="mt-6 text-xl font-semibold leading-8 text-stone-900">Colors</h5>
+      <h4 className="mt-8 text-xl font-semibold leading-8 text-neutral-900">Sample accessibility guidelines</h4>
+      <h5 className="mt-6 text-xl font-semibold leading-8 text-neutral-900">Colors</h5>
 
       <div className="mt-4 grid gap-8 lg:grid-cols-[minmax(220px,320px)_1fr] lg:gap-16">
         <img alt={image.alt || ""} className="w-full max-w-[320px] object-contain" loading="lazy" src={image.src} />
-        <div className="space-y-10 text-lg leading-8 text-stone-900 sm:text-xl lg:pt-2">
+        <div className="space-y-10 text-lg leading-8 text-neutral-900 sm:text-xl lg:pt-2">
           {copyParts.map((paragraph: string) => (
             <p key={paragraph}>
               <EmphasizedNumbers text={paragraph} />
@@ -88,7 +88,7 @@ function ProConItem({ children, tone }: { children: string; tone: "pro" | "con" 
   const Icon = isPro ? Check : X;
 
   return (
-    <li className="grid grid-cols-[32px_1fr] items-start gap-4 text-lg leading-8 text-stone-900 sm:text-xl">
+    <li className="grid grid-cols-[32px_1fr] items-start gap-4 text-lg leading-8 text-neutral-900 sm:text-xl">
       <span
         className={`mt-1 flex h-8 w-8 items-center justify-center rounded-full ${
           isPro ? "bg-green-700" : "bg-red-700"
@@ -112,9 +112,9 @@ function ShofloProsConsPanel({ image }: { image: Extract<ContentItem, { type: "i
       </figure>
 
       <div className="lg:pt-0">
-        <h3 className="text-xl font-semibold leading-8 text-stone-900">Pros and cons</h3>
+        <h3 className="text-xl font-semibold leading-8 text-neutral-900">Pros and cons</h3>
 
-        <h4 className="mt-8 text-xl font-semibold leading-8 text-stone-900">Pros</h4>
+        <h4 className="mt-8 text-xl font-semibold leading-8 text-neutral-900">Pros</h4>
         <ul className="mt-5 grid gap-4">
           {shofloPros.map((item) => (
             <ProConItem key={item} tone="pro">
@@ -123,7 +123,7 @@ function ShofloProsConsPanel({ image }: { image: Extract<ContentItem, { type: "i
           ))}
         </ul>
 
-        <h4 className="mt-8 text-xl font-semibold leading-8 text-stone-900">Cons</h4>
+        <h4 className="mt-8 text-xl font-semibold leading-8 text-neutral-900">Cons</h4>
         <ul className="mt-5 grid gap-4">
           {shofloCons.map((item) => (
             <ProConItem key={item} tone="con">
@@ -139,7 +139,7 @@ function ShofloProsConsPanel({ image }: { image: Extract<ContentItem, { type: "i
 function flushList(items: string[], key: string, output: ReactNode[]) {
   if (items.length === 0) return;
   output.push(
-    <ul className="mt-3 list-disc space-y-2 pl-5 text-lg leading-8 text-stone-900 sm:text-xl" key={key}>
+    <ul className="mt-3 list-disc space-y-2 pl-5 text-lg leading-8 text-neutral-900 sm:text-xl" key={key}>
       {items.map((item) => (
         <li key={item}>{item}</li>
       ))}
@@ -240,7 +240,7 @@ export function ArticleItems({ items }: { items: ContentItem[] }) {
 
     if (item.type === "h2") {
       output.push(
-        <h2 className="mt-10 text-xl font-semibold leading-8 text-stone-900 first:mt-0" key={index}>
+        <h2 className="mt-10 text-xl font-semibold leading-8 text-neutral-900 first:mt-0" key={index}>
           {item.text}
         </h2>,
       );
@@ -249,7 +249,7 @@ export function ArticleItems({ items }: { items: ContentItem[] }) {
 
     if (item.type === "h3" || item.type === "h4" || item.type === "h5") {
       output.push(
-        <h3 className="mt-8 text-xl font-semibold leading-8 text-stone-900" key={index}>
+        <h3 className="mt-8 text-xl font-semibold leading-8 text-neutral-900" key={index}>
           {item.text}
         </h3>,
       );
@@ -258,7 +258,7 @@ export function ArticleItems({ items }: { items: ContentItem[] }) {
 
     if (item.type === "p") {
       output.push(
-        <p className="mt-3 text-lg leading-8 text-stone-900 sm:text-xl" key={index}>
+        <p className="mt-3 text-lg leading-8 text-neutral-900 sm:text-xl" key={index}>
           {item.text}
         </p>,
       );
@@ -267,7 +267,7 @@ export function ArticleItems({ items }: { items: ContentItem[] }) {
 
     if (item.type === "image") {
       output.push(
-        <figure className="my-6 overflow-hidden rounded-2xl border border-neutral-200 bg-stone-50" key={`${item.src}-${index}`}>
+        <figure className="my-6 overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50" key={`${item.src}-${index}`}>
           <img alt={item.alt || ""} className="w-full object-contain" loading="lazy" src={item.src} />
         </figure>,
       );
@@ -277,7 +277,7 @@ export function ArticleItems({ items }: { items: ContentItem[] }) {
     if (item.type === "video") {
       output.push(
         <video
-          className="my-6 w-full rounded-2xl border border-neutral-200 bg-stone-50"
+          className="my-6 w-full rounded-2xl border border-neutral-200 bg-neutral-50"
           controls
           key={`${item.src}-${index}`}
           muted

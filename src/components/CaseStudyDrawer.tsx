@@ -77,7 +77,7 @@ export function CaseStudyDrawer({
       swipeDirection="down"
     >
       <DrawerContent
-        className="h-[calc(100svh-0.5rem)] max-h-[calc(100svh-0.5rem)] min-h-[calc(100svh-0.5rem)] overflow-hidden rounded-t-3xl bg-white shadow-[0_-8px_16px] shadow-stone-200 [--drawer-bleed-background:var(--color-white)] sm:h-[calc(100svh-1.5rem)] sm:max-h-[calc(100svh-1.5rem)] sm:min-h-[calc(100svh-1.5rem)]"
+        className="h-[calc(100svh-0.5rem)] max-h-[calc(100svh-0.5rem)] min-h-[calc(100svh-0.5rem)] overflow-hidden rounded-t-3xl bg-white shadow-[0_-8px_16px] shadow-neutral-200 [--drawer-bleed-background:var(--color-white)] sm:h-[calc(100svh-1.5rem)] sm:max-h-[calc(100svh-1.5rem)] sm:min-h-[calc(100svh-1.5rem)]"
         id="case-study-drawer"
       >
         <div className="relative h-[max(4rem,calc(env(safe-area-inset-top)+2.5rem))] shrink-0 bg-white sm:h-16">
@@ -85,7 +85,7 @@ export function CaseStudyDrawer({
             aria-label={`Close ${study.title}`}
             render={
               <Button
-                className="absolute right-4 top-[max(1rem,calc(env(safe-area-inset-top)-0.5rem))] z-20 sm:top-4"
+                className="absolute right-4 top-[max(1rem,calc(env(safe-area-inset-top)-0.5rem))] z-20 before:absolute before:-inset-0.5 before:content-[''] sm:top-4"
                 size="icon"
                 type="button"
                 variant="floating"
@@ -101,16 +101,7 @@ export function CaseStudyDrawer({
           ref={scrollContainerRef}
         >
           <article className="mx-auto w-full max-w-[1120px] pt-6">
-            <figure className="h-[clamp(200px,25vw,312px)] overflow-hidden rounded-3xl bg-stone-200">
-              <img
-                alt={`${study.title} project overview`}
-                className="size-full object-cover"
-                decoding="async"
-                src={study.detailHeroImage ?? study.image}
-              />
-            </figure>
-
-            <header className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,584px)_minmax(260px,327px)] lg:items-end lg:justify-between">
+            <header className="grid gap-10 lg:grid-cols-[minmax(0,584px)_minmax(260px,327px)] lg:items-end lg:justify-between">
               <div>
                 {clientLogo?.crop ? (
                   <div className="relative mb-6 h-4 w-25 overflow-hidden">
@@ -133,35 +124,44 @@ export function CaseStudyDrawer({
                     src={scrapedLogo.src}
                   />
                 ) : (
-                  <p className="mb-6 text-sm font-semibold leading-4 text-neutral-800">{study.client}</p>
+                  <p className="mb-6 text-sm font-semibold leading-4 text-neutral-900">{study.client}</p>
                 )}
 
                 <DrawerTitle
-                  className="text-[28px] font-semibold leading-[1.2] text-stone-900 sm:text-[32px]"
+                  className="text-[28px] font-semibold leading-[1.2] text-neutral-900 sm:text-[32px]"
                   render={<h1 />}
                 >
                   {study.title}
                 </DrawerTitle>
-                <DrawerDescription className="mt-4 text-lg leading-8 text-stone-900 sm:text-xl">
+                <DrawerDescription className="mt-4 text-lg leading-8 text-neutral-900 sm:text-xl">
                   {study.summary}
                 </DrawerDescription>
               </div>
 
-              <dl className="text-stone-900">
+              <dl className="text-neutral-900">
                 <div className="border-b border-neutral-200 py-2 first:pt-0">
-                  <dt className="text-base font-semibold leading-6 text-neutral-800">Toolset</dt>
+                  <dt className="text-base font-semibold leading-6 text-neutral-900">Toolset</dt>
                   <dd className="mt-1 text-lg leading-7 sm:text-xl sm:leading-8">{study.toolset}</dd>
                 </div>
                 <div className="border-b border-neutral-200 py-2">
-                  <dt className="text-base font-semibold leading-6 text-neutral-800">Role</dt>
+                  <dt className="text-base font-semibold leading-6 text-neutral-900">Role</dt>
                   <dd className="mt-1 text-lg leading-7 sm:text-xl sm:leading-8">{study.role}</dd>
                 </div>
                 <div className="pt-2">
-                  <dt className="text-base font-semibold leading-6 text-neutral-800">Date</dt>
+                  <dt className="text-base font-semibold leading-6 text-neutral-900">Date</dt>
                   <dd className="mt-1 text-lg leading-7 sm:text-xl sm:leading-8">{study.date}</dd>
                 </div>
               </dl>
             </header>
+
+            <figure className="mt-8 h-[clamp(200px,40.714vw,456px)] overflow-hidden rounded-3xl bg-neutral-200">
+              <img
+                alt={`${study.title} project overview`}
+                className="size-full object-cover"
+                decoding="async"
+                src={study.detailHeroImage ?? study.image}
+              />
+            </figure>
 
             <section className="mx-auto mt-16 w-full max-w-[770px]">
               {study.markdown ? (

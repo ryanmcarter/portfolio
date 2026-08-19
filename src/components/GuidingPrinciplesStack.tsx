@@ -52,48 +52,48 @@ function copyRevealThreshold(cardIndex: number) {
 
 const principles = [
   {
-    background: "#fef2f2",
+    background: "var(--color-red-50)",
     body:
       "No hardcoded values anywhere — color, spacing, radius, shadow, typography, motion. Every visual decision is a token.",
     icon: null,
-    shadow: "69, 10, 10",
-    text: "#450a0a",
+    shadow: "var(--color-red-950)",
+    text: "var(--color-red-950)",
     title: "Token all the things",
   },
   {
-    background: "#fff7ed",
+    background: "var(--color-orange-50)",
     body:
       "Every layer (tokens, lint, CI, Storybook) works without Claude Code. AI just compresses the loop and helps everyone ship faster.",
     icon: "/assets/kraidle-principle-ai.svg",
-    shadow: "67, 20, 7",
-    text: "#431407",
+    shadow: "var(--color-orange-950)",
+    text: "var(--color-orange-950)",
     title: "AI-augmented, not AI-dependent",
   },
   {
-    background: "#f0fdfa",
+    background: "var(--color-teal-50)",
     body:
       "The lint layer makes the right path the easy path and fails wrong paths before review. A Figma plugin allows for a full page audit on system usage, and a live Figma widget tracks any design value not mapped to a token.",
     icon: "/assets/kraidle-principle-enforcement.svg",
-    shadow: "4, 47, 46",
-    text: "#042f2e",
+    shadow: "var(--color-teal-950)",
+    text: "var(--color-teal-950)",
     title: "Enforcement by default",
   },
   {
-    background: "#fefce8",
+    background: "var(--color-yellow-50)",
     body:
       "Tokens flow from Figma to code via Tokens Studio (two-way git sync). Components flow back to Figma via Code Connect. Generated pages can be serialized into the Figma file as library-bound frames.",
     icon: "/assets/kraidle-principle-sync.svg",
-    shadow: "66, 32, 6",
-    text: "#422006",
+    shadow: "var(--color-yellow-950)",
+    text: "var(--color-yellow-950)",
     title: "Bidirectional sync",
   },
   {
-    background: "#eef2ff",
+    background: "var(--color-indigo-50)",
     body:
       "A passive linter runs in the Figma canvas; ESLint runs at author time; axe runs in CI; token impact previews land on the PR before merge. Issues surface where they're cheapest.",
     icon: "/assets/kraidle-principle-quality.svg",
-    shadow: "30, 27, 75",
-    text: "#1e1b4b",
+    shadow: "var(--color-indigo-950)",
+    text: "var(--color-indigo-950)",
     title: "Quality shifts left",
   },
 ] as const;
@@ -199,7 +199,7 @@ function StackedPrincipleCard({
     progress,
     stagePoints.map((_, stageIndex) => {
       const alpha = cardIndex === 1 && stageIndex === 1 ? 0.2 : 0.1;
-      return `0 0 16px rgba(${principle.shadow}, ${alpha})`;
+      return `0 0 16px color-mix(in srgb, ${principle.shadow} ${alpha * 100}%, transparent)`;
     }),
   );
 
@@ -225,7 +225,7 @@ function StackedPrincipleCard({
             }
           : {
               backgroundColor: principle.background,
-              boxShadow: `0 0 16px rgba(${principle.shadow}, 0.1)`,
+              boxShadow: `0 0 16px color-mix(in srgb, ${principle.shadow} 10%, transparent)`,
               color: principle.text,
             }
       }
@@ -266,7 +266,7 @@ export function GuidingPrinciplesStack({ scrollContainerRef }: GuidingPrinciples
       ref={sectionRef}
     >
       <div className={shouldStack ? "sticky top-6" : undefined}>
-        <div className="text-lg leading-8 text-stone-900 sm:text-xl">
+        <div className="text-lg leading-8 text-neutral-900 sm:text-xl">
           <h2
             className="font-semibold"
             id="2-goals--guiding-principles"

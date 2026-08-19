@@ -80,7 +80,7 @@ function DrawerSwipeHandle({ className, ...props }: React.ComponentProps<"div">)
     <div
       aria-hidden="true"
       className={cn(
-        "cn-drawer-swipe-handle absolute inset-x-0 top-0 z-10 flex h-16 shrink-0 touch-none cursor-grab items-center justify-center transition-opacity duration-200 after:block after:h-2 after:w-12 after:rounded-full after:bg-stone-200 after:content-[''] group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 active:cursor-grabbing",
+        "cn-drawer-swipe-handle absolute inset-x-0 top-0 z-10 flex h-16 shrink-0 touch-none cursor-grab items-center justify-center transition-opacity duration-200 after:block after:h-2 after:w-12 after:rounded-full after:bg-neutral-200 after:content-[''] group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 active:cursor-grabbing",
         className,
       )}
       data-slot="drawer-swipe-handle"

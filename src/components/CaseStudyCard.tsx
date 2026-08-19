@@ -1,11 +1,14 @@
-import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import type { FocusEvent, KeyboardEvent, MouseEvent, PointerEvent } from "react";
 
+type CaseStudyCategory = "Design systems" | "Product design";
+
 type CaseStudyCardProps = {
   active: boolean;
+  category: CaseStudyCategory;
   dimmed: boolean;
   href: string;
+  idPrefix?: string;
   image: string;
   index: number;
   onFocus: (slug: string) => void;
@@ -14,12 +17,56 @@ type CaseStudyCardProps = {
   slug: string;
   summary: string;
   title: string;
+  visualOnly?: boolean;
+};
+
+const cardVisuals: Record<
+  string,
+  {
+    background: string;
+    frameClassName: string;
+    imageClassName: string;
+    stageClassName: string;
+  }
+> = {
+  kraidle: {
+    background: "linear-gradient(101deg, #0a0a0a 0%, #0d9488 100%)",
+    frameClassName: "aspect-[41/16] sm:aspect-auto sm:h-64",
+    imageClassName: "absolute left-0 top-[3.29%] h-auto w-full max-w-none",
+    stageClassName: "p-4 sm:h-72",
+  },
+  "dynamic-plan": {
+    background: "linear-gradient(101deg, #193d9b 0%, #fd9160 100%)",
+    frameClassName: "aspect-[41/16] sm:aspect-auto sm:h-64",
+    imageClassName: "absolute left-0 top-0 h-auto w-full max-w-none",
+    stageClassName: "p-4 sm:h-72",
+  },
+  quilt: {
+    background: "linear-gradient(100deg, #7569cf 0%, #ade9ba 100%)",
+    frameClassName: "aspect-[41/16] sm:aspect-auto sm:h-64",
+    imageClassName: "size-full object-cover",
+    stageClassName: "px-4 py-6 sm:h-[304px]",
+  },
+  keel: {
+    background: "linear-gradient(102deg, #8ae0c9 0%, #000a3c 100%)",
+    frameClassName: "aspect-[41/13] sm:aspect-auto sm:h-52",
+    imageClassName: "size-full object-cover",
+    stageClassName: "px-4 py-6 sm:h-64",
+  },
+  studio: {
+    background: "linear-gradient(100deg, #de2f1b 0%, #0697ff 100%)",
+    frameClassName: "aspect-[41/16] sm:aspect-auto sm:h-64",
+    imageClassName: "size-full object-cover",
+    stageClassName: "px-4 py-6 sm:h-[304px]",
+  },
 };
 
 export function CaseStudyCard({
   active,
+  category,
   dimmed,
   href,
+  idPrefix = "",
   image,
   index,
   onFocus,
@@ -28,8 +75,12 @@ export function CaseStudyCard({
   slug,
   summary,
   title,
+  visualOnly = false,
 }: CaseStudyCardProps) {
   const shouldReduceMotion = useReducedMotion();
+  const visual = cardVisuals[slug] ?? cardVisuals.kraidle;
+  const summaryId = `${idPrefix}case-study-summary-${slug}`;
+  const titleId = `${idPrefix}case-study-title-${slug}`;
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (
@@ -59,97 +110,74 @@ export function CaseStudyCard({
 
   return (
     <motion.article
-      animate={{
-        boxShadow: active
-          ? "0 0 16px rgba(28, 25, 23, 0.12)"
-          : "0 0 0 rgba(28, 25, 23, 0)",
-        opacity: dimmed ? 0.3 : 1,
-        y: 0,
-        zIndex: active ? 20 : 1,
-      }}
-      className="case-study-card relative aspect-[319/177] min-h-0 w-full rounded-2xl xl:aspect-auto xl:h-[169px]"
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      aria-labelledby={titleId}
+      className="case-study-card min-w-0 w-full rounded-2xl"
+      initial={visualOnly || shouldReduceMotion ? false : { opacity: 0, y: 16 }}
       transition={
         shouldReduceMotion
           ? { duration: 0 }
           : {
-              opacity: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-              boxShadow: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-              y: {
-                delay: 0.24 + index * 0.08,
-                duration: 0.3,
-                ease: [0.22, 1, 0.36, 1],
-              },
+              delay: 0.16 + index * 0.06,
+              duration: 0.32,
+              ease: [0.22, 1, 0.36, 1],
             }
       }
     >
       <a
+        aria-describedby={summaryId}
         aria-haspopup="dialog"
-        aria-describedby={`case-study-summary-${slug}`}
-        aria-label={`Read ${title} case study`}
-        className={`group relative flex size-full flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border-[0.5px] bg-white p-4 text-center outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-inset ${active ? "border-transparent" : "border-stone-200"}`}
+        aria-label={`${category}: ${title}. Read case study`}
+        className="group flex w-full min-w-0 flex-col gap-4 overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4 text-center shadow-[0_0_16px_rgba(23,23,23,0.1)] outline-none transition-[box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(23,23,23,0.14)] focus-visible:-translate-y-0.5 focus-visible:shadow-[0_8px_28px_rgba(23,23,23,0.14)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900"
+        data-active={active}
+        data-dimmed={dimmed}
         href={href}
         onClick={handleClick}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
         onPointerEnter={(event) => onPointerEnter(slug, event)}
       >
-        <span className="sr-only" id={`case-study-summary-${slug}`}>
-          {summary}
+        <span
+          aria-hidden="true"
+          className={`relative isolate w-full ${visual.stageClassName}`}
+          data-card-media-stage
+        >
+          <span
+            className="case-study-media-backdrop pointer-events-none absolute inset-0 z-0 rounded-lg"
+            style={{ backgroundImage: visual.background }}
+          />
+          <span
+            className={`relative z-10 block w-full overflow-hidden rounded-lg bg-[#fff] ${visual.frameClassName}`}
+          >
+            <img
+              alt=""
+              className={visual.imageClassName}
+              decoding="async"
+              loading={index < 2 ? "eager" : "lazy"}
+              src={image}
+            />
+          </span>
         </span>
 
-        <motion.span
-          animate={{
-            opacity: active ? 0.08 : 1,
-            scale: active ? 1.02 : 1,
-          }}
-          aria-hidden="true"
-          className="relative min-h-0 w-full flex-1 overflow-hidden rounded-sm bg-white"
-          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.3 }}
-        >
-          <img
-            alt=""
-            className="size-full object-cover"
-            decoding="async"
-            loading={index < 2 ? "eager" : "lazy"}
-            src={image}
-          />
-        </motion.span>
-
-        <motion.span
-          animate={{ opacity: active ? 0 : 1, y: active ? 4 : 0 }}
-          aria-hidden={active}
-          className="flex w-full shrink-0 flex-col items-center gap-1 whitespace-nowrap"
-          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
-        >
-          <span className="text-xs leading-3 text-stone-500">Product Design</span>
-          <span className="w-full truncate text-sm font-medium leading-4 text-stone-900">
-            {title}
+        <span className="mx-auto flex w-full max-w-[456px] flex-col items-center gap-2 pb-1">
+          <span
+            className={
+              category === "Design systems"
+                ? "rounded-full border border-blue-200 bg-blue-50 px-1.5 py-0.5 text-[10px] font-medium leading-3 text-blue-700"
+                : "rounded-full border border-orange-200 bg-orange-50 px-1.5 py-0.5 text-[10px] font-medium leading-3 text-orange-700"
+            }
+          >
+            {category}
           </span>
-        </motion.span>
-
-        <motion.span
-          animate={{ opacity: active ? 1 : 0, y: active ? 0 : 6 }}
-          aria-hidden={!active}
-          className="pointer-events-none absolute inset-4 flex flex-col items-center justify-center gap-4"
-          initial={false}
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { delay: active ? 0.08 : 0, duration: active ? 0.3 : 0.14 }
-          }
-        >
-          <span className="flex max-w-full flex-col items-center gap-1">
-            <span className="text-xs leading-3 text-stone-500">Product Design</span>
-            <span className="max-w-full text-balance text-sm font-medium leading-4 text-stone-900">
+          <span className="flex flex-col gap-1">
+            <h3 className="text-base font-medium leading-6 text-neutral-900" id={titleId}>
               {title}
+            </h3>
+            <span className="text-sm leading-[21px] text-neutral-600" id={summaryId}>
+              {summary}
             </span>
           </span>
-          <span className="flex items-center gap-2 rounded-xl bg-gradient-to-b from-sky-800 to-sky-900 px-4 py-3 text-sm leading-4 text-stone-50 shadow-sm">
-            Read case study
-            <ArrowUpRight aria-hidden="true" className="size-4" />
-          </span>
-        </motion.span>
+        </span>
       </a>
     </motion.article>
   );
