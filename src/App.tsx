@@ -819,8 +819,8 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
                 aria-hidden="true"
                 className="text-[32px] leading-[1.2] tracking-[-0.01em]"
               >
-                <span className="block font-medium">with 12+ YOE in</span>
-                <span className="block font-bold">Product Design &amp; Design Systems</span>
+                <span className="font-medium">with 12+ YOE in</span>{" "}
+                <span className="font-bold">Product Design &amp; Design Systems</span>
               </div>
 
               <div className="mt-4 flex flex-col">
@@ -913,7 +913,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
                     key={displayedSlug ?? "active"}
                   >
                     <AnimatedHeroLines
-                      inline={Boolean(displayedStudy)}
+                      inline
                       lines={heroLines}
                       reduceMotion={visualOnly || shouldReduceMotion === true}
                     />
