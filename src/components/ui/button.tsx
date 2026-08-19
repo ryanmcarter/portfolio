@@ -13,7 +13,7 @@ const buttonVariants = cva(
         outline: "border-neutral-900 bg-white text-neutral-900 hover:bg-neutral-50",
         accent: "border-rose-700 bg-white text-rose-700 hover:bg-rose-50",
         floating:
-          "rounded-xl border-0 bg-white font-sans text-neutral-800 shadow-[0_0_16px] shadow-stone-200 hover:bg-white hover:shadow-[0_4px_20px] hover:shadow-stone-300",
+          "rounded-xl border-neutral-200 bg-white font-sans text-neutral-900 shadow-[0_0_16px] shadow-neutral-200 hover:bg-white hover:shadow-[0_4px_20px] hover:shadow-neutral-300",
         ghost: "border-transparent bg-transparent text-neutral-500 hover:text-neutral-900",
       },
       size: {

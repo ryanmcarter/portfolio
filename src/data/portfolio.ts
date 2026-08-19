@@ -48,19 +48,19 @@ Previously, I built design systems at NYSHEX and Ribbon, led design for a data a
 Design systems are my specialty, but I’m also highly hands-on across UX, UI, prototyping, accessibility, research, design QA, and AI-assisted implementation workflows.`;
 
 export const experience = [
-  ["2024—present", "Gradle Technologies", "Senior Product Designer"],
+  ["2024—2026", "Gradle Technologies", "Senior Product Designer"],
   ["2023—2024", "New York Shipping Exchange", "Senior Product Designer"],
-  ["2022", "Ribbon Homes", "Senior Systems Designer"],
+  ["2022—2022", "Ribbon Homes", "Senior Systems Designer"],
   ["2015—2022", "Shoflo (acquired)", "Founding Product Designer"],
   ["2014—present", "Western Pixel", "Freelance Product Designer"],
 ] as const;
 
 const heroImages: Record<string, string> = {
-  "dynamic-plan": "/assets/dynamic-plan-v3-overview.png",
+  "dynamic-plan": "/assets/home-card-dynamic-plan.png",
   kraidle: "/assets/kraidle-card-art-figma.png",
   keel: "/assets/keel-card-art.png",
-  quilt: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/6377013615fcfec66303e1f1_ryancarter-quilt-heroImage-thumb.png",
-  studio: "https://cdn.prod.website-files.com/5d4c831b7ec366c966c2a304/63896c5c7d2c2b34b0e43421_ryancarter-studio-heroImage-thumb.png",
+  quilt: "/assets/home-card-quilt.png",
+  studio: "/assets/home-card-studio.png",
 };
 
 const detailHeroImages: Partial<Record<string, string>> = {
@@ -75,8 +75,16 @@ const markdownPages: Record<string, string> = {
 const metadata: Record<
   string,
   {
+    cardCategory: "Design systems" | "Product design";
+    cardSummary: string;
+    cardTitle: string;
     client: string;
     date: string;
+    hoverHeadline: {
+      emphasis: string;
+      lead: string;
+    };
+    published: boolean;
     role: string;
     summary: string;
     title: string;
@@ -84,8 +92,17 @@ const metadata: Record<
   }
 > = {
   "dynamic-plan": {
+    cardCategory: "Product design",
+    cardSummary:
+      "Dynamic Plan turned ocean-shipping data into a simple workspace purpose built for data filtering and real time allocation adjustments.",
+    cardTitle: "Designing a complex data management platform for NYSHEX",
     client: "New York Shipping Exchange",
     date: "Late 2023",
+    hoverHeadline: {
+      lead: "who designed a complex data management and charting product for the",
+      emphasis: "New York Shipping Exchange",
+    },
+    published: true,
     role: "Lead Product Designer",
     title: "NYSHEX Dynamic Plan data management platform",
     summary:
@@ -93,8 +110,17 @@ const metadata: Record<
     toolset: "Figma, Miro, Tokens Studio, VSCode",
   },
   kraidle: {
+    cardCategory: "Design systems",
+    cardSummary:
+      "Kraidle was a new design system that enabled anyone to write a page in markdown, 10x faster than before.",
+    cardTitle: "Building an AI-first design system with Claude Code",
     client: "Gradle Technologies",
     date: "Summer 2026",
+    hoverHeadline: {
+      lead: "who designed and engineered an AI-augmented design system for",
+      emphasis: "Gradle Technologies",
+    },
+    published: true,
     role: "Product Designer & Design Engineer",
     title: "Creating a token-powered design system with Claude Code",
     summary:
@@ -102,8 +128,17 @@ const metadata: Record<
     toolset: "Claude Code, Figma, Tokens Studio, Storybook",
   },
   keel: {
+    cardCategory: "Design systems",
+    cardSummary:
+      "Keel was a new design system built for NYSHEX to power their complex data visualization & management platform.",
+    cardTitle: "Shipping a bespoke design system for ocean carriers",
     client: "New York Shipping Exchange",
     date: "2023—2024",
+    hoverHeadline: {
+      lead: "who built a token-based product design system for",
+      emphasis: "New York Shipping Exchange",
+    },
+    published: true,
     role: "Design Systems Lead",
     title: "Keel Design System",
     summary:
@@ -111,8 +146,17 @@ const metadata: Record<
     toolset: "Figma, design tokens, component documentation, accessibility",
   },
   quilt: {
+    cardCategory: "Design systems",
+    cardSummary:
+      "Quilt was a token-powered web & iOS design system enabling the 12 person product team to ship faster and more consistently.",
+    cardTitle: "Building a multi-platform design system for Ribbon Homes",
     client: "Ribbon Homes",
     date: "2022",
+    hoverHeadline: {
+      lead: "who rapidly built an accessible design system for",
+      emphasis: "Ribbon Homes",
+    },
+    published: true,
     role: "Senior Systems Designer",
     title: "Quilt Design System",
     summary:
@@ -120,8 +164,17 @@ const metadata: Record<
     toolset: "Figma, Figma Tokens, documentation, prototyping",
   },
   studio: {
+    cardCategory: "Product design",
+    cardSummary:
+      "Shoflo Studio was a web based studio that let directors orchestrate live events with video-based presenters anywhere in the world.",
+    cardTitle: "Designing a browser-based live streaming studio",
     client: "Shoflo",
     date: "2020",
+    hoverHeadline: {
+      lead: "who designed and launched a browser-based live streaming studio with",
+      emphasis: "Shoflo",
+    },
+    published: true,
     role: "Founding Product Designer",
     title: "Shoflo Studio",
     summary:
@@ -131,14 +184,14 @@ const metadata: Record<
 };
 
 const caseStudyOrder = [
-  "dynamic-plan",
   "kraidle",
-  "keel",
+  "dynamic-plan",
   "quilt",
+  "keel",
   "studio",
 ];
 
-export const caseStudies = caseStudyOrder.map((slug) => ({
+const allCaseStudies = caseStudyOrder.map((slug) => ({
   slug,
   ...metadata[slug],
   href: `/case-studies/${slug}`,
@@ -149,6 +202,8 @@ export const caseStudies = caseStudyOrder.map((slug) => ({
   markdown: markdownPages[slug],
   page: pages[slug],
 }));
+
+export const caseStudies = allCaseStudies.filter((study) => study.published);
 
 export const homePage = pages.home;
 export const contactPage = pages.contact;

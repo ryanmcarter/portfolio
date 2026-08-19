@@ -8,7 +8,7 @@ export function TextBlocks({ blocks }: { blocks: TextBlock[] }) {
   const flushList = (key: string) => {
     if (listItems.length === 0) return;
     elements.push(
-      <ul className="list-disc font-sans text-base leading-7 text-muted" key={key}>
+      <ul className="list-disc font-sans text-base leading-7 text-neutral-500" key={key}>
         {listItems.map((item) => (
           <li key={item}>{item}</li>
         ))}
@@ -28,19 +28,19 @@ export function TextBlocks({ blocks }: { blocks: TextBlock[] }) {
     if (block.type === "h1") return;
     if (block.type === "h2") {
       elements.push(
-        <h2 className="mt-12 font-mono text-sm font-semibold uppercase leading-4 text-accent" key={index}>
+        <h2 className="mt-12 font-mono text-sm font-semibold uppercase leading-4 text-rose-700" key={index}>
           {block.text}
         </h2>,
       );
     } else if (block.type === "h3" || block.type === "h4" || block.type === "h5") {
       elements.push(
-        <h3 className="mt-8 text-2xl font-medium leading-8 text-ink" key={index}>
+        <h3 className="mt-8 text-2xl font-medium leading-8 text-neutral-900" key={index}>
           {block.text}
         </h3>,
       );
     } else {
       elements.push(
-        <p className="mt-4 text-base leading-8 text-muted" key={index}>
+        <p className="mt-4 text-base leading-8 text-neutral-500" key={index}>
           {block.text}
         </p>,
       );

@@ -184,7 +184,7 @@ function renderInline(text: string): ReactNode[] {
     if (match[2] && match[3]) {
       nodes.push(
         <a
-          className="font-medium text-stone-900 underline decoration-neutral-400 underline-offset-4 hover:decoration-stone-900"
+          className="font-medium text-neutral-900 underline decoration-neutral-400 underline-offset-4 hover:decoration-neutral-900"
           href={match[3]}
           key={`${match.index}-link`}
         >
@@ -194,7 +194,7 @@ function renderInline(text: string): ReactNode[] {
     } else if (match[4]) {
       nodes.push(
         <code
-          className="break-words rounded-sm bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.92em] text-stone-900"
+          className="break-words rounded-sm bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.92em] text-neutral-900"
           key={`${match.index}-code`}
         >
           {match[4]}
@@ -202,7 +202,7 @@ function renderInline(text: string): ReactNode[] {
       );
     } else if (match[5]) {
       nodes.push(
-        <strong className="font-semibold text-stone-900" key={`${match.index}-strong`}>
+        <strong className="font-semibold text-neutral-900" key={`${match.index}-strong`}>
           {match[5]}
         </strong>,
       );
@@ -225,7 +225,7 @@ function MarkdownTable({ block }: { block: Extract<MarkdownBlock, { type: "table
   return (
     <div className="my-8 max-w-full overflow-x-auto rounded-lg border border-neutral-200">
       <table className="w-full min-w-[620px] border-collapse bg-white text-left text-sm leading-6">
-        <thead className="bg-stone-50 font-mono text-xs uppercase tracking-normal text-neutral-500">
+        <thead className="bg-neutral-50 font-mono text-xs uppercase tracking-normal text-neutral-500">
           <tr>
             {block.headers.map((header) => (
               <th className="border-b border-neutral-200 px-4 py-3 font-semibold" key={header}>
@@ -238,7 +238,7 @@ function MarkdownTable({ block }: { block: Extract<MarkdownBlock, { type: "table
           {block.rows.map((row, rowIndex) => (
             <tr key={`${row.join("-")}-${rowIndex}`}>
               {block.headers.map((header, columnIndex) => (
-                <td className="px-4 py-3 align-top text-neutral-600" key={`${header}-${columnIndex}`}>
+                <td className="px-4 py-3 align-top text-neutral-500" key={`${header}-${columnIndex}`}>
                   {renderInline(row[columnIndex] ?? "")}
                 </td>
               ))}
@@ -311,7 +311,7 @@ export function MarkdownArticle({
           if (block.depth === 2) {
             return (
               <h2
-                className="mt-10 scroll-mt-24 text-xl font-semibold leading-8 text-stone-900 first:mt-0"
+                className="mt-10 scroll-mt-24 text-xl font-semibold leading-8 text-neutral-900 first:mt-0"
                 id={slugifyHeading(block.text)}
                 key={index}
               >
@@ -322,7 +322,7 @@ export function MarkdownArticle({
 
           return (
             <h3
-              className="mt-8 scroll-mt-24 text-xl font-semibold leading-8 text-stone-900"
+              className="mt-8 scroll-mt-24 text-xl font-semibold leading-8 text-neutral-900"
               id={slugifyHeading(block.text)}
               key={index}
             >
@@ -334,7 +334,7 @@ export function MarkdownArticle({
         if (block.type === "paragraph") {
           if (/^Table of contents$/i.test(block.text)) return null;
           return (
-            <p className="mt-3 text-lg leading-8 text-stone-900 sm:text-xl" key={index}>
+            <p className="mt-3 text-lg leading-8 text-neutral-900 sm:text-xl" key={index}>
               {renderInline(block.text)}
             </p>
           );
@@ -343,7 +343,7 @@ export function MarkdownArticle({
         if (block.type === "blockquote") {
           return (
             <blockquote
-              className="my-8 rounded-2xl border border-neutral-200 bg-stone-50 p-5 text-lg leading-8 text-stone-900 sm:text-xl"
+              className="my-8 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 text-lg leading-8 text-neutral-900 sm:text-xl"
               key={index}
             >
               {renderInline(block.text)}
@@ -354,7 +354,7 @@ export function MarkdownArticle({
         if (block.type === "image") {
           return (
             <figure
-              className="my-6 max-w-full overflow-hidden rounded-2xl border border-neutral-200 bg-stone-50"
+              className="my-6 max-w-full overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50"
               key={index}
             >
               <img alt={block.alt} className="h-auto w-full" decoding="async" loading="lazy" src={block.src} />
@@ -365,7 +365,7 @@ export function MarkdownArticle({
         if (block.type === "video") {
           return (
             <figure
-              className="my-6 max-w-full overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950"
+              className="my-6 max-w-full overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-900"
               key={index}
             >
               <video
@@ -391,7 +391,7 @@ export function MarkdownArticle({
           const ListTag = block.ordered ? "ol" : "ul";
           return (
             <ListTag
-              className={`mt-3 space-y-2 pl-5 text-lg leading-8 text-stone-900 sm:text-xl ${
+              className={`mt-3 space-y-2 pl-5 text-lg leading-8 text-neutral-900 sm:text-xl ${
                 block.ordered ? "list-decimal" : "list-disc"
               }`}
               key={index}
@@ -408,7 +408,7 @@ export function MarkdownArticle({
         if (block.type === "code") {
           return (
             <figure
-              className="my-8 max-w-full overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950"
+              className="my-8 max-w-full overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900"
               key={index}
             >
               {block.language && (
