@@ -621,12 +621,12 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
     return (
       <nav
         aria-label="Ryan Carter links"
-        className={`${isPaintMode ? "paint-control-row-fixed" : ""} flex max-w-full flex-wrap items-center justify-end gap-4 md:flex-nowrap`}
+        className={`${isPaintMode ? "paint-control-row-fixed" : ""} flex max-w-full flex-wrap items-center justify-end gap-4 min-[400px]:gap-2 sm:gap-4`}
         data-paint-controls={isPaintMode ? "" : undefined}
       >
         <Button
           asChild
-          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass}`}
+          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} min-[400px]:px-2.5 sm:px-4`}
           size="lg"
           variant="floating"
         >
@@ -646,7 +646,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
         </Button>
         <Button
           asChild
-          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass}`}
+          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} min-[400px]:px-2.5 sm:px-4`}
           size="lg"
           variant="floating"
         >
@@ -661,7 +661,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
         </Button>
         <Button
           asChild
-          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass}`}
+          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} min-[400px]:px-2.5 sm:px-4`}
           size="lg"
           variant="floating"
         >
