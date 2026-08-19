@@ -79,15 +79,10 @@ body {
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
 }
 
 .paint-glyph-draw {
-  /* User-unit length of paintScribblePath; avoids Chrome's pathLength dash normalization. */
-  --paint-scribble-length: 37.7;
   opacity: 0;
-  stroke-dasharray: var(--paint-scribble-length);
-  stroke-dashoffset: var(--paint-scribble-length);
 }
 
 .paint-stop-x-pop {
@@ -99,7 +94,7 @@ body {
 
 @keyframes paint-scribble-draw {
   from {
-    stroke-dashoffset: var(--paint-scribble-length);
+    stroke-dashoffset: 38px;
   }
 
   to {

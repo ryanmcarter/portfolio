@@ -58,6 +58,10 @@ const paintBrushRadius = 64;
 const flatFloatingButtonClass = "shadow-none hover:shadow-none";
 const expandedVerticalHitAreaClass =
   "relative before:absolute before:inset-x-0 before:-inset-y-0.5 before:content-['']";
+// Rounded up from the path's 37.695-unit length. The explicit even dash pair
+// avoids pathLength and odd-dash normalization differences between SVG engines.
+const paintScribbleLength = 38;
+const paintScribbleDashArray = `${paintScribbleLength} ${paintScribbleLength}`;
 const paintScribblePath =
   "M3 7.07323C4.87917 5.22929 9.29333 1.46132 10.5167 2.77073C12.0625 4.42533 3.93958 8.60976 5.19236 10.4534C6.5156 12.4007 11.1431 5.53623 12.709 6.76549C14.275 7.99483 8.95067 10.7607 10.2035 12.2974C10.7046 12.912 12.0826 11.99 12.709 11.3754";
 const paintStopPath = "M16 1L15 2M15 2L14 3M15 2L16 3M15 2L14 1";
@@ -81,7 +85,12 @@ function PaintScribbleIcon({ className = "" }: { className?: string }) {
       viewBox="0 0 16 16"
     >
       <path className="paint-glyph-base" d={paintScribblePath} />
-      <path className="paint-glyph-draw" d={paintScribblePath} />
+      <path
+        className="paint-glyph-draw"
+        d={paintScribblePath}
+        strokeDasharray={paintScribbleDashArray}
+        strokeDashoffset={paintScribbleLength}
+      />
     </svg>
   );
 }
@@ -97,7 +106,12 @@ function PaintStopIcon() {
     >
       <path className="paint-glyph-base" d={paintScribblePath} />
       <path className="paint-glyph-base" d={paintStopPath} />
-      <path className="paint-glyph-draw" d={paintScribblePath} />
+      <path
+        className="paint-glyph-draw"
+        d={paintScribblePath}
+        strokeDasharray={paintScribbleDashArray}
+        strokeDashoffset={paintScribbleLength}
+      />
       <path className="paint-stop-x-pop" d={paintStopPath} />
     </svg>
   );
