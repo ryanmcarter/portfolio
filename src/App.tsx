@@ -135,238 +135,6 @@ function AnimatedHeroLines({
   ));
 }
 
-type CardMorph = {
-  phase: "closing" | "opening";
-  imageRect: {
-    height: number;
-    left: number;
-    top: number;
-    width: number;
-  };
-  rect: {
-    height: number;
-    left: number;
-    top: number;
-    width: number;
-  };
-  slug: string;
-  snapshotActive: boolean;
-};
-
-type CardMorphOrigin = Omit<CardMorph, "phase">;
-
-const sharedMorphDuration = 0.56;
-const sharedMorphEase = [0.22, 1, 0.36, 1] as const;
-
-function compensatedRadius(radius: number, scaleX: number, scaleY: number) {
-  return `${radius / scaleX}px / ${radius / scaleY}px`;
-}
-
-function CardSurfaceMorph({
-  morph,
-  onPhaseComplete,
-}: {
-  morph: CardMorph;
-  onPhaseComplete: (phase: CardMorph["phase"]) => void;
-}) {
-  const study = getCaseStudy(morph.slug);
-  const targetTop = window.matchMedia("(min-width: 640px)").matches ? 24 : 8;
-  const targetPadding = window.matchMedia("(min-width: 640px)").matches ? 32 : 16;
-  const targetWidth = window.innerWidth;
-  const targetHeight = window.innerHeight - targetTop;
-  const targetHeroWidth = Math.min(1120, targetWidth - targetPadding * 2);
-  const targetHeroHeight = Math.min(312, Math.max(200, targetWidth * 0.25));
-  const targetHeroLeft = (targetWidth - targetHeroWidth) / 2;
-  const targetHeroTop = targetTop + 88;
-  const isReturningToCard = morph.phase === "closing";
-  const cardTransform = {
-    scaleX: morph.rect.width / targetWidth,
-    scaleY: morph.rect.height / targetHeight,
-    x: morph.rect.left,
-    y: morph.rect.top - targetTop,
-  };
-  const imageTransform = {
-    scaleX: morph.imageRect.width / targetHeroWidth,
-    scaleY: morph.imageRect.height / targetHeroHeight,
-    x: morph.imageRect.left - targetHeroLeft,
-    y: morph.imageRect.top - targetHeroTop,
-  };
-  const sourceImageOpacity = morph.snapshotActive ? 0.08 : 1;
-  const geometryTransition = { duration: sharedMorphDuration, ease: sharedMorphEase };
-  const targetTransform = { scaleX: 1, scaleY: 1, x: 0, y: 0 };
-  const sourceCardRadius = compensatedRadius(16, cardTransform.scaleX, cardTransform.scaleY);
-  const sourceImageRadius = compensatedRadius(4, imageTransform.scaleX, imageTransform.scaleY);
-  const sourceContentOffset = {
-    x: -morph.rect.left,
-    y: targetTop - morph.rect.top,
-  };
-  const hasDistinctDetailHero = Boolean(
-    study?.detailHeroImage && study.detailHeroImage !== study.image,
-  );
-
-  return (
-    <>
-      <motion.div
-        animate={{
-          ...(isReturningToCard ? cardTransform : targetTransform),
-          borderRadius: isReturningToCard ? sourceCardRadius : "24px / 24px",
-          boxShadow: isReturningToCard
-            ? "0 0 16px rgba(28, 25, 23, 0.12)"
-            : "0 -8px 16px rgba(231, 229, 228, 0.8)",
-          opacity: isReturningToCard ? [0, 1, 1] : [1, 1, 0],
-        }}
-        aria-hidden="true"
-        className="pointer-events-none fixed left-0 z-[60] overflow-hidden border-[0.5px] border-stone-200 bg-white will-change-transform"
-        initial={
-          morph.phase === "opening"
-            ? {
-                ...cardTransform,
-                borderRadius: sourceCardRadius,
-                boxShadow: "0 0 16px rgba(28, 25, 23, 0.12)",
-                opacity: 1,
-              }
-            : {
-                ...targetTransform,
-                borderRadius: "24px / 24px",
-                boxShadow: "0 -8px 16px rgba(231, 229, 228, 0.8)",
-                opacity: 0,
-              }
-        }
-        onAnimationComplete={() => onPhaseComplete(morph.phase)}
-        style={{
-          height: targetHeight,
-          top: targetTop,
-          transformOrigin: "top left",
-          width: targetWidth,
-        }}
-        transition={{
-          ...geometryTransition,
-          opacity: {
-            duration: sharedMorphDuration,
-            ease: sharedMorphEase,
-            times: isReturningToCard ? [0, 0.25, 1] : [0, 0.72, 1],
-          },
-        }}
-      />
-
-      {study ? (
-        <motion.figure
-          animate={{
-            ...(isReturningToCard ? imageTransform : targetTransform),
-            borderRadius: isReturningToCard ? sourceImageRadius : "24px / 24px",
-            opacity: isReturningToCard
-              ? [0, 1, 1]
-              : [sourceImageOpacity, 1, 1, 0],
-          }}
-          aria-hidden="true"
-          className="pointer-events-none fixed z-[61] overflow-hidden bg-stone-200 will-change-transform"
-          initial={
-            morph.phase === "opening"
-              ? {
-                  ...imageTransform,
-                  borderRadius: sourceImageRadius,
-                  opacity: sourceImageOpacity,
-                }
-              : { ...targetTransform, borderRadius: "24px / 24px", opacity: 0 }
-          }
-          style={{
-            height: targetHeroHeight,
-            left: targetHeroLeft,
-            top: targetHeroTop,
-            transformOrigin: "top left",
-            width: targetHeroWidth,
-          }}
-          transition={{
-            ...geometryTransition,
-            opacity: {
-              duration: sharedMorphDuration,
-              ease: sharedMorphEase,
-              times: isReturningToCard ? [0, 0.25, 1] : [0, 0.35, 0.72, 1],
-            },
-          }}
-        >
-          <motion.img
-            alt=""
-            animate={{ opacity: isReturningToCard && hasDistinctDetailHero ? 1 : 0 }}
-            className="absolute inset-0 size-full object-cover"
-            initial={{ opacity: morph.phase === "opening" ? 1 : 0 }}
-            src={study.image}
-            transition={{
-              delay: isReturningToCard ? 0.16 : 0.28,
-              duration: 0.18,
-              ease: sharedMorphEase,
-            }}
-          />
-          <motion.img
-            alt=""
-            animate={{ opacity: isReturningToCard && hasDistinctDetailHero ? 0 : 1 }}
-            className="absolute inset-0 size-full object-cover"
-            initial={{ opacity: morph.phase === "opening" && hasDistinctDetailHero ? 0 : 1 }}
-            src={study.detailHeroImage ?? study.image}
-            transition={{
-              delay: isReturningToCard ? 0.16 : 0.28,
-              duration: 0.18,
-              ease: sharedMorphEase,
-            }}
-          />
-        </motion.figure>
-      ) : null}
-
-      {study ? (
-        <motion.div
-          animate={{
-            opacity: isReturningToCard ? 1 : 0,
-            x: isReturningToCard ? 0 : sourceContentOffset.x,
-            y: isReturningToCard ? 0 : sourceContentOffset.y,
-          }}
-          aria-hidden="true"
-          className="pointer-events-none fixed z-[62] flex flex-col overflow-hidden p-4 text-center"
-          initial={{
-            opacity: morph.phase === "opening" ? 1 : 0,
-            x: morph.phase === "opening" ? 0 : sourceContentOffset.x,
-            y: morph.phase === "opening" ? 0 : sourceContentOffset.y,
-          }}
-          style={morph.rect}
-          transition={
-            isReturningToCard
-              ? {
-                  delay: sharedMorphDuration - 0.18,
-                  duration: 0.18,
-                  ease: sharedMorphEase,
-                }
-              : { duration: 0.16, ease: sharedMorphEase }
-          }
-        >
-          {morph.snapshotActive ? (
-            <span className="flex size-full flex-col items-center justify-center gap-4">
-              <span className="flex max-w-full flex-col items-center gap-1">
-                <span className="text-xs leading-3 text-stone-500">Product Design</span>
-                <span className="max-w-full text-balance text-sm font-medium leading-4 text-stone-900">
-                  {study.title}
-                </span>
-              </span>
-              <span className="flex items-center gap-2 rounded-xl bg-gradient-to-b from-sky-800 to-sky-900 px-4 py-3 text-sm leading-4 text-stone-50">
-                Read case study
-                <ArrowUpRight aria-hidden="true" className="size-4" />
-              </span>
-            </span>
-          ) : (
-            <>
-              <span className="min-h-0 w-full flex-1" />
-              <span className="flex w-full shrink-0 flex-col items-center gap-1 whitespace-nowrap">
-                <span className="text-xs leading-3 text-stone-500">Product Design</span>
-                <span className="w-full truncate text-sm font-medium leading-4 text-stone-900">
-                  {study.title}
-                </span>
-              </span>
-            </>
-          )}
-        </motion.div>
-      ) : null}
-    </>
-  );
-}
-
 function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) {
   const shouldReduceMotion = useReducedMotion();
   const [hoveredCompany, setHoveredCompany] = useState<string | null>(null);
@@ -374,8 +142,6 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
   const [focusedSlug, setFocusedSlug] = useState<string | null>(null);
   const [drawerSlug, setDrawerSlug] = useState(selectedSlug);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [cardMorph, setCardMorph] = useState<CardMorph | null>(null);
-  const cardMorphOriginRef = useRef<CardMorphOrigin | null>(null);
   const isClosingDrawerRef = useRef(false);
   const emailLinkRef = useRef<HTMLAnchorElement | null>(null);
   const lastTriggerRef = useRef<HTMLAnchorElement | null>(null);
@@ -424,60 +190,16 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
     navigateAfterCloseRef.current = false;
     if (drawerSlug) {
       isClosingDrawerRef.current = true;
-      const origin = cardMorphOriginRef.current;
-
-      if (!shouldReduceMotion && origin?.slug === drawerSlug) {
-        const morphOrigin = origin as CardMorphOrigin;
-        setCardMorph((current) =>
-          current?.slug === morphOrigin.slug
-            ? { ...current, phase: "closing" }
-            : { ...morphOrigin, phase: "closing" },
-        );
-      } else {
-        setIsDrawerOpen(false);
-      }
+      setIsDrawerOpen(false);
     } else {
       isClosingDrawerRef.current = false;
     }
-  }, [drawerSlug, selectedSlug, shouldReduceMotion]);
+  }, [drawerSlug, selectedSlug]);
 
   const handleSelectStudy = (slug: string, trigger: HTMLAnchorElement) => {
     lastTriggerRef.current = trigger;
     isClosingDrawerRef.current = false;
     navigateAfterCloseRef.current = false;
-
-    const rect = trigger.getBoundingClientRect();
-    const imageRect = trigger
-      .querySelector<HTMLElement>("[data-card-image]")
-      ?.getBoundingClientRect();
-    const origin: CardMorphOrigin = {
-      imageRect: imageRect
-        ? {
-            height: imageRect.height,
-            left: imageRect.left,
-            top: imageRect.top,
-            width: imageRect.width,
-          }
-        : {
-            height: rect.height,
-            left: rect.left,
-            top: rect.top,
-            width: rect.width,
-          },
-      rect: {
-        height: rect.height,
-        left: rect.left,
-        top: rect.top,
-        width: rect.width,
-      },
-      slug,
-      snapshotActive: activeSlug === slug,
-    };
-    cardMorphOriginRef.current = origin;
-
-    if (!shouldReduceMotion) {
-      setCardMorph({ ...origin, phase: "opening" });
-    }
 
     setDrawerSlug(slug);
     onSelectStudy(slug);
@@ -512,26 +234,6 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
 
     isClosingDrawerRef.current = true;
     navigateAfterCloseRef.current = Boolean(selectedSlug);
-    const origin = cardMorphOriginRef.current;
-
-    if (!shouldReduceMotion && origin?.slug === drawerSlug) {
-      const morphOrigin = origin as CardMorphOrigin;
-      setCardMorph((current) =>
-        current?.slug === morphOrigin.slug
-          ? { ...current, phase: "closing" }
-          : { ...morphOrigin, phase: "closing" },
-      );
-    } else {
-      setIsDrawerOpen(false);
-    }
-  };
-
-  const handleMorphPhaseComplete = (phase: CardMorph["phase"]) => {
-    if (phase === "opening") {
-      setCardMorph(null);
-      return;
-    }
-
     setIsDrawerOpen(false);
   };
 
@@ -544,9 +246,6 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
     navigateAfterCloseRef.current = false;
 
     if (shouldNavigate) onCloseStudy();
-
-    cardMorphOriginRef.current = null;
-    setCardMorph(null);
 
     if (interruptedSlug) {
       isClosingDrawerRef.current = false;
@@ -753,7 +452,6 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
                     if (event.pointerType === "mouse") setPointerSlug(slug);
                   }}
                   onSelect={handleSelectStudy}
-                  morphing={cardMorph?.slug === study.slug}
                   slug={study.slug}
                   summary={study.summary}
                   title={study.title}
@@ -786,13 +484,8 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
           onOpenChange={handleDrawerOpenChange}
           onOpenChangeComplete={handleDrawerOpenChangeComplete}
           open={isDrawerOpen}
-          sharedMorphPhase={cardMorph?.phase}
           slug={drawerSlug}
         />
-      ) : null}
-
-      {cardMorph ? (
-        <CardSurfaceMorph morph={cardMorph} onPhaseComplete={handleMorphPhaseComplete} />
       ) : null}
     </>
   );

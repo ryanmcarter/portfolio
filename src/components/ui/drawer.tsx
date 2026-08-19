@@ -89,25 +89,13 @@ function DrawerSwipeHandle({ className, ...props }: React.ComponentProps<"div">)
   );
 }
 
-function DrawerContent({
-  className,
-  children,
-  sharedMorphPhase,
-  ...props
-}: DrawerPrimitive.Popup.Props & {
-  sharedMorphPhase?: "closing" | "opening";
-}) {
+function DrawerContent({ className, children, ...props }: DrawerPrimitive.Popup.Props) {
   const { hasSnapPoints, modal, showSwipeHandle, swipeDirection } = useDrawer();
   const swipeAxis = swipeDirection === "down" || swipeDirection === "up" ? "y" : "x";
 
   return (
     <DrawerPortal data-slot="drawer-portal">
-      {modal === true && (
-        <DrawerOverlay
-          data-shared-morph={sharedMorphPhase}
-          data-snap-points={hasSnapPoints ? "" : undefined}
-        />
-      )}
+      {modal === true && <DrawerOverlay data-snap-points={hasSnapPoints ? "" : undefined} />}
       <DrawerPrimitive.Viewport
         className="pointer-events-none fixed inset-0 z-50 select-none data-[modal=true]:pointer-events-auto"
         data-modal={modal}
@@ -130,7 +118,6 @@ function DrawerContent({
             className,
           )}
           data-slot="drawer-popup"
-          data-shared-morph={sharedMorphPhase}
           data-snap-points={hasSnapPoints ? "" : undefined}
           data-swipe-axis={swipeAxis}
           {...props}

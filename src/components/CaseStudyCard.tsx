@@ -8,7 +8,6 @@ type CaseStudyCardProps = {
   href: string;
   image: string;
   index: number;
-  morphing: boolean;
   onFocus: (slug: string) => void;
   onPointerEnter: (slug: string, event: PointerEvent<HTMLAnchorElement>) => void;
   onSelect: (slug: string, trigger: HTMLAnchorElement) => void;
@@ -23,7 +22,6 @@ export function CaseStudyCard({
   href,
   image,
   index,
-  morphing,
   onFocus,
   onPointerEnter,
   onSelect,
@@ -71,7 +69,6 @@ export function CaseStudyCard({
       }}
       className="case-study-card relative aspect-[319/177] min-h-0 w-full rounded-2xl xl:aspect-auto xl:h-[169px]"
       initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-      style={{ visibility: morphing ? "hidden" : "visible" }}
       transition={
         shouldReduceMotion
           ? { duration: 0 }
@@ -108,7 +105,6 @@ export function CaseStudyCard({
           }}
           aria-hidden="true"
           className="relative min-h-0 w-full flex-1 overflow-hidden rounded-sm bg-white"
-          data-card-image
           transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.3 }}
         >
           <img
