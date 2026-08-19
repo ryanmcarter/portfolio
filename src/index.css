@@ -83,9 +83,11 @@ body {
 }
 
 .paint-glyph-draw {
+  /* User-unit length of paintScribblePath; avoids Chrome's pathLength dash normalization. */
+  --paint-scribble-length: 37.7;
   opacity: 0;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  stroke-dasharray: var(--paint-scribble-length);
+  stroke-dashoffset: var(--paint-scribble-length);
 }
 
 .paint-stop-x-pop {
@@ -97,7 +99,7 @@ body {
 
 @keyframes paint-scribble-draw {
   from {
-    stroke-dashoffset: 1;
+    stroke-dashoffset: var(--paint-scribble-length);
   }
 
   to {

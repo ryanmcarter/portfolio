@@ -80,8 +80,8 @@ function PaintScribbleIcon({ className = "" }: { className?: string }) {
       focusable="false"
       viewBox="0 0 16 16"
     >
-      <path className="paint-glyph-base" d={paintScribblePath} pathLength="1" />
-      <path className="paint-glyph-draw" d={paintScribblePath} pathLength="1" />
+      <path className="paint-glyph-base" d={paintScribblePath} />
+      <path className="paint-glyph-draw" d={paintScribblePath} />
     </svg>
   );
 }
@@ -95,9 +95,9 @@ function PaintStopIcon() {
       focusable="false"
       viewBox="0 0 16.75 16"
     >
-      <path className="paint-glyph-base" d={paintScribblePath} pathLength="1" />
+      <path className="paint-glyph-base" d={paintScribblePath} />
       <path className="paint-glyph-base" d={paintStopPath} />
-      <path className="paint-glyph-draw" d={paintScribblePath} pathLength="1" />
+      <path className="paint-glyph-draw" d={paintScribblePath} />
       <path className="paint-stop-x-pop" d={paintStopPath} />
     </svg>
   );
