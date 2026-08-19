@@ -621,7 +621,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
     return (
       <nav
         aria-label="Ryan Carter links"
-        className={`${isPaintMode ? "paint-control-row-fixed" : ""} flex max-w-full flex-wrap items-center justify-end gap-4`}
+        className={`${isPaintMode ? "paint-control-row-fixed" : ""} flex max-w-full flex-wrap items-center justify-end gap-4 md:flex-nowrap`}
         data-paint-controls={isPaintMode ? "" : undefined}
       >
         <Button
