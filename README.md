@@ -5,7 +5,7 @@ Static React/Vite portfolio rebuilt from the live `ryancarter.io` Webflow conten
 ## Commands
 
 - `npm run dev` starts the local dev server.
-- `npm run build` creates the GitHub Pages-ready `dist` output and copies `index.html` to `404.html` for deep links.
+- `npm run build` creates the GitHub Pages-ready `dist` output, including real entry pages for every published case-study route and a `404.html` fallback for unknown deep links.
 - `npm run scrape:content` regenerates the non-case-study pages in `src/data/scraped-content.json` from saved HTML in `scrape/pages`; case studies are maintained as Markdown in `src/data`.
 - `npm run scrape:assets` downloads scraped media into `public/assets` and regenerates `src/data/asset-manifest.json`.
 

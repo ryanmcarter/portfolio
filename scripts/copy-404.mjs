@@ -1,4 +1,12 @@
-import { copyFile, rm } from "node:fs/promises";
+import { copyFile, mkdir, rm } from "node:fs/promises";
+
+const caseStudySlugs = [
+  "kraidle",
+  "dynamic-plan",
+  "quilt",
+  "keel",
+  "studio",
+];
 
 const draftAssets = [
   "elearning-saas-action-item-drawer.png",
@@ -8,7 +16,14 @@ const draftAssets = [
   "home-card-htss.png",
 ];
 
-await copyFile("dist/index.html", "dist/404.html");
+await Promise.all([
+  copyFile("dist/index.html", "dist/404.html"),
+  ...caseStudySlugs.map(async (slug) => {
+    const routeDirectory = `dist/case-studies/${slug}`;
+    await mkdir(routeDirectory, { recursive: true });
+    await copyFile("dist/index.html", `${routeDirectory}/index.html`);
+  }),
+]);
 await Promise.all(
   draftAssets.map((filename) => rm(`dist/assets/${filename}`, { force: true })),
 );

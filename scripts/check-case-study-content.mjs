@@ -16,6 +16,7 @@ const legacyStructure = {
 const portfolioSource = await readFile("src/data/portfolio.ts", "utf8");
 const drawerSource = await readFile("src/components/CaseStudyDrawer.tsx", "utf8");
 const rendererSource = await readFile("src/components/MarkdownArticle.tsx", "utf8");
+const pagesOutputSource = await readFile("scripts/copy-404.mjs", "utf8");
 const scraped = JSON.parse(await readFile("src/data/scraped-content.json", "utf8"));
 
 assert.deepEqual(Object.keys(scraped).sort(), ["contact", "home"]);
@@ -26,6 +27,18 @@ const orderMatch = portfolioSource.match(/const caseStudyOrder = \[([\s\S]*?)\];
 assert.ok(orderMatch, "caseStudyOrder must remain statically inspectable");
 const order = [...orderMatch[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]);
 assert.deepEqual(order, activeSlugs);
+
+const pagesSlugsMatch = pagesOutputSource.match(/const caseStudySlugs = \[([\s\S]*?)\];/);
+assert.ok(pagesSlugsMatch, "caseStudySlugs must remain statically inspectable");
+const pagesSlugs = [...pagesSlugsMatch[1].matchAll(/"([^"]+)"/g)].map(
+  (match) => match[1],
+);
+assert.deepEqual(pagesSlugs, activeSlugs);
+assert.match(pagesOutputSource, /dist\/case-studies\/\$\{slug\}/);
+assert.match(
+  pagesOutputSource,
+  /copyFile\("dist\/index\.html", `\$\{routeDirectory\}\/index\.html`\)/,
+);
 
 for (const slug of activeSlugs) {
   const importPattern = new RegExp(`from "\\./${slug}-case-study\\.md\\?raw"`);
