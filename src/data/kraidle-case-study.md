@@ -61,7 +61,7 @@ Seven principles, in priority order:
                                      │  (DTCG JSON, 2-way git sync)
                                      ▼
         ┌───────────────────────────────────────────────────────────┐
-        │  packages/tokens/tokens/tokens.json   ← 235 lines, single │
+        │  packages/tokens/tokens.json          ← 235 lines, single │
         │                                         source of truth   │
         │  build.js (Style Dictionary)                              │
         │  → dist/tokens.css        313 lines, --kr-* CSS vars      │
