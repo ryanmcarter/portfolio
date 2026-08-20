@@ -1,27 +1,20 @@
 import assetManifest from "./asset-manifest.json";
 import dynamicPlanCaseStudyMarkdown from "./dynamic-plan-case-study.md?raw";
+import keelCaseStudyMarkdown from "./keel-case-study.md?raw";
 import kraidleCaseStudyMarkdown from "./kraidle-case-study.md?raw";
+import quiltCaseStudyMarkdown from "./quilt-case-study.md?raw";
 import scraped from "./scraped-content.json";
+import studioCaseStudyMarkdown from "./studio-case-study.md?raw";
 
 export type TextBlock = {
   type: "h1" | "h2" | "h3" | "h4" | "h5" | "p" | "li";
   text: string;
 };
 
-export type ContentItem =
-  | TextBlock
-  | { type: "image"; src: string; alt: string }
-  | { type: "video"; src: string; poster?: string };
-
 type ScrapedPage = {
   slug: string;
   title: string;
   blocks: TextBlock[];
-  items?: ContentItem[];
-  media: {
-    images: { src: string; alt: string }[];
-    videos: string[];
-  };
 };
 
 const manifest = assetManifest as Record<string, string>;
@@ -69,7 +62,10 @@ const detailHeroImages: Partial<Record<string, string>> = {
 
 const markdownPages: Record<string, string> = {
   "dynamic-plan": dynamicPlanCaseStudyMarkdown,
+  keel: keelCaseStudyMarkdown,
   kraidle: kraidleCaseStudyMarkdown,
+  quilt: quiltCaseStudyMarkdown,
+  studio: studioCaseStudyMarkdown,
 };
 
 const metadata: Record<
@@ -200,7 +196,6 @@ const allCaseStudies = caseStudyOrder.map((slug) => ({
     ? asset(detailHeroImages[slug])
     : undefined,
   markdown: markdownPages[slug],
-  page: pages[slug],
 }));
 
 export const caseStudies = allCaseStudies.filter((study) => study.published);
@@ -210,20 +205,4 @@ export const contactPage = pages.contact;
 
 export function getCaseStudy(slug: string) {
   return caseStudies.find((study) => study.slug === slug);
-}
-
-export function mediaForPage(page: ScrapedPage) {
-  const images = page.media.images
-    .map((image) => ({ ...image, src: asset(image.src) }))
-    .filter((image) => !image.src.includes("ryan-carter-logo"));
-  const videos = page.media.videos.map((video) => asset(video));
-  return { images, videos };
-}
-
-export function itemsForPage(page: ScrapedPage) {
-  return (page.items ?? page.blocks).map((item) => {
-    if (item.type === "image") return { ...item, src: asset(item.src) };
-    if (item.type === "video") return { ...item, src: asset(item.src), poster: item.poster ? asset(item.poster) : undefined };
-    return item;
-  });
 }

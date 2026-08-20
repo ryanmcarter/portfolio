@@ -1,9 +1,8 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { basename, join } from "node:path";
 
-const pages = [
-  "home",
-  "contact",
+const contentPages = ["home", "contact"];
+const legacyCaseStudyPages = [
   "keel",
   "quilt",
   "studio",
@@ -11,6 +10,11 @@ const pages = [
   "shoflo",
   "thyme",
   "a11y-initiative",
+];
+const assetPages = [
+  "home",
+  "contact",
+  ...legacyCaseStudyPages,
 ];
 
 const decode = (value) =>
@@ -104,21 +108,22 @@ const pageTitle = (html, fallback) => {
 };
 
 const content = {};
-for (const page of pages) {
-  const html = await readFile(join("scrape", "pages", `${page}.html`), "utf8");
-  content[page] = {
-    slug: page,
-    title: pageTitle(html, page),
-    blocks: extractBlocks(html),
-    items: extractOrderedItems(html),
-    media: extractMedia(html),
-  };
-}
-
 const urls = new Set();
-for (const page of Object.values(content)) {
-  for (const image of page.media.images) urls.add(image.src);
-  for (const video of page.media.videos) urls.add(video);
+for (const page of assetPages) {
+  const html = await readFile(join("scrape", "pages", `${page}.html`), "utf8");
+  const media = extractMedia(html);
+  for (const image of media.images) urls.add(image.src);
+  for (const video of media.videos) urls.add(video);
+
+  if (contentPages.includes(page)) {
+    content[page] = {
+      slug: page,
+      title: pageTitle(html, page),
+      blocks: extractBlocks(html),
+      items: extractOrderedItems(html),
+      media,
+    };
+  }
 }
 
 const assetList = [...urls]
@@ -131,5 +136,5 @@ await writeFile(
 );
 await writeFile(join("scrape", "assets.txt"), `${assetList.join("\n")}\n`);
 
-console.log(`Extracted ${pages.length} pages and ${assetList.length} asset references.`);
+console.log(`Extracted ${contentPages.length} content pages and ${assetList.length} asset references.`);
 console.log(`Largest source page: ${basename("scrape/pages/keel.html")}`);

@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 
-import { ArticleItems } from "@/components/ArticleItems";
 import { MarkdownArticle } from "@/components/MarkdownArticle";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +10,7 @@ import {
   DrawerDescription,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { getCaseStudy, itemsForPage } from "@/data/portfolio";
+import { getCaseStudy } from "@/data/portfolio";
 
 const clientLogos: Record<string, { alt: string; crop?: boolean; src: string }> = {
   "Gradle Technologies": {
@@ -62,9 +61,6 @@ export function CaseStudyDrawer({
 
   if (!study) return null;
 
-  const orderedItems = study.page ? itemsForPage(study.page) : [];
-  const scrapedLogo = orderedItems.find((item) => item.type === "image" && /logo/i.test(item.alt));
-  const contentItems = orderedItems.filter((item) => item.type !== "h1" && item !== scrapedLogo);
   const clientLogo = clientLogos[study.client];
 
   return (
@@ -117,12 +113,6 @@ export function CaseStudyDrawer({
                     className="mb-6 max-h-5 w-auto max-w-32 object-contain object-left"
                     src={clientLogo.src}
                   />
-                ) : scrapedLogo?.type === "image" ? (
-                  <img
-                    alt={scrapedLogo.alt}
-                    className="mb-6 max-h-5 w-auto max-w-32 object-contain object-left"
-                    src={scrapedLogo.src}
-                  />
                 ) : (
                   <p className="mb-6 text-sm font-semibold leading-4 text-neutral-900">{study.client}</p>
                 )}
@@ -164,15 +154,11 @@ export function CaseStudyDrawer({
             </figure>
 
             <section className="mx-auto mt-16 w-full max-w-[770px]">
-              {study.markdown ? (
-                <MarkdownArticle
-                  hideLead
-                  markdown={study.markdown}
-                  scrollContainerRef={scrollContainerRef}
-                />
-              ) : (
-                <ArticleItems items={contentItems} />
-              )}
+              <MarkdownArticle
+                hideLead
+                markdown={study.markdown}
+                scrollContainerRef={scrollContainerRef}
+              />
             </section>
           </article>
         </div>
