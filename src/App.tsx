@@ -53,6 +53,7 @@ type HomePageProps = {
 };
 
 type PortfolioTheme = "dark" | "light";
+type PaintControl = "email" | "fill" | "linkedin" | "resume" | "stop";
 
 const paintBrushRadius = 64;
 const flatFloatingButtonClass = "shadow-none hover:shadow-none";
@@ -226,6 +227,15 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
   const [isPaintFlooding, setIsPaintFlooding] = useState(false);
   const [paintMaskSize, setPaintMaskSize] = useState({ height: 1, width: 1 });
   const [paintStatus, setPaintStatus] = useState("");
+  const [focusedPaintControl, setFocusedPaintControl] = useState<PaintControl | null>(
+    null,
+  );
+  const [hoveredPaintControl, setHoveredPaintControl] = useState<PaintControl | null>(
+    null,
+  );
+  const [pressedPaintControl, setPressedPaintControl] = useState<PaintControl | null>(
+    null,
+  );
   const [hoveredCompany, setHoveredCompany] = useState<string | null>(null);
   const [pointerSlug, setPointerSlug] = useState<string | null>(null);
   const [focusedSlug, setFocusedSlug] = useState<string | null>(null);
@@ -302,25 +312,44 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
     paintFloodCircleRef.current?.setAttribute("r", "0");
   }, []);
 
+  const resetPaintControlInteraction = useCallback(() => {
+    setFocusedPaintControl(null);
+    setHoveredPaintControl(null);
+    setPressedPaintControl(null);
+  }, []);
+
   const cancelPaintMode = useCallback((restoreFocus = true) => {
     resetPaintFlood();
+    resetPaintControlInteraction();
     setTheme(paintStartTheme);
     setIsPaintFlooding(false);
     setIsPaintMode(false);
     setPaintStatus(`Painting stopped. ${paintStartTheme} theme restored.`);
     clearPaintPath();
     if (restoreFocus) focusPaintToggle();
-  }, [clearPaintPath, focusPaintToggle, paintStartTheme, resetPaintFlood]);
+  }, [
+    clearPaintPath,
+    focusPaintToggle,
+    paintStartTheme,
+    resetPaintControlInteraction,
+    resetPaintFlood,
+  ]);
 
   const completePaintTarget = useCallback(() => {
     const completedTheme = oppositeTheme(paintStartTheme);
+    resetPaintControlInteraction();
     setTheme(completedTheme);
     setIsPaintFlooding(false);
     setIsPaintMode(false);
     setPaintStatus(`${completedTheme} theme applied.`);
     clearPaintPath();
     focusPaintToggle();
-  }, [clearPaintPath, focusPaintToggle, paintStartTheme]);
+  }, [
+    clearPaintPath,
+    focusPaintToggle,
+    paintStartTheme,
+    resetPaintControlInteraction,
+  ]);
 
   const fillPaintTarget = useCallback(() => {
     if (isPaintFlooding || paintFloodAnimationRef.current) return;
@@ -390,6 +419,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
 
   const beginPaintMode = useCallback(() => {
     resetPaintFlood();
+    resetPaintControlInteraction();
     clearPaintPath();
     setHoveredCompany(null);
     setIsPaintFlooding(false);
@@ -403,7 +433,13 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
     window.requestAnimationFrame(() => {
       paintAllRef.current?.focus({ preventScroll: true });
     });
-  }, [clearPaintPath, measurePaintMask, resetPaintFlood, theme]);
+  }, [
+    clearPaintPath,
+    measurePaintMask,
+    resetPaintControlInteraction,
+    resetPaintFlood,
+    theme,
+  ]);
 
   const handlePaintToggle = () => {
     if (isPaintMode) {
@@ -460,13 +496,6 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
   const handlePaintPointerMove = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
       if (!isPaintMode || isPaintFlooding || event.pointerType === "touch") return;
-      if (
-        event.target instanceof Element &&
-        event.target.closest("[data-paint-controls]")
-      ) {
-        previousPaintPointRef.current = null;
-        return;
-      }
 
       pendingPaintPointRef.current = {
         x: event.clientX + window.scrollX,
@@ -632,15 +661,58 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
   };
 
   const renderTopControls = (visualOnly: boolean) => {
+    const paintControlInteractionProps = (control: PaintControl) =>
+      visualOnly || !isPaintMode
+        ? {}
+        : {
+            onBlur: () => {
+              setFocusedPaintControl((current) =>
+                current === control ? null : current,
+              );
+            },
+            onFocus: () => setFocusedPaintControl(control),
+            onPointerCancel: () => setPressedPaintControl(null),
+            onPointerDown: () => setPressedPaintControl(control),
+            onPointerEnter: () => setHoveredPaintControl(control),
+            onPointerLeave: () => {
+              setHoveredPaintControl((current) =>
+                current === control ? null : current,
+              );
+              setPressedPaintControl((current) =>
+                current === control ? null : current,
+              );
+            },
+            onPointerUp: () => setPressedPaintControl(null),
+          };
+    const isPaintControlEngaged = (control: PaintControl) =>
+      focusedPaintControl === control || hoveredPaintControl === control;
+    const paintControlMirrorClass = (control: PaintControl) => {
+      if (!visualOnly) return "";
+
+      return [
+        control === "fill" && hoveredPaintControl === control
+          ? "bg-neutral-700"
+          : "",
+        (control === "fill" || control === "stop") &&
+        isPaintControlEngaged(control)
+          ? "paint-draw-trigger-active"
+          : "",
+        focusedPaintControl === control ? "paint-control-mirror-focus" : "",
+        pressedPaintControl === control ? "-translate-y-px scale-[0.99]" : "",
+      ]
+        .filter(Boolean)
+        .join(" ");
+    };
+
     return (
       <nav
         aria-label="Ryan Carter links"
         className={`${isPaintMode ? "paint-control-row-fixed" : ""} flex max-w-full flex-wrap items-center justify-end gap-4 min-[400px]:gap-2 sm:gap-4`}
-        data-paint-controls={isPaintMode ? "" : undefined}
+        data-paint-surface={visualOnly ? "visual" : "interactive"}
       >
         <Button
           asChild
-          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} min-[400px]:px-2.5 sm:px-4`}
+          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} min-[400px]:px-2.5 sm:px-4 ${paintControlMirrorClass("linkedin")}`}
           size="lg"
           variant="floating"
         >
@@ -649,41 +721,52 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
             href="https://www.linkedin.com/in/ryan-carter-b8902144/?skipRedirect=true"
             rel="noreferrer"
             target="_blank"
+            {...paintControlInteractionProps("linkedin")}
           >
             LinkedIn
             <span className="sr-only"> (opens in a new tab)</span>
             <ArrowUpRight
               aria-hidden="true"
-              className={`size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5 ${topControlIconColorClass}`}
+              className={`size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5 ${topControlIconColorClass} ${visualOnly && isPaintControlEngaged("linkedin") ? "paint-control-mirror-icon" : ""}`}
             />
           </a>
         </Button>
         <Button
           asChild
-          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} min-[400px]:px-2.5 sm:px-4`}
+          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} min-[400px]:px-2.5 sm:px-4 ${paintControlMirrorClass("resume")}`}
           size="lg"
           variant="floating"
         >
-          <a className="group" href={resumeUrl} rel="noreferrer" target="_blank">
+          <a
+            className="group"
+            href={resumeUrl}
+            rel="noreferrer"
+            target="_blank"
+            {...paintControlInteractionProps("resume")}
+          >
             Résumé
             <span className="sr-only"> (opens in a new tab)</span>
             <ArrowUpRight
               aria-hidden="true"
-              className={`size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5 ${topControlIconColorClass}`}
+              className={`size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5 ${topControlIconColorClass} ${visualOnly && isPaintControlEngaged("resume") ? "paint-control-mirror-icon" : ""}`}
             />
           </a>
         </Button>
         <Button
           asChild
-          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} min-[400px]:px-2.5 sm:px-4`}
+          className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} min-[400px]:px-2.5 sm:px-4 ${paintControlMirrorClass("email")}`}
           size="lg"
           variant="floating"
         >
-          <a className="group" href="mailto:ryanmichael.carter@gmail.com">
+          <a
+            className="group"
+            href="mailto:ryanmichael.carter@gmail.com"
+            {...paintControlInteractionProps("email")}
+          >
             Email
             <ArrowUpRight
               aria-hidden="true"
-              className={`size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5 ${topControlIconColorClass}`}
+              className={`size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5 ${topControlIconColorClass} ${visualOnly && isPaintControlEngaged("email") ? "paint-control-mirror-icon" : ""}`}
             />
           </a>
         </Button>
@@ -693,7 +776,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
         />
 
         <div
-          className="paint-control-reveal flex shrink-0 justify-end"
+          className="paint-control-reveal relative z-40 flex shrink-0 justify-end"
           data-paint-expanded={isPaintMode ? "" : undefined}
         >
           {isPaintMode ? (
@@ -704,22 +787,26 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
               role="group"
             >
               <Button
-                className={`${expandedVerticalHitAreaClass} paint-draw-trigger cursor-pointer rounded-xl border-transparent px-4 font-sans`}
+                className={`${expandedVerticalHitAreaClass} paint-draw-trigger cursor-pointer rounded-xl border-transparent px-4 font-sans ${paintControlMirrorClass("fill")}`}
+                data-paint-action="fill"
                 disabled={isPaintFlooding}
                 onClick={fillPaintTarget}
                 ref={visualOnly ? undefined : paintAllRef}
                 size="lg"
                 type="button"
+                {...paintControlInteractionProps("fill")}
               >
                 Paint it all
                 <PaintScribbleIcon />
               </Button>
               <Button
-                className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} paint-draw-trigger cursor-pointer`}
+                className={`${flatFloatingButtonClass} ${expandedVerticalHitAreaClass} paint-draw-trigger cursor-pointer ${paintControlMirrorClass("stop")}`}
+                data-paint-action="stop"
                 onClick={() => cancelPaintMode()}
                 size="lg"
                 type="button"
                 variant="floating"
+                {...paintControlInteractionProps("stop")}
               >
                 Stop
                 <PaintStopIcon />
@@ -765,7 +852,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
         tabIndex={visualOnly ? undefined : -1}
       >
         <div
-          className={`relative mx-auto flex w-full max-w-[1440px] justify-end px-4 sm:px-8 min-[1440px]:!px-12 ${isPaintMode ? "z-[70] pt-20 sm:pt-24 md:pb-10 md:pt-8 min-[1440px]:!pt-12" : "z-0 pt-4 sm:pt-8 min-[1440px]:!pt-12"}`}
+          className={`relative mx-auto flex w-full max-w-[1440px] justify-end px-4 sm:px-8 min-[1440px]:!px-12 ${isPaintMode ? "pt-20 sm:pt-24 md:pb-10 md:pt-8 min-[1440px]:!pt-12" : "pt-4 sm:pt-8 min-[1440px]:!pt-12"}`}
         >
           {renderTopControls(visualOnly)}
         </div>
