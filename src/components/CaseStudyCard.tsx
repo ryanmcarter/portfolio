@@ -25,6 +25,8 @@ const cardVisuals: Record<
   {
     background: string;
     backgroundColor?: string;
+    frameBackground?: string;
+    frameBackgroundColor?: string;
     frameClassName: string;
     imageClassName: string;
     stageClassName: string;
@@ -43,8 +45,9 @@ const cardVisuals: Record<
     stageClassName: "p-4",
   },
   quilt: {
-    background: "none",
-    backgroundColor: "#fff",
+    background: "linear-gradient(98.4deg, #7569cf 0%, #ade9ba 100%)",
+    frameBackground: "none",
+    frameBackgroundColor: "#fff",
     frameClassName: "aspect-[82/43]",
     imageClassName: "size-full object-cover",
     stageClassName: "p-4",
@@ -156,8 +159,8 @@ export function CaseStudyCard({
           <span
             className={`relative z-10 block w-full overflow-hidden rounded-lg ${visual.frameClassName}`}
             style={{
-              backgroundColor: visual.backgroundColor,
-              backgroundImage: visual.background,
+              backgroundColor: visual.frameBackgroundColor ?? visual.backgroundColor,
+              backgroundImage: visual.frameBackground ?? visual.background,
             }}
           >
             <img
