@@ -56,10 +56,6 @@ const heroImages: Record<string, string> = {
   studio: "/assets/home-card-studio.png",
 };
 
-const detailHeroImages: Partial<Record<string, string>> = {
-  kraidle: "/assets/kraidle-case-study-hero.png",
-};
-
 const markdownPages: Record<string, string> = {
   "dynamic-plan": dynamicPlanCaseStudyMarkdown,
   keel: keelCaseStudyMarkdown,
@@ -192,9 +188,7 @@ const allCaseStudies = caseStudyOrder.map((slug) => ({
   ...metadata[slug],
   href: `/case-studies/${slug}`,
   image: asset(heroImages[slug]),
-  detailHeroImage: detailHeroImages[slug]
-    ? asset(detailHeroImages[slug])
-    : undefined,
+  detailHeroImage: asset(heroImages[slug]),
   markdown: markdownPages[slug],
 }));
 
