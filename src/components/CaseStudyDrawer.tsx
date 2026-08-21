@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 
+import { CaseStudyMedia } from "@/components/CaseStudyMedia";
 import { MarkdownArticle } from "@/components/MarkdownArticle";
 import { Button } from "@/components/ui/button";
 import {
@@ -144,12 +145,12 @@ export function CaseStudyDrawer({
               </dl>
             </header>
 
-            <figure className="mt-8 h-[clamp(200px,40.714vw,456px)] overflow-hidden rounded-3xl bg-neutral-200">
-              <img
+            <figure className="mt-8">
+              <CaseStudyMedia
                 alt={`${study.title} project overview`}
-                className="size-full object-cover"
-                decoding="async"
-                src={study.detailHeroImage ?? study.image}
+                image={study.detailHeroImage ?? study.image}
+                loading="eager"
+                slug={study.slug}
               />
             </figure>
 
