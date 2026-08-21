@@ -54,7 +54,8 @@ const cardVisuals: Record<
     stageClassName: "px-4 py-6 sm:h-64",
   },
   studio: {
-    background: "linear-gradient(100deg, #de2f1b 0%, #0697ff 100%)",
+    background:
+      "linear-gradient(180deg, rgba(110, 94, 255, 0.50) 0%, rgba(222, 124, 233, 0.40) 100%)",
     frameClassName: "aspect-[41/16] sm:aspect-auto sm:h-64",
     imageClassName: "size-full object-cover",
     stageClassName: "px-4 py-6 sm:h-[304px]",
