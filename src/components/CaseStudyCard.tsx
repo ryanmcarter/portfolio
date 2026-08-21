@@ -24,41 +24,43 @@ const cardVisuals: Record<
   string,
   {
     background: string;
+    backgroundColor?: string;
     frameClassName: string;
     imageClassName: string;
     stageClassName: string;
   }
 > = {
   kraidle: {
-    background: "linear-gradient(101deg, #0a0a0a 0%, #0d9488 100%)",
-    frameClassName: "aspect-[41/16] sm:aspect-auto sm:h-64",
-    imageClassName: "absolute left-0 top-[3.29%] h-auto w-full max-w-none",
-    stageClassName: "p-4 sm:h-72",
+    background: "linear-gradient(98.4deg, #0a0a0a 0%, #0d9488 100%)",
+    frameClassName: "aspect-[82/43]",
+    imageClassName: "size-full object-cover",
+    stageClassName: "p-4",
   },
   "dynamic-plan": {
-    background: "linear-gradient(101deg, #193d9b 0%, #fd9160 100%)",
-    frameClassName: "aspect-[41/16] sm:aspect-auto sm:h-64",
-    imageClassName: "absolute left-0 top-0 h-auto w-full max-w-none",
-    stageClassName: "p-4 sm:h-72",
+    background: "linear-gradient(98.4deg, #193d9b 0%, #fd9160 100%)",
+    frameClassName: "aspect-[82/43]",
+    imageClassName: "absolute inset-y-0 left-0 h-full w-auto max-w-none",
+    stageClassName: "p-4",
   },
   quilt: {
-    background: "linear-gradient(100deg, #7569cf 0%, #ade9ba 100%)",
-    frameClassName: "aspect-[41/16] sm:aspect-auto sm:h-64",
+    background: "linear-gradient(98.4deg, #7569cf 0%, #ade9ba 100%)",
+    frameClassName: "aspect-[82/43]",
     imageClassName: "size-full object-cover",
-    stageClassName: "px-4 py-6 sm:h-[304px]",
+    stageClassName: "p-4",
   },
   keel: {
-    background: "linear-gradient(102deg, #8ae0c9 0%, #000a3c 100%)",
-    frameClassName: "aspect-[41/13] sm:aspect-auto sm:h-52",
-    imageClassName: "size-full object-cover",
-    stageClassName: "px-4 py-6 sm:h-64",
+    background: "linear-gradient(98.4deg, #d0f1f9 0%, #8be4c6 100%)",
+    frameClassName: "aspect-[82/43]",
+    imageClassName: "absolute left-0 top-[-2.55%] h-[107.13%] w-full max-w-none",
+    stageClassName: "p-4",
   },
   studio: {
     background:
       "linear-gradient(180deg, rgba(110, 94, 255, 0.50) 0%, rgba(222, 124, 233, 0.40) 100%)",
-    frameClassName: "aspect-[41/16] sm:aspect-auto sm:h-64",
-    imageClassName: "size-full object-cover",
-    stageClassName: "px-4 py-6 sm:h-[304px]",
+    backgroundColor: "#fff",
+    frameClassName: "aspect-[82/43]",
+    imageClassName: "size-full object-contain",
+    stageClassName: "p-4",
   },
 };
 
@@ -145,10 +147,17 @@ export function CaseStudyCard({
         >
           <span
             className="case-study-media-backdrop pointer-events-none absolute inset-0 z-0 rounded-lg"
-            style={{ backgroundImage: visual.background }}
+            style={{
+              backgroundColor: visual.backgroundColor,
+              backgroundImage: visual.background,
+            }}
           />
           <span
-            className={`relative z-10 block w-full overflow-hidden rounded-lg bg-[#fff] ${visual.frameClassName}`}
+            className={`relative z-10 block w-full overflow-hidden rounded-lg ${visual.frameClassName}`}
+            style={{
+              backgroundColor: visual.backgroundColor,
+              backgroundImage: visual.background,
+            }}
           >
             <img
               alt=""
