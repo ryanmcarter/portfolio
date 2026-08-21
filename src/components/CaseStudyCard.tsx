@@ -43,7 +43,8 @@ const cardVisuals: Record<
     stageClassName: "p-4",
   },
   quilt: {
-    background: "linear-gradient(98.4deg, #7569cf 0%, #ade9ba 100%)",
+    background: "none",
+    backgroundColor: "#fff",
     frameClassName: "aspect-[82/43]",
     imageClassName: "size-full object-cover",
     stageClassName: "p-4",
