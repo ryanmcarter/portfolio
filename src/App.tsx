@@ -1107,6 +1107,7 @@ function HomePage({ onCloseStudy, onSelectStudy, selectedSlug }: HomePageProps) 
   return (
     <div
       className="portfolio-theme relative min-h-svh"
+      data-paint-active={isPaintMode ? "" : undefined}
       data-portfolio-theme={theme}
       onPointerLeave={() => {
         pendingPaintPointRef.current = null;
