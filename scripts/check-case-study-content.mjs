@@ -37,7 +37,7 @@ assert.deepEqual(pagesSlugs, activeSlugs);
 assert.match(pagesOutputSource, /dist\/case-studies\/\$\{slug\}/);
 assert.match(
   pagesOutputSource,
-  /copyFile\("dist\/index\.html", `\$\{routeDirectory\}\/index\.html`\)/,
+  /writeFile\(`\$\{routeDirectory\}\/index\.html`, routeHtml\)/,
 );
 
 for (const slug of activeSlugs) {

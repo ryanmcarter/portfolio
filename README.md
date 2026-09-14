@@ -12,3 +12,11 @@ Static React/Vite portfolio rebuilt from the live `ryancarter.io` Webflow conten
 ## Deployment
 
 The repo includes `.github/workflows/deploy.yml` for GitHub Pages and `public/CNAME` for `ryancarter.io`.
+
+## Social previews
+
+`index.html` defines the browser title, Open Graph metadata, and X large-image card metadata. All routes share the portfolio preview; the build gives each published case study its own `og:url`.
+
+`public/og-image.png` is the supplied 1200 × 630 share image (`ryancarter-og.png`). To change it, replace this PNG and update the image dimensions and alt text in `index.html` if needed.
+
+Changes become public after the GitHub Pages deployment workflow runs. Re-scrape the deployed URL in the social platform's sharing inspector to refresh any cached preview.
